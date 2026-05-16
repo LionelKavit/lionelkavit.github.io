@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enterprise Data Management Agent — Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FFF9F3;
+    --sand: #E8DDD0;
+    --terracotta: #2D6B2D;
+    --terracotta-light: #4A9A4A;
+    --terracotta-dark: #1A4A1A;
+    --brown: #1A3A1A;
+    --brown-light: #3A6B3A;
+    --text-dark: #0D1F0D;
+    --text-mid: #2E5A2E;
+    --text-light: #5A845A;
+    --border: rgba(45,107,45,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--brown);
+    text-decoration: none;
+  }
+  .nav-back {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--terracotta); }
+  .nav-back::before { content: '←'; font-size: 1rem; }
+
+  /* HERO */
+  .hero {
+    background: #1A3A1A;
+    padding: 10rem 4rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(45,107,45,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    position: relative;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #7DBF7D;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1.5px;
+    background: #7DBF7D;
+  }
+  .hero h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    font-weight: 500;
+    line-height: 1.12;
+    color: #fff;
+    margin-bottom: 1.75rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: #7DBF7D;
+  }
+  .hero-sub {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.6);
+    max-width: 560px;
+    font-weight: 300;
+    margin-bottom: 3rem;
+  }
+  .hero-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.7);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    padding: 0.4rem 0.9rem;
+    border-radius: 100px;
+  }
+
+  /* IMPACT BAR */
+  .impact-bar {
+    background: #2D6B2D;
+    padding: 3rem 4rem;
+  }
+  .impact-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .impact-stat {
+    text-align: center;
+    padding: 0 2rem;
+    border-right: 1px solid rgba(255,255,255,0.2);
+  }
+  .impact-stat:last-child { border-right: none; }
+  .impact-num {
+    font-family: 'Lora', serif;
+    font-size: 2.6rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .impact-label {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  /* CONTENT */
+  .content {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 5rem 4rem 6rem;
+  }
+
+  .label {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .label::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 1.5px;
+    background: var(--terracotta);
+  }
+
+  h2 {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 500;
+    color: var(--text-dark);
+    line-height: 1.25;
+    margin-bottom: 1.25rem;
+  }
+
+  p {
+    font-size: 0.97rem;
+    line-height: 1.9;
+    color: var(--text-mid);
+    font-weight: 300;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 4rem 0;
+  }
+
+  /* PROBLEM GRID */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.75rem;
+  }
+  .problem-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem;
+  }
+  .problem-card-icon { font-size: 1.3rem; margin-bottom: 0.65rem; }
+  .problem-card-title { font-size: 0.88rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.4rem; }
+  .problem-card-desc { font-size: 0.81rem; line-height: 1.7; color: var(--text-light); font-weight: 300; }
+
+  /* PIPELINE */
+  .arch-wrap {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2.5rem 2rem;
+    margin-top: 2rem;
+  }
+  .arch-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .pipeline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: auto;
+  }
+  .pipe-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 88px;
+    text-align: center;
+  }
+  .pipe-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+  .pipe-icon.source { background: #F0E8DE; }
+  .pipe-icon.process { background: #E3DDD8; }
+  .pipe-icon.agent { background: var(--terracotta); }
+  .pipe-icon.store { background: #EBE3D8; }
+  .pipe-name { font-size: 0.7rem; font-weight: 500; color: var(--text-dark); line-height: 1.3; }
+  .pipe-sub { font-size: 0.62rem; color: var(--text-light); line-height: 1.3; }
+  .pipe-arrow { color: var(--sand); font-size: 1rem; padding: 0 0.5rem; flex-shrink: 0; }
+
+  /* FLOWS */
+  .flows-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .flow-card {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.4rem;
+    background: var(--warm-white);
+  }
+  .flow-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--sand);
+    font-family: 'Lora', serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--terracotta-dark);
+    margin-bottom: 0.75rem;
+  }
+  .flow-title { font-size: 0.87rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.4rem; }
+  .flow-desc { font-size: 0.79rem; line-height: 1.7; color: var(--text-light); font-weight: 300; }
+  .flow-trigger {
+    display: inline-block;
+    margin-top: 0.8rem;
+    font-size: 0.67rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 500;
+  }
+
+  /* BUILD LIST */
+  .build-list {
+    list-style: none;
+    margin-top: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .build-item {
+    display: grid;
+    grid-template-columns: 2.25rem 1fr;
+    gap: 1.25rem;
+    align-items: start;
+    padding: 1.25rem;
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: border-color 0.2s;
+  }
+  .build-item:hover { border-color: rgba(45,107,45,0.3); }
+  .build-num {
+    width: 2.25rem; height: 2.25rem;
+    border-radius: 50%;
+    background: var(--sand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lora', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--terracotta-dark);
+    flex-shrink: 0;
+  }
+  .build-title { font-size: 0.9rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.4rem; }
+  .build-desc { font-size: 0.81rem; line-height: 1.75; color: var(--text-light); font-weight: 300; }
+  code {
+    font-size: 0.78rem;
+    background: var(--sand);
+    padding: 1px 5px;
+    border-radius: 2px;
+    font-family: monospace;
+  }
+
+  /* AGENT CHAT */
+  .agent-flow {
+    margin-top: 2rem;
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .agent-flow-header {
+    background: var(--brown);
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .agent-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--terracotta-light); }
+  .agent-flow-title {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+  }
+  .agent-steps {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .agent-step { display: flex; align-items: flex-start; gap: 0.85rem; }
+  .step-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+  .step-icon.user { background: var(--sand); }
+  .step-icon.bot { background: var(--terracotta); }
+  .step-bubble {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.65rem 1rem;
+    font-size: 0.81rem;
+    line-height: 1.65;
+    color: var(--text-mid);
+    flex: 1;
+  }
+  .step-bubble.bot-bubble { background: #F0F7F0; border-color: rgba(45,107,45,0.2); }
+  .step-bubble strong { font-weight: 500; color: var(--text-dark); }
+
+  /* EVALUATION */
+  .eval-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1.75rem;
+  }
+  .eval-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .eval-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--terracotta);
+  }
+  .eval-metric {
+    font-family: 'Lora', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--terracotta);
+    margin-bottom: 0.4rem;
+  }
+  .eval-title { font-size: 0.85rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.45rem; }
+  .eval-desc { font-size: 0.78rem; line-height: 1.65; color: var(--text-light); font-weight: 300; }
+
+  /* LIMITATIONS */
+  .limitations {
+    background: #F0F5F0;
+    border: 1px solid rgba(45,107,45,0.18);
+    border-left: 3px solid var(--terracotta);
+    border-radius: 0 4px 4px 0;
+    padding: 1.4rem 1.75rem;
+    margin-top: 1.25rem;
+  }
+  .limitations-title {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--terracotta-dark);
+    margin-bottom: 0.85rem;
+  }
+  .limitations-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .limitations-list li {
+    font-size: 0.81rem;
+    color: var(--text-mid);
+    font-weight: 300;
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+    line-height: 1.6;
+  }
+  .limitations-list li::before { content: '—'; color: var(--terracotta-light); flex-shrink: 0; }
+
+  /* REFLECTION */
+  .reflection {
+    background: #141A10;
+    border-radius: 6px;
+    padding: 2.5rem;
+    margin-top: 1.75rem;
+  }
+  .reflection-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #7DBF7D;
+    margin-bottom: 1.25rem;
+  }
+  .reflection p { color: rgba(255,255,255,0.68); font-size: 0.93rem; margin-bottom: 1rem; }
+  .reflection p:last-child { margin-bottom: 0; }
+
+  /* CTA */
+  .cta {
+    border-top: 1px solid var(--border);
+    padding-top: 3rem;
+    margin-top: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .cta-text {
+    font-family: 'Lora', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--text-mid);
+  }
+  .btn-primary {
+    background: var(--terracotta);
+    color: #fff;
+    padding: 0.85rem 2rem;
+    border-radius: 2px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+
+  footer {
+    background: #0D110A;
+    color: rgba(255,255,255,0.35);
+    text-align: center;
+    padding: 1.75rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3.5rem; }
+    .impact-bar { padding: 2.5rem 1.5rem; }
+    .impact-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+    .impact-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 1.5rem; }
+    .impact-stat:last-child { border-bottom: none; padding-bottom: 0; }
+    .content { padding: 3rem 1.5rem 4rem; }
+    .problem-grid, .flows-grid, .eval-grid { grid-template-columns: 1fr; }
+    .pipeline { justify-content: flex-start; }
+    .cta { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Your Name</a>
+  <a href="index.html#projects" class="nav-back">All projects</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">Data & AI Engineering · MSA Professional Services</div>
+    <h1>Teaching an ERP to<br><em>document itself.</em></h1>
+    <p class="hero-sub">
+      Analysts were spending hours reverse-engineering cryptic column names and chasing subject-matter experts. We automated the entire documentation pipeline — and made updating it as easy as a chat.
+    </p>
+    <div class="hero-pills">
+      <span class="pill">Microsoft Fabric</span>
+      <span class="pill">Copilot Studio</span>
+      <span class="pill">Power Automate</span>
+      <span class="pill">SharePoint</span>
+      <span class="pill">MS Dynamics 365</span>
+      <span class="pill">T-SQL</span>
+    </div>
+  </div>
+</div>
+
+<!-- IMPACT BAR -->
+<div class="impact-bar">
+  <div class="impact-inner">
+    <div class="impact-stat">
+      <div class="impact-num">~80%</div>
+      <div class="impact-label">Reduction in metadata<br>compilation effort</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">2</div>
+      <div class="impact-label">Automated flows keeping<br>data in sync 24/7</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">1-click</div>
+      <div class="impact-label">Agent access from Teams,<br>Outlook, or any MS tool</div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- PROBLEM -->
+  <div class="reveal">
+    <div class="label">The problem</div>
+    <h2>Data everyone has. Context no one can find.</h2>
+    <p>MSA's Dynamics 365 ERP had evolved faster than its documentation. The result: analysts wasting time on trial-and-error queries, business logic locked in a few people's heads, and a data dictionary nobody trusted.</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-card-icon">🔍</div>
+        <div class="problem-card-title">Cryptic column names</div>
+        <div class="problem-card-desc">Fields renamed or repurposed over time with no record of what they actually represent — leaving analysts to guess.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-icon">🧠</div>
+        <div class="problem-card-title">Knowledge silos</div>
+        <div class="problem-card-desc">Business context lived in a handful of people's heads. One departure and that knowledge was gone.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-icon">📉</div>
+        <div class="problem-card-title">Documentation drift</div>
+        <div class="problem-card-desc">Manual spreadsheets fell behind schema changes immediately. Nobody had time to keep them current.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-icon">⏱️</div>
+        <div class="problem-card-title">Invisible overhead</div>
+        <div class="problem-card-desc">Updating docs competed with billable work every time. It always lost.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ARCHITECTURE -->
+  <div class="reveal">
+    <div class="label">System architecture</div>
+    <h2>Five tools. One seamless pipeline.</h2>
+    <p>Built entirely within MSA's existing Microsoft 365 ecosystem — no new vendors, no new platforms, no additional training overhead.</p>
+    <div class="arch-wrap">
+      <div class="arch-label">End-to-end metadata pipeline</div>
+      <div class="pipeline">
+        <div class="pipe-node">
+          <div class="pipe-icon source">🗄️</div>
+          <div class="pipe-name">Dynamics 365</div>
+          <div class="pipe-sub">ERP source</div>
+        </div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-node">
+          <div class="pipe-icon process">🏗️</div>
+          <div class="pipe-name">Fabric Lakehouse</div>
+          <div class="pipe-sub">Raw storage</div>
+        </div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-node">
+          <div class="pipe-icon process">⚙️</div>
+          <div class="pipe-name">Fabric Warehouse</div>
+          <div class="pipe-sub">SQL + stored procs</div>
+        </div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-node">
+          <div class="pipe-icon store">📋</div>
+          <div class="pipe-name">SharePoint</div>
+          <div class="pipe-sub">Data dictionary</div>
+        </div>
+        <div class="pipe-arrow">↔</div>
+        <div class="pipe-node">
+          <div class="pipe-icon agent">🤖</div>
+          <div class="pipe-name">Copilot Agent</div>
+          <div class="pipe-sub">Natural language</div>
+        </div>
+      </div>
+    </div>
+    <div class="flows-grid">
+      <div class="flow-card">
+        <div class="flow-num">①</div>
+        <div class="flow-title">Fabric → SharePoint</div>
+        <div class="flow-desc">Queries Fabric's SQL endpoint via stored procedures, then upserts every table and column record into SharePoint — technical metadata stays accurate, hands-free.</div>
+        <span class="flow-trigger">⏱ Scheduled every 24 hours</span>
+      </div>
+      <div class="flow-card">
+        <div class="flow-num">②</div>
+        <div class="flow-title">Copilot → SharePoint</div>
+        <div class="flow-desc">When a user validates or updates a business definition through the agent, Power Automate writes it back to the matching SharePoint record in real time.</div>
+        <span class="flow-trigger">⚡ Triggered on agent action</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- WHAT I BUILT -->
+  <div class="reveal">
+    <div class="label">What I built</div>
+    <h2>Four components. One living data dictionary.</h2>
+    <ul class="build-list">
+      <li class="build-item">
+        <div class="build-num">1</div>
+        <div>
+          <div class="build-title">Automated ETL pipelines in Microsoft Fabric</div>
+          <div class="build-desc">Designed Lakehouse-to-Warehouse pipelines that continuously extract SQL metadata from Dynamics 365. Custom stored procedures query <code>INFORMATION_SCHEMA</code> views and upsert into staging tables — preserving business definitions while refreshing technical fields on every run.</div>
+        </div>
+      </li>
+      <li class="build-item">
+        <div class="build-num">2</div>
+        <div>
+          <div class="build-title">Stored procedure management via Fabric Copilot agents</div>
+          <div class="build-desc">Automated the continuous maintenance of stored procedures so documentation evolves in sync with the schema. Columns added, renamed, or dropped — the pipeline adapts without manual rework.</div>
+        </div>
+      </li>
+      <li class="build-item">
+        <div class="build-num">3</div>
+        <div>
+          <div class="build-title">Conversational Copilot Studio agent</div>
+          <div class="build-desc">A prompt-engineered agent that lets data users query definitions in natural language and knowledge owners validate or update them through conversation — no forms, no spreadsheets. Deployable in Teams, Outlook, or any Microsoft tool with a single click.</div>
+        </div>
+      </li>
+      <li class="build-item">
+        <div class="build-num">4</div>
+        <div>
+          <div class="build-title">Power Automate orchestration layer</div>
+          <div class="build-desc">Two flows merge Fabric-sourced technical metadata and agent-submitted business definitions into a unified SharePoint list — a single, always-current source of truth for enterprise data knowledge.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <!-- AGENT IN ACTION -->
+  <div class="reveal">
+    <div class="label">Agent in action</div>
+    <h2>Documentation that feels like a conversation.</h2>
+    <p>The agent was designed around one rule: meet users where they already work, and make contributing feel effortless. Here's a real interaction from the prototype.</p>
+    <div class="agent-flow">
+      <div class="agent-flow-header">
+        <div class="agent-dot"></div>
+        <div class="agent-flow-title">Metadata Documentation Agent · M365 Copilot</div>
+      </div>
+      <div class="agent-steps">
+        <div class="agent-step">
+          <div class="step-icon user">👤</div>
+          <div class="step-bubble">Actual amount</div>
+        </div>
+        <div class="agent-step">
+          <div class="step-icon bot">🤖</div>
+          <div class="step-bubble bot-bubble">
+            The closest match is <strong>ActualAmount</strong>.<br>
+            Current definition: "Represents the actual amount recorded for the transaction."<br><br>
+            Would you like to update this definition?
+          </div>
+        </div>
+        <div class="agent-step">
+          <div class="step-icon user">👤</div>
+          <div class="step-bubble">Reprsents the actual amt all trans</div>
+        </div>
+        <div class="agent-step">
+          <div class="step-icon bot">🤖</div>
+          <div class="step-bubble bot-bubble">
+            Here's the improved version:<br><br>
+            <strong>Updated definition:</strong> "Represents the actual amount for all transactions."<br><br>
+            Should I save this?
+          </div>
+        </div>
+        <div class="agent-step">
+          <div class="step-icon user">👤</div>
+          <div class="step-bubble">Save it</div>
+        </div>
+        <div class="agent-step">
+          <div class="step-icon bot">🤖</div>
+          <div class="step-bubble bot-bubble">✅ Update complete! <strong>ActualAmount</strong> has been saved. Is there another column you'd like to look up or update?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- EVALUATION -->
+  <div class="reveal">
+    <div class="label">Evaluation</div>
+    <h2>Tested across three dimensions.</h2>
+    <div class="eval-grid">
+      <div class="eval-card">
+        <div class="eval-metric">~80%</div>
+        <div class="eval-title">Automation efficiency</div>
+        <div class="eval-desc">Refreshing hundreds of column records went from hours of manual work to a single scheduled run — an order-of-magnitude improvement.</div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-metric">"Lighter"</div>
+        <div class="eval-title">Usability</div>
+        <div class="eval-desc">Users described the system as feeling "lighter" than a spreadsheet. The chat interface removed the blank-page friction that typically kills documentation habits.</div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-metric">Native</div>
+        <div class="eval-title">Scalability</div>
+        <div class="eval-desc">Built entirely on Microsoft 365 — new tables or domains added by extending Fabric queries and the SharePoint schema, no architectural changes needed.</div>
+      </div>
+    </div>
+    <div class="limitations">
+      <div class="limitations-title">Honest limitations</div>
+      <ul class="limitations-list">
+        <li>Trial-domain restrictions (UW–Madison) prevented full Copilot Studio ↔ Power Automate integration; a manual trigger was used as a workaround for the prototype.</li>
+        <li>Tested on synthesized ERP data — performance at true production scale is yet to be validated.</li>
+        <li>AI-generated definitions were occasionally generic, reinforcing that human review remains essential.</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- REFLECTION -->
+  <div class="reveal">
+    <div class="label">Personal reflection</div>
+    <div class="reflection">
+      <div class="reflection-label">Behind the build</div>
+      <p>The technical challenge was orchestration — getting Fabric, Copilot Studio, Power Automate, and SharePoint to hand off to each other reliably, at scale, without breaking. That took careful design and a lot of iteration.</p>
+      <p>The human challenge was subtler: how do you get busy professionals to contribute to documentation without it feeling like a burden? The answer was to embed the experience inside tools they already use — and make it a conversation, not a form. That design decision shaped adoption more than any technical one.</p>
+      <p>The best AI tools don't replace human judgment. They make it easier to express, capture, and preserve it.</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta reveal">
+    <p class="cta-text">Interested in working together?</p>
+    <a href="index.html#contact" class="btn-primary">Get in touch</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 Your Name · <a href="index.html" style="color: inherit; text-decoration: none;">Back to portfolio</a></p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

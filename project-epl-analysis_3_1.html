@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPL Quant Analysis — Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FFF9F3;
+    --sand: #E8DDD0;
+    --terracotta: #2D6B2D;
+    --terracotta-light: #4A9A4A;
+    --terracotta-dark: #1A4A1A;
+    --brown: #1A3A1A;
+    --brown-light: #3A6B3A;
+    --text-dark: #0D1F0D;
+    --text-mid: #2E5A2E;
+    --text-light: #5A845A;
+    --border: rgba(45,107,45,0.15);
+    --mono: 'DM Mono', monospace;
+    --pitch: #1A3A1A;
+    --pitch-accent: #2D6B2D;
+    --pitch-light: #4A9A4A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(250,247,242,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 600; color: var(--brown); text-decoration: none; }
+  .nav-back { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
+  .nav-back:hover { color: var(--terracotta); }
+  .nav-back::before { content: '←'; font-size: 1rem; }
+
+  /* HERO */
+  .hero {
+    background: var(--pitch);
+    padding: 10rem 4rem 5rem; position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 85% 30%, rgba(74,154,74,0.1) 0%, transparent 65%),
+      radial-gradient(ellipse 30% 40% at 5% 90%, rgba(45,107,45,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  /* pitch lines decorative */
+  .hero-pitch-lines { display: none; }
+  .hero-inner { max-width: 900px; margin: 0 auto; position: relative; animation: fadeUp 0.8s ease both; }
+  .hero-tag { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--pitch-light); font-weight: 500; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+  .hero-tag::before { content: ''; display: inline-block; width: 24px; height: 1.5px; background: var(--pitch-light); }
+  .hero h1 { font-family: 'Lora', serif; font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 500; line-height: 1.12; color: #fff; margin-bottom: 1.5rem; }
+  .hero h1 em { font-style: italic; color: #7DBF7D; }
+  .hero-sub { font-size: 1rem; line-height: 1.8; color: rgba(255,255,255,0.55); max-width: 600px; font-weight: 300; margin-bottom: 3rem; }
+  .hero-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .pill { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.6); font-size: 0.74rem; font-weight: 400; letter-spacing: 0.04em; padding: 0.38rem 0.9rem; border-radius: 100px; }
+
+  /* IMPACT BAR */
+  .impact-bar { background: var(--pitch-accent); padding: 3rem 4rem; }
+  .impact-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .impact-stat { text-align: center; padding: 0 1.5rem; border-right: 1px solid rgba(255,255,255,0.18); }
+  .impact-stat:last-child { border-right: none; }
+  .impact-num { font-family: 'Lora', serif; font-size: 2.4rem; font-weight: 600; color: #fff; line-height: 1; margin-bottom: 0.4rem; }
+  .impact-label { font-size: 0.75rem; color: rgba(255,255,255,0.7); letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.4; }
+
+  /* CONTENT */
+  .content { max-width: 900px; margin: 0 auto; padding: 5rem 4rem 6rem; }
+  .label { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--terracotta); font-weight: 500; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+  .label::before { content: ''; display: inline-block; width: 18px; height: 1.5px; background: var(--terracotta); }
+  h2 { font-family: 'Lora', serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 500; color: var(--text-dark); line-height: 1.25; margin-bottom: 1.25rem; }
+  p { font-size: 0.97rem; line-height: 1.9; color: var(--text-mid); font-weight: 300; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 4rem 0; }
+
+  /* DATASET */
+  .dataset-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.75rem; }
+  .dataset-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; }
+  .dataset-tag { font-size: 0.67rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pitch-accent); font-weight: 500; margin-bottom: 0.5rem; }
+  .dataset-title { font-size: 0.92rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.5rem; font-family: var(--mono); }
+  .dataset-desc { font-size: 0.8rem; line-height: 1.7; color: var(--text-light); font-weight: 300; }
+  .dataset-stats { display: flex; gap: 1rem; margin-top: 0.85rem; flex-wrap: wrap; }
+  .dataset-badge { font-size: 0.72rem; background: var(--sand); color: var(--brown); padding: 0.25rem 0.65rem; border-radius: 2px; font-weight: 500; }
+
+  /* MERGE CALLOUT */
+  .merge-note { background: #F0F7F0; border: 1px solid rgba(45,107,45,0.2); border-left: 3px solid var(--terracotta); border-radius: 0 4px 4px 0; padding: 1.25rem 1.5rem; margin-top: 1.25rem; }
+  .merge-note-label { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--terracotta-dark); font-weight: 500; margin-bottom: 0.5rem; }
+  .merge-note-text { font-size: 0.82rem; line-height: 1.7; color: var(--text-mid); font-weight: 300; }
+  .merge-note-text code { font-family: var(--mono); font-size: 0.78rem; background: rgba(45,107,45,0.1); padding: 1px 5px; border-radius: 2px; color: var(--terracotta-dark); }
+
+  /* RQ CARDS */
+  .rq-list { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1.75rem; }
+  .rq-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; transition: border-color 0.2s; }
+  .rq-card:hover { border-color: rgba(45,107,45,0.3); }
+  .rq-head { padding: 1.25rem 1.5rem 1rem; }
+  .rq-num { font-size: 0.67rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pitch-accent); font-weight: 500; margin-bottom: 0.5rem; }
+  .rq-q { font-family: 'Lora', serif; font-size: 1rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.6rem; line-height: 1.3; }
+  .rq-method { font-size: 0.79rem; line-height: 1.7; color: var(--text-mid); font-weight: 300; }
+  .rq-data { background: #16100A; padding: 1rem 1.5rem; font-family: var(--mono); font-size: 0.71rem; }
+  .rq-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; padding: 0.18rem 0; }
+  .rq-key { color: #5BA4CF; }
+  .rq-val { text-align: right; }
+  .rq-val.good { color: #6BBF6B; }
+  .rq-val.warn { color: #E0B060; }
+  .rq-val.bad { color: #E07070; }
+  .rq-val.neutral { color: rgba(255,255,255,0.7); }
+  .rq-divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 0.35rem 0; }
+  .rq-finding { font-size: 0.69rem; line-height: 1.55; color: rgba(255,255,255,0.45); font-family: 'DM Sans', sans-serif; padding-top: 0.3rem; }
+  .rq-finding span { font-weight: 500; color: var(--pitch-light); }
+  .rq-finding span.warn { color: #E0B060; }
+  .rq-finding span.reject { color: #6BBF6B; }
+
+  /* LEADERBOARD */
+  .leaderboard { margin-top: 1.75rem; background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .lb-header { display: grid; grid-template-columns: 2.5rem 1fr 5rem 5rem 5rem; gap: 0; padding: 0.75rem 1.25rem; background: var(--pitch); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); font-weight: 500; }
+  .lb-row { display: grid; grid-template-columns: 2.5rem 1fr 5rem 5rem 5rem; gap: 0; padding: 0.7rem 1.25rem; border-bottom: 1px solid var(--border); align-items: center; transition: background 0.15s; }
+  .lb-row:last-child { border-bottom: none; }
+  .lb-row:hover { background: #EDF5ED; }
+  .lb-rank { font-family: 'Lora', serif; font-size: 0.85rem; font-weight: 600; color: var(--text-light); }
+  .lb-rank.top3 { color: var(--pitch-accent); }
+  .lb-name { font-size: 0.87rem; font-weight: 500; color: var(--text-dark); }
+  .lb-pos { font-size: 0.72rem; font-family: var(--mono); color: var(--text-light); margin-top: 0.15rem; }
+  .lb-num { font-size: 0.85rem; font-weight: 500; color: var(--text-mid); text-align: right; font-family: var(--mono); }
+  .lb-num.highlight { color: var(--pitch-accent); }
+
+  /* QUADRANT */
+  .quadrant-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.75rem; }
+  .quad-card { border-radius: 4px; padding: 1.25rem; border: 1px solid var(--border); }
+  .quad-card.ga-gd { background: rgba(45,107,45,0.08); border-color: rgba(45,107,45,0.25); }
+  .quad-card.ga-bd { background: rgba(45,107,45,0.06); border-color: rgba(45,107,45,0.2); }
+  .quad-card.ba-gd { background: rgba(45,107,45,0.05); border-color: var(--border); }
+  .quad-card.ba-bd { background: rgba(180,50,50,0.05); border-color: rgba(180,50,50,0.15); }
+  .quad-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.75rem; }
+  .ga-gd .quad-label { color: var(--pitch-accent); }
+  .ga-bd .quad-label { color: var(--terracotta-dark); }
+  .ba-gd .quad-label { color: var(--brown-light); }
+  .ba-bd .quad-label { color: #A03030; }
+  .quad-teams { font-size: 0.82rem; line-height: 1.8; color: var(--text-mid); font-weight: 300; }
+  .quad-teams strong { font-weight: 500; color: var(--text-dark); }
+
+  /* SWOT REPORT SAMPLE */
+  .swot-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-top: 1.75rem; }
+  .swot-header { background: var(--pitch); padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+  .swot-title { font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.75); letter-spacing: 0.04em; }
+  .swot-badge { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(74,154,74,0.25); color: var(--pitch-light); padding: 0.2rem 0.65rem; border-radius: 2px; font-weight: 500; }
+  .swot-body { padding: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .swot-section { }
+  .swot-section-label { font-size: 0.67rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.65rem; padding: 0.25rem 0.6rem; border-radius: 2px; display: inline-block; }
+  .swot-s .swot-section-label { background: rgba(45,107,45,0.1); color: var(--pitch-accent); }
+  .swot-w .swot-section-label { background: rgba(45,107,45,0.1); color: var(--terracotta-dark); }
+  .swot-o .swot-section-label { background: rgba(45,107,45,0.08); color: var(--brown); }
+  .swot-t .swot-section-label { background: rgba(180,50,50,0.07); color: #8A2020; }
+  .swot-item { font-size: 0.8rem; line-height: 1.7; color: var(--text-mid); font-weight: 300; padding: 0.3rem 0; border-bottom: 1px solid var(--border); display: flex; gap: 0.5rem; }
+  .swot-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .swot-item::before { flex-shrink: 0; font-size: 0.72rem; margin-top: 0.15rem; }
+  .swot-s .swot-item::before { content: '✓'; color: var(--pitch-accent); }
+  .swot-w .swot-item::before { content: '−'; color: var(--terracotta); }
+  .swot-o .swot-item::before { content: '→'; color: var(--brown-light); }
+  .swot-t .swot-item::before { content: '⚠'; color: #A03030; font-size: 0.65rem; }
+  .swot-footer { padding: 1rem 1.5rem; border-top: 1px solid var(--border); background: #FDFAF6; font-size: 0.77rem; color: var(--text-light); font-style: italic; }
+
+  /* AI LAYER */
+  .ai-flow {
+    display: flex; flex-direction: row;
+    align-items: stretch; gap: 0;
+    margin-top: 1.75rem;
+    border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+  }
+  .ai-node {
+    flex: 1; padding: 1.5rem 1.25rem; text-align: center;
+    background: var(--warm-white);
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+  }
+  .ai-node.center { background: var(--pitch); }
+  .ai-arrow {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; color: var(--text-light); padding: 0 0.6rem;
+    background: var(--cream); border-left: 1px solid var(--border); border-right: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .ai-node-icon { font-size: 1.5rem; margin-bottom: 0.65rem; }
+  .ai-node-title { font-size: 0.85rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.4rem; }
+  .ai-node.center .ai-node-title { color: #fff; }
+  .ai-node-desc { font-size: 0.76rem; line-height: 1.65; color: var(--text-light); font-weight: 300; }
+  .ai-node.center .ai-node-desc { color: rgba(255,255,255,0.6); }
+
+  /* PROMPT FLOW GRAPH */
+  .pf-graph {
+    margin-top: 1.75rem; border-radius: 6px; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .pf-graph img { width: 100%; display: block; }
+  .pf-graph-caption {
+    background: var(--pitch); padding: 0.85rem 1.25rem;
+    font-size: 0.75rem; color: rgba(255,255,255,0.5); letter-spacing: 0.04em;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .pf-graph-caption span { color: var(--pitch-light); font-weight: 500; }
+
+  /* ARCH DETAIL CARDS */
+  .arch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.75rem; }
+  .arch-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; }
+  .arch-card-icon { font-size: 1.4rem; margin-bottom: 0.75rem; }
+  .arch-card-title { font-size: 0.88rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.5rem; font-family: 'Lora', serif; }
+  .arch-card-body { font-size: 0.8rem; line-height: 1.75; color: var(--text-light); font-weight: 300; }
+  .arch-card-body code { font-family: var(--mono); font-size: 0.75rem; background: rgba(45,107,45,0.08); padding: 1px 5px; border-radius: 2px; color: var(--terracotta-dark); }
+
+  /* LLM NODE BREAKDOWN */
+  .llm-nodes { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.75rem; }
+  .llm-node-row { display: grid; grid-template-columns: 9rem 1fr; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .llm-node-label { display: flex; align-items: center; justify-content: center; padding: 1.1rem 1rem; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; }
+  .llm-node-label.strength { background: rgba(45,107,45,0.1); color: var(--pitch-accent); }
+  .llm-node-label.weakness { background: rgba(45,107,45,0.08); color: var(--terracotta-dark); }
+  .llm-node-label.opportunity { background: rgba(45,107,45,0.07); color: var(--brown); }
+  .llm-node-label.threat { background: rgba(180,50,50,0.07); color: #8A2020; }
+  .llm-node-desc { padding: 1rem 1.25rem; font-size: 0.8rem; line-height: 1.7; color: var(--text-mid); font-weight: 300; background: var(--warm-white); border-left: 1px solid var(--border); }
+
+  /* FEATURE CALLOUT */
+  .feature-callout { background: var(--pitch); border-radius: 6px; padding: 2rem 2.25rem; margin-top: 1.75rem; }
+  .feature-callout-label { font-size: 0.67rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pitch-light); margin-bottom: 1rem; }
+  .feature-callout p { color: rgba(255,255,255,0.65); font-size: 0.88rem; line-height: 1.85; font-weight: 300; margin: 0; }
+  .feature-callout strong { color: rgba(255,255,255,0.9); font-weight: 500; }
+
+  /* REFLECTION */
+  .reflection { background: var(--pitch); border-radius: 6px; padding: 2.5rem; margin-top: 1.75rem; }
+  .reflection-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pitch-light); margin-bottom: 1.25rem; }
+  .reflection p { color: rgba(255,255,255,0.65); font-size: 0.93rem; margin-bottom: 1rem; line-height: 1.9; font-weight: 300; }
+  .reflection p:last-child { margin-bottom: 0; }
+
+  /* CTA */
+  .cta { border-top: 1px solid var(--border); padding-top: 3rem; margin-top: 4rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+  .cta-text { font-family: 'Lora', serif; font-size: 1.15rem; font-style: italic; color: var(--text-mid); }
+  .btn-primary { background: var(--terracotta); color: #fff; padding: 0.85rem 2rem; border-radius: 2px; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
+  .btn-primary:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+
+  footer { background: #0D1A0D; color: rgba(255,255,255,0.3); text-align: center; padding: 1.75rem; font-size: 0.8rem; letter-spacing: 0.04em; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3.5rem; }
+    .impact-bar { padding: 2.5rem 1.5rem; }
+    .impact-inner { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .impact-stat { border-right: none; }
+    .content { padding: 3rem 1.5rem 4rem; }
+    .dataset-grid, .quadrant-grid, .swot-body, .arch-grid { grid-template-columns: 1fr; }
+    .llm-node-row { grid-template-columns: 7rem 1fr; }
+    .ai-flow { flex-direction: column; }
+    .ai-arrow { padding: 0.5rem; border: none; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .lb-header, .lb-row { grid-template-columns: 2rem 1fr 4rem 4rem; }
+    .lb-header > *:nth-child(4), .lb-row > *:nth-child(4) { display: none; }
+    .cta { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Your Name</a>
+  <a href="index.html#projects" class="nav-back">All projects</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pitch-lines"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">Sports Analytics · Python · Azure AI · UW–Madison</div>
+    <h1>How can AI aid<br><em>sports analytics?</em></h1>
+    <p class="hero-sub">
+      Statistical Python analysis of 580 Premier League players across the 2023–24 season, combined with an Azure AI Prompt Flow that generates LLM-driven SWOT reports — giving coaches, analysts, and journalists something they rarely have: structured insight, fast.
+    </p>
+    <div class="hero-pills">
+      <span class="pill">Python · Pandas · Seaborn · Matplotlib</span>
+      <span class="pill">Azure AI Prompt Flow</span>
+      <span class="pill">Statistical hypothesis testing</span>
+      <span class="pill">580 players · 20 teams</span>
+      <span class="pill">xG analysis</span>
+      <span class="pill">LLM SWOT reports</span>
+    </div>
+  </div>
+</div>
+
+<!-- IMPACT BAR -->
+<div class="impact-bar">
+  <div class="impact-inner">
+    <div class="impact-stat">
+      <div class="impact-num">580</div>
+      <div class="impact-label">Players across<br>20 teams analyzed</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">4</div>
+      <div class="impact-label">Research questions<br>with hypothesis tests</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">6</div>
+      <div class="impact-label">Datasets merged<br>for analysis</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">2</div>
+      <div class="impact-label">Significant p-values<br>below 0.05</div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- SAMPLE SWOT OUTPUT -->
+  <div class="reveal">
+    <div class="label">Sample output – Player Analysis</div>
+    <h2>What the report looks like in practice.</h2>
+    <p>The final Summary node synthesises all four SWOT dimensions into a narrative-style brief with embedded statistics — closely resembling a professional sports journalist's analytical output, while remaining fully grounded in deterministic data processing.</p>
+    <div class="swot-card">
+      <div class="swot-header">
+        <div class="swot-title">Sample AI-generated report · Cole Palmer · Chelsea · FW,MF</div>
+        <div class="swot-badge">Illustrative output</div>
+      </div>
+      <div class="swot-body">
+        <div class="swot-section swot-s">
+          <div class="swot-section-label">Strengths</div>
+          <div class="swot-item">League leader in G+A (33) in debut Chelsea season — highest combined contribution of any player in 2023–24</div>
+          <div class="swot-item">Exceptional playmaking for a forward: 11 assists demonstrates elite vision beyond pure goalscoring</div>
+          <div class="swot-item">Goal output (22) significantly exceeds xG (13.4), indicating elite finishing and shot selection</div>
+        </div>
+        <div class="swot-section swot-w">
+          <div class="swot-section-label">Weaknesses</div>
+          <div class="swot-item">Performance heavily tied to Chelsea's possession system — may regress if tactical context changes</div>
+          <div class="swot-item">Limited Champions League experience at this level; sustained performance across European competition unproven</div>
+          <div class="swot-item">Small sample: one breakout season; consistency across multiple years not yet established</div>
+        </div>
+        <div class="swot-section swot-o">
+          <div class="swot-section-label">Opportunities</div>
+          <div class="swot-item">Continued development under a settled Chelsea tactical setup could push G+A even higher</div>
+          <div class="swot-item">England international role — increased visibility in major tournaments could elevate market value further</div>
+          <div class="swot-item">Upside if Chelsea strengthen around him: improved support cast could unlock even higher assist totals</div>
+        </div>
+        <div class="swot-section swot-t">
+          <div class="swot-section-label">Threats</div>
+          <div class="swot-item">League-wide xG overperformance of +8.7 goals may partially revert — some regression expected</div>
+          <div class="swot-item">Chelsea's squad instability and frequent managerial changes create tactical uncertainty</div>
+          <div class="swot-item">Increased opposition attention in Year 2 — defences will adapt their approach specifically to him</div>
+        </div>
+      </div>
+      <div class="swot-footer">Generated by Azure AI Prompt Flow · GPT-4o · Based on 2023–24 Premier League statistical analysis · For illustrative purposes</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  
+  <!-- TOP 10 LEADERBOARD -->
+  <div class="reveal">
+    <div class="label">Sample Output – Comparative Analysis</div>
+    <h2>The season's standout attackers.</h2>
+    <p>All 580 players ranked by total goal contributions. The leaderboard is dominated by forwards — but the most balanced contributor, Ollie Watkins, made it to the top with 13 assists as a striker.</p>
+    <div class="leaderboard">
+      <div class="lb-header">
+        <span>#</span>
+        <span>Player</span>
+        <span style="text-align:right">Goals</span>
+        <span style="text-align:right">Assists</span>
+        <span style="text-align:right">G+A</span>
+      </div>
+      <div class="lb-row">
+        <div class="lb-rank top3">1</div>
+        <div><div class="lb-name">Cole Palmer</div><div class="lb-pos">FW,MF · Chelsea</div></div>
+        <div class="lb-num">22</div>
+        <div class="lb-num">11</div>
+        <div class="lb-num highlight">33</div>
+      </div>
+      <div class="lb-row">
+        <div class="lb-rank top3">2</div>
+        <div><div class="lb-name">Erling Haaland</div><div class="lb-pos">FW · Manchester City</div></div>
+        <div class="lb-num">27</div>
+        <div class="lb-num">5</div>
+        <div class="lb-num highlight">32</div>
+      </div>
+      <div class="lb-row">
+        <div class="lb-rank top3">3</div>
+        <div><div class="lb-name">Ollie Watkins</div><div class="lb-pos">FW · Aston Villa</div></div>
+        <div class="lb-num">19</div>
+        <div class="lb-num">13</div>
+        <div class="lb-num highlight">32</div>
+      </div>
+      <div class="lb-row">
+        <div class="lb-rank">4</div>
+        <div><div class="lb-name">Mohamed Salah</div><div class="lb-pos">FW · Liverpool</div></div>
+        <div class="lb-num">18</div>
+        <div class="lb-num">10</div>
+        <div class="lb-num">28</div>
+      </div>
+      <div class="lb-row">
+        <div class="lb-rank">5</div>
+        <div><div class="lb-name">Phil Foden</div><div class="lb-pos">FW,MF · Manchester City</div></div>
+        <div class="lb-num">19</div>
+        <div class="lb-num">8</div>
+        <div class="lb-num">27</div>
+      </div>
+      <div class="lb-row">
+        <div class="lb-rank">6</div>
+        <div><div class="lb-name">Son Heung-min</div><div class="lb-pos">FW · Tottenham Hotspur</div></div>
+        <div class="lb-num">17</div>
+        <div class="lb-num">10</div>
+        <div class="lb-num">27</div>
+      </div>
+      <div class="lb-row">
+        <div class="lb-rank">7</div>
+        <div><div class="lb-name">Bukayo Saka</div><div class="lb-pos">FW · Arsenal</div></div>
+        <div class="lb-num">16</div>
+        <div class="lb-num">9</div>
+        <div class="lb-num">25</div>
+      </div>
+      <div class="lb-row">
+        <div class="lb-rank">8</div>
+        <div><div class="lb-name">Alexander Isak</div><div class="lb-pos">FW · Newcastle United</div></div>
+        <div class="lb-num">21</div>
+        <div class="lb-num">2</div>
+        <div class="lb-num">23</div>
+      </div>
+      <div class="lb-row">
+        <div class="lb-rank">9</div>
+        <div><div class="lb-name">Jarrod Bowen</div><div class="lb-pos">FW · West Ham United</div></div>
+        <div class="lb-num">16</div>
+        <div class="lb-num">6</div>
+        <div class="lb-num">22</div>
+      </div>
+      <div class="lb-row">
+        <div class="lb-rank">10</div>
+        <div><div class="lb-name">Dominic Solanke</div><div class="lb-pos">FW · Bournemouth</div></div>
+        <div class="lb-num">19</div>
+        <div class="lb-num">3</div>
+        <div class="lb-num">22</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- TEAM QUADRANTS -->
+  <div class="reveal">
+    <div class="label">Sample Output – Cluster Analysis</div>
+    <h2>Twenty teams. Four tactical profiles.</h2>
+    <p>Each team's goals for and goals against were compared to league averages to assign a tactical quadrant — revealing whether teams were built to dominate, grind, or simply survive the season.</p>
+    <div class="quadrant-grid">
+      <div class="quad-card ga-gd">
+        <div class="quad-label">⬆ Good Attack · ⬇ Good Defence</div>
+        <div class="quad-teams"><strong>Manchester City</strong>, <strong>Arsenal</strong>, <strong>Liverpool</strong>, <strong>Aston Villa</strong> — The elite tier. Above-average in both dimensions, these teams dominated the table through tactical balance.</div>
+      </div>
+      <div class="quad-card ga-bd">
+        <div class="quad-label">⬆ Good Attack · ⬆ Bad Defence</div>
+        <div class="quad-teams"><strong>Chelsea</strong>, <strong>Newcastle United</strong>, <strong>Tottenham Hotspur</strong>, <strong>Crystal Palace</strong> — High-scoring but leaky. Entertainment value high; title contention limited.</div>
+      </div>
+      <div class="quad-card ba-gd">
+        <div class="quad-label">⬇ Bad Attack · ⬇ Good Defence</div>
+        <div class="quad-teams"><strong>Manchester United</strong>, <strong>Fulham</strong>, <strong>Brighton</strong>, <strong>Brentford</strong>, <strong>West Ham</strong> — Defensively solid, struggling to create. Survival through structure rather than firepower.</div>
+      </div>
+      <div class="quad-card ba-bd">
+        <div class="quad-label">⬇ Bad Attack · ⬆ Bad Defence</div>
+        <div class="quad-teams"><strong>Everton</strong>, <strong>Bournemouth</strong>, <strong>Wolves</strong>, <strong>Nottm Forest</strong>, <strong>Luton Town</strong>, <strong>Burnley</strong>, <strong>Sheffield United</strong> — Struggling on both ends. Relegation candidates and survival battles.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- DATASETS -->
+  <div class="reveal">
+    <div class="label">The data</div>
+    <h2>Two Kaggle datasets. One merged picture.</h2>
+    <p>The analysis draws on player-level and team-level data merged by team name — a step that required manual correction before any analysis could begin.</p>
+    <div class="dataset-grid">
+      <div class="dataset-card">
+        <div class="dataset-tag">Primary dataset</div>
+        <div class="dataset-title">premier-player-23-24</div>
+        <div class="dataset-desc">Individual player statistics for all 580 Premier League players in the 2023–24 season. Includes goals, assists, expected goals (xG), expected assists (xAG), progressive carries, minutes played, cards, and per-90 metrics.</div>
+        <div class="dataset-stats">
+          <span class="dataset-badge">580 rows</span>
+          <span class="dataset-badge">32 columns</span>
+          <span class="dataset-badge">20 teams</span>
+        </div>
+      </div>
+      <div class="dataset-card">
+        <div class="dataset-tag">Secondary datasets</div>
+        <div class="dataset-title">pl_table_2023_24 + supplementary</div>
+        <div class="dataset-desc">Final league table with goals scored/conceded per team, plus supplementary datasets on match results (381 matches), player tackles won, player red cards, and team foul/yellow card rates by match.</div>
+        <div class="dataset-stats">
+          <span class="dataset-badge">381 matches</span>
+          <span class="dataset-badge">303 tackle records</span>
+          <span class="dataset-badge">55 red card records</span>
+        </div>
+      </div>
+    </div>
+    <div class="merge-note">
+      <div class="merge-note-label">Data engineering challenge</div>
+      <div class="merge-note-text">Three team names didn't match between datasets: <code>Brighton</code> vs <code>Brighton & Hove Albion</code>, <code>Bournemouth</code> vs <code>AFC Bournemouth</code>, and <code>Wolverhampton</code> vs <code>Wolverhampton Wanderers</code>. Manually resolved before merge. The <code>scoresStr</code> column (e.g. <code>"66-42"</code>) was split into separate <code>Team_Goals_For</code> and <code>Team_Goals_Against</code> numeric fields, and <code>Player_Pos</code> was derived by taking only the first-listed position from multi-position entries (e.g. <code>"MF,FW" → "MF"</code>).</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- AI LAYER -->
+  <div class="reveal">
+    <div class="label">The AI layer</div>
+    <h2>Stats in. Narrative out. Built for the people who need it.</h2>
+    <p>Statistical outputs are accurate but not actionable for coaches, journalists, or scouts without interpretation. The Azure AI Prompt Flow takes Python-computed metrics and feeds them to a GPT-4o pipeline that generates structured SWOT reports — the kind of analysis a junior analyst would spend hours writing, delivered in seconds through Azure AI Studio's low-code interface.</p>
+
+    <div class="ai-flow">
+      <div class="ai-node">
+        <div class="ai-node-icon">🐍</div>
+        <div class="ai-node-title">Python analysis</div>
+        <div class="ai-node-desc">Pandas computes G+A, xG vs Gls delta, positional breakdowns, and team quadrant classification</div>
+      </div>
+      <div class="ai-arrow">→</div>
+      <div class="ai-node center">
+        <div class="ai-node-icon">⚡</div>
+        <div class="ai-node-title">Azure AI Prompt Flow</div>
+        <div class="ai-node-desc">Structured metrics passed through sequential GPT-4o LLM nodes — one per SWOT dimension — before final synthesis</div>
+      </div>
+      <div class="ai-arrow">→</div>
+      <div class="ai-node">
+        <div class="ai-node-icon">📋</div>
+        <div class="ai-node-title">SWOT report</div>
+        <div class="ai-node-desc">Coaches, analysts, and journalists receive a plain-language tactical brief with embedded statistics — no stats background required</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PROMPT FLOW ARCHITECTURE -->
+  <div class="reveal">
+    <div class="label">Prompt Flow architecture</div>
+    <h2>A cloud-native, agentic workflow built on Azure.</h2>
+    <p>The system is built around a deterministic Python backbone paired with sequential LLM reasoning — ensuring accurate metric computation happens before any AI interpretation occurs. Player and team statistics are stored in Azure Blob Storage as <code style="font-family:var(--mono);font-size:0.82rem;background:rgba(45,107,45,0.08);padding:1px 5px;border-radius:2px;color:var(--terracotta-dark)">.csv</code> files, retrieved securely at runtime via a Python node that loads the data into pandas for preprocessing.</p>
+
+    <div class="pf-graph">
+      <img src="prompt-flow-graph.png" alt="Azure AI Prompt Flow graph — inputs branch into Strength, Weakness, Opportunity and Threat LLM nodes, converge into Summary, and output the final report">
+      <div class="pf-graph-caption">
+        <span>Azure AI Studio · Prompt Flow Graph</span>
+        <span>inputs → S · W · O · T nodes → Summary → outputs</span>
+      </div>
+    </div>
+
+    <div class="arch-grid">
+      <div class="arch-card">
+        <div class="arch-card-icon">☁️</div>
+        <div class="arch-card-title">Azure Blob Storage</div>
+        <div class="arch-card-body">Player and team-level statistics stored as <code>.csv</code> files in Azure Blob Storage. The Python node retrieves the dataset using secure account credentials at runtime — keeping sensitive credentials out of the codebase.</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card-icon">🐍</div>
+        <div class="arch-card-title">Python node — deterministic backbone</div>
+        <div class="arch-card-body">Filters data for the target team, computes KPIs — goals, assists, xG, xA, defensive indicators — and produces structured summaries passed downstream. No LLM reasoning touches the data until this step is complete.</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card-icon">💬</div>
+        <div class="arch-card-title">Two primary inputs</div>
+        <div class="arch-card-body">The flow accepts the <strong>target Premier League team name</strong> and optional <strong>chat history</strong> — preserving analytical context across multi-turn interactions so follow-up questions build on prior analysis naturally.</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card-icon">🤖</div>
+        <div class="arch-card-title">GPT-4o via Azure OpenAI</div>
+        <div class="arch-card-body">Each SWOT dimension is powered by a dedicated GPT-4o LLM node via Azure OpenAI. The final summary node synthesises a narrative-style tactical brief that reads like a professional sports journalist's analysis — grounded in deterministic data.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- LLM NODE BREAKDOWN -->
+  <div class="reveal">
+    <div class="label">LLM node design</div>
+    <h2>Four lenses. One tactical picture.</h2>
+    <p>Each GPT-4o node interprets the Python-computed team metrics through a specific tactical lens. The nodes run in parallel from the same inputs, then converge into a final Summary node that synthesises a cohesive narrative with embedded statistics.</p>
+
+    <div class="llm-nodes">
+      <div class="llm-node-row">
+        <div class="llm-node-label strength">✓ Strength</div>
+        <div class="llm-node-desc">Highlights dominant tactics and key contributors — which players are overperforming xG, which positions drive the most G+A, and what tactical patterns define the team's best performances.</div>
+      </div>
+      <div class="llm-node-row">
+        <div class="llm-node-label weakness">− Weakness</div>
+        <div class="llm-node-desc">Surfaces vulnerabilities and inefficiencies — teams underconverting chances, defensive frailties revealed by goals conceded vs xGA, and positional gaps in contribution metrics.</div>
+      </div>
+      <div class="llm-node-row">
+        <div class="llm-node-label opportunity">→ Opportunity</div>
+        <div class="llm-node-desc">Identifies growth potential and exploitable matchups — where a team's xG profile suggests upside, or where upcoming fixture lists create favourable conditions for improvement.</div>
+      </div>
+      <div class="llm-node-row">
+        <div class="llm-node-label threat">⚠ Threat</div>
+        <div class="llm-node-desc">Assesses external risks — key player injury exposure, schedule congestion, tactical overreliance on one contributor, or opponent-specific weaknesses that could be exploited against this team.</div>
+      </div>
+    </div>
+
+    <div class="feature-callout">
+      <div class="feature-callout-label">Key design feature</div>
+      <p>The system accepts <strong>contextual natural-language inputs</strong> alongside the team name — instructing the LLM nodes to provide explanatory analysis of specific questions posed by the user, with supporting graphs and visualisations generated from the dataset embedded directly in the output. This closes the loop between raw statistical analysis and the kind of tailored insight a coach or journalist would actually ask for.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- RESEARCH QUESTIONS -->
+  <div class="reveal">
+    <div class="label">Mathematical Framework</div>
+    <h2>Four questions. Real statistical tests where it counts.</h2>
+    <div class="rq-list">
+
+      <div class="rq-card">
+        <div class="rq-head">
+          <div class="rq-num">Research Question 1</div>
+          <div class="rq-q">Which teams had the highest average expected goals (xG), and how does that compare with their actual goals scored?</div>
+          <div class="rq-method">Grouped by team, computed average xG and actual goals per player. Reveals which teams are converting chances above expectation (overperformers) and which are leaving goals on the pitch.</div>
+        </div>
+        <div class="rq-data">
+          <div class="rq-row"><span class="rq-key">Man City — avg xG / Gls</span><span class="rq-val good">3.28 xG → 3.76 Gls ↑</span></div>
+          <div class="rq-row"><span class="rq-key">Arsenal — avg xG / Gls</span><span class="rq-val good">3.12 xG → 3.44 Gls ↑</span></div>
+          <div class="rq-row"><span class="rq-key">Liverpool — avg xG / Gls</span><span class="rq-val warn">3.01 xG → 2.67 Gls ↓</span></div>
+          <div class="rq-row"><span class="rq-key">Everton — avg xG / Gls</span><span class="rq-val bad">2.16 xG → 1.54 Gls ↓</span></div>
+          <div class="rq-row"><span class="rq-key">Phil Foden — xG overperformer</span><span class="rq-val good">10.3 xG → 19 Gls (+8.7)</span></div>
+          <hr class="rq-divider">
+          <div class="rq-finding">Finding: <span>High xG generally correlates with more goals, but conversion varies significantly.</span> Everton left the most goals on the pitch. Foden was the season's biggest xG overperformer at +8.7 goals above expectation.</div>
+        </div>
+      </div>
+
+      <div class="rq-card">
+        <div class="rq-head">
+          <div class="rq-num">Research Question 2</div>
+          <div class="rq-q">How does player contribution (goals + assists) differ across positions — DF, MF, FW?</div>
+          <div class="rq-method">Grouped by primary position, computed mean G+A. Ran a one-tailed t-test to confirm whether midfielders contribute significantly more than defenders — a distinction that informs how clubs value positional roles.</div>
+        </div>
+        <div class="rq-data">
+          <div class="rq-row"><span class="rq-key">FW — mean G+A</span><span class="rq-val good">6.70</span></div>
+          <div class="rq-row"><span class="rq-key">MF — mean G+A</span><span class="rq-val neutral">3.47</span></div>
+          <div class="rq-row"><span class="rq-key">DF — mean G+A</span><span class="rq-val warn">1.81</span></div>
+          <div class="rq-row"><span class="rq-key">GK — mean G+A</span><span class="rq-val bad">0.05</span></div>
+          <hr class="rq-divider">
+          <div class="rq-row"><span class="rq-key">H₀: MF = DF mean G+A</span><span class="rq-val warn">Null hypothesis</span></div>
+          <div class="rq-row"><span class="rq-key">t-statistic</span><span class="rq-val neutral">4.29</span></div>
+          <div class="rq-row"><span class="rq-key">p-value</span><span class="rq-val good">0.0000132</span></div>
+          <hr class="rq-divider">
+          <div class="rq-finding"><span class="reject">Null hypothesis rejected.</span> Midfielders contribute significantly more G+A than defenders (p &lt;&lt; 0.05). The difference is not noise — it's structural.</div>
+        </div>
+      </div>
+
+      <div class="rq-card">
+        <div class="rq-head">
+          <div class="rq-num">Research Question 3</div>
+          <div class="rq-q">Who are the top 10 players with the highest combined goals and assists?</div>
+          <div class="rq-method">Sorted all 580 players by total G+A. The resulting leaderboard confirms which forwards and attacking midfielders carried the most attacking weight for their teams across the full season.</div>
+        </div>
+        <div class="rq-data">
+          <div class="rq-row"><span class="rq-key">#1 Cole Palmer (Chelsea)</span><span class="rq-val good">22G + 11A = 33</span></div>
+          <div class="rq-row"><span class="rq-key">#2 Erling Haaland (Man City)</span><span class="rq-val good">27G + 5A = 32</span></div>
+          <div class="rq-row"><span class="rq-key">#3 Ollie Watkins (Aston Villa)</span><span class="rq-val good">19G + 13A = 32</span></div>
+          <div class="rq-row"><span class="rq-key">#4 Mohamed Salah (Liverpool)</span><span class="rq-val neutral">18G + 10A = 28</span></div>
+          <div class="rq-row"><span class="rq-key">#5 Phil Foden (Man City)</span><span class="rq-val neutral">19G + 8A = 27</span></div>
+          <hr class="rq-divider">
+          <div class="rq-finding">Finding: <span>Cole Palmer led the league in G+A in his debut season at Chelsea.</span> Haaland led outright in goals (27). Watkins was the most balanced contributor: second in assists despite being a striker.</div>
+        </div>
+      </div>
+
+      <div class="rq-card">
+        <div class="rq-head">
+          <div class="rq-num">Research Question 4</div>
+          <div class="rq-q">How can we categorize teams based on total goals scored and conceded?</div>
+          <div class="rq-method">Compared each team's goals for/against to league averages, classifying all 20 teams into four quadrants. A second t-test confirmed that teams with above-average xG score significantly more goals in practice.</div>
+        </div>
+        <div class="rq-data">
+          <div class="rq-row"><span class="rq-key">H₀: high xG = low xG teams in actual Gls</span><span class="rq-val warn">Null hypothesis</span></div>
+          <div class="rq-row"><span class="rq-key">t-statistic</span><span class="rq-val neutral">3.22</span></div>
+          <div class="rq-row"><span class="rq-key">p-value</span><span class="rq-val good">0.0036</span></div>
+          <hr class="rq-divider">
+          <div class="rq-finding"><span class="reject">Null hypothesis rejected.</span> Teams with higher xG score significantly more goals (p = 0.0036). <span>xG is a meaningful predictor of offensive output at team level.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  
+
+  <!-- REFLECTION -->
+  <div class="reveal">
+    <div class="label">Personal reflection</div>
+    <div class="reflection">
+      <div class="reflection-label">Behind the build</div>
+      <p>The most interesting tension in this project was the gap between what the statistics say and what a coach or journalist actually needs to hear. A Cpk of 0.396 means nothing without context. Neither does a p-value of 0.0000132 — unless someone translates it into a decision. The Prompt Flow SWOT layer was built to close that gap: taking outputs that are statistically rigorous and making them accessible to people who don't read pandas DataFrames for fun.</p>
+      <p>The xG analysis surfaced something genuinely surprising. Liverpool, despite being one of the top xG generators in the league, underperformed their expectation significantly — while Manchester City and Arsenal converted above it. That kind of efficiency differential doesn't show up in the final league table in an obvious way, but it explains a lot about how close the title race actually was on a per-chance basis.</p>
+      <p>The broader lesson: combining deterministic statistical analysis with LLM narrative synthesis isn't just a technical pattern — it's a communication strategy. The numbers build credibility. The narrative builds understanding. Neither works as well without the other.</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta reveal">
+    <p class="cta-text">Interested in working together?</p>
+    <a href="index.html#contact" class="btn-primary">Get in touch</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 Your Name · <a href="index.html" style="color: inherit; text-decoration: none;">Back to portfolio</a></p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WattBot — Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FFF9F3;
+    --sand: #E8DDD0;
+    --terracotta: #2D6B2D;
+    --terracotta-light: #4A9A4A;
+    --terracotta-dark: #1A4A1A;
+    --brown: #1A3A1A;
+    --brown-light: #3A6B3A;
+    --text-dark: #0D1F0D;
+    --text-mid: #2E5A2E;
+    --text-light: #5A845A;
+    --border: rgba(45,107,45,0.15);
+    --mono: 'DM Mono', monospace;
+    --green-dim: rgba(74,140,74,0.12);
+    --green-text: #3A7A3A;
+    --amber-dim: rgba(180,130,40,0.12);
+    --amber-text: #8A6010;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(250,247,242,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 600; color: var(--brown); text-decoration: none; }
+  .nav-back { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
+  .nav-back:hover { color: var(--terracotta); }
+  .nav-back::before { content: '←'; font-size: 1rem; }
+
+  /* HERO */
+  .hero {
+    background: #1A3A1A;
+    padding: 10rem 4rem 5rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 50% 70% at 85% 30%, rgba(74,154,74,0.09) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 900px; margin: 0 auto; position: relative; animation: fadeUp 0.8s ease both; }
+  .hero-tag { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: #7DBF7D; font-weight: 500; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+  .hero-tag::before { content: ''; display: inline-block; width: 24px; height: 1.5px; background: #7DBF7D; }
+  .hero h1 { font-family: 'Lora', serif; font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 500; line-height: 1.12; color: #fff; margin-bottom: 1.5rem; }
+  .hero h1 em { font-style: italic; color: #7DBF7D; }
+  .hero-sub { font-size: 1rem; line-height: 1.8; color: rgba(255,255,255,0.55); max-width: 600px; font-weight: 300; margin-bottom: 3rem; }
+  .hero-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .pill { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.6); font-size: 0.74rem; font-weight: 400; letter-spacing: 0.04em; padding: 0.38rem 0.9rem; border-radius: 100px; }
+
+  /* IMPACT BAR */
+  .impact-bar { background: #3A6B3A; padding: 3rem 4rem; }
+  .impact-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); }
+  .impact-stat { text-align: center; padding: 0 2rem; border-right: 1px solid rgba(255,255,255,0.18); }
+  .impact-stat:last-child { border-right: none; }
+  .impact-num { font-family: 'Lora', serif; font-size: 2.6rem; font-weight: 600; color: #fff; line-height: 1; margin-bottom: 0.4rem; }
+  .impact-label { font-size: 0.78rem; color: rgba(255,255,255,0.72); letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.4; }
+
+  /* CONTENT */
+  .content { max-width: 900px; margin: 0 auto; padding: 5rem 4rem 6rem; }
+  .label { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--terracotta); font-weight: 500; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+  .label::before { content: ''; display: inline-block; width: 18px; height: 1.5px; background: var(--terracotta); }
+  h2 { font-family: 'Lora', serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 500; color: var(--text-dark); line-height: 1.25; margin-bottom: 1.25rem; }
+  p { font-size: 0.97rem; line-height: 1.9; color: var(--text-mid); font-weight: 300; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 4rem 0; }
+
+  /* PROBLEM — tension split */
+  .tension { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.75rem; }
+  .tension-card { border-radius: 4px; padding: 1.5rem; }
+  .tension-card.threat { background: #1C1208; border: 1px solid rgba(45,107,45,0.2); }
+  .tension-card.gap { background: var(--warm-white); border: 1px solid var(--border); }
+  .tension-label { font-size: 0.67rem; letter-spacing: 0.13em; text-transform: uppercase; font-weight: 500; margin-bottom: 1rem; }
+  .threat .tension-label { color: var(--terracotta-light); }
+  .gap .tension-label { color: var(--text-light); }
+  .tension-item { font-size: 0.83rem; line-height: 1.7; font-weight: 300; padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; gap: 0.65rem; align-items: flex-start; }
+  .gap .tension-item { border-bottom-color: var(--border); color: var(--text-mid); }
+  .threat .tension-item { color: rgba(255,255,255,0.65); border-bottom-color: rgba(255,255,255,0.07); }
+  .tension-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .tension-item::before { flex-shrink: 0; margin-top: 0.1rem; font-size: 0.75rem; }
+  .threat .tension-item::before { content: '↑'; color: var(--terracotta-light); }
+  .gap .tension-item::before { content: '—'; color: var(--text-light); }
+
+  /* WHY RAG */
+  .rag-split { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.75rem; }
+  .rag-col { border-radius: 4px; padding: 1.5rem; }
+  .rag-col.without { background: var(--warm-white); border: 1px solid var(--border); }
+  .rag-col.with { background: #F2F8F2; border: 1px solid rgba(74,140,74,0.2); }
+  .rag-col-label { font-size: 0.67rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; margin-bottom: 1rem; }
+  .without .rag-col-label { color: var(--text-light); }
+  .with .rag-col-label { color: var(--green-text); }
+  .rag-item { font-size: 0.82rem; line-height: 1.7; color: var(--text-mid); font-weight: 300; padding: 0.35rem 0; border-bottom: 1px solid var(--border); display: flex; gap: 0.65rem; align-items: flex-start; }
+  .rag-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .rag-item.bad::before { content: '✗'; color: #C05050; flex-shrink: 0; font-size: 0.75rem; margin-top: 0.15rem; }
+  .rag-item.good::before { content: '✓'; color: var(--green-text); flex-shrink: 0; font-size: 0.75rem; margin-top: 0.15rem; }
+
+  /* SYSTEM BEHAVIORS — chat-style cards */
+  .behaviors { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.75rem; }
+  .behavior-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; transition: border-color 0.2s, transform 0.2s; }
+  .behavior-card:hover { border-color: rgba(45,107,45,0.3); transform: translateY(-2px); }
+  .behavior-head { padding: 1.25rem 1.25rem 1rem; }
+  .behavior-tag { font-size: 0.67rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--terracotta); font-weight: 500; margin-bottom: 0.5rem; }
+  .behavior-title { font-size: 0.9rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.4rem; }
+  .behavior-desc { font-size: 0.79rem; line-height: 1.7; color: var(--text-light); font-weight: 300; }
+  /* chat bubble preview */
+  .chat-preview { background: #16100A; padding: 1rem 1.25rem; }
+  .chat-q { display: flex; gap: 0.6rem; margin-bottom: 0.6rem; }
+  .chat-a { display: flex; gap: 0.6rem; }
+  .chat-avatar { width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 600; margin-top: 0.1rem; }
+  .chat-avatar.user { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); }
+  .chat-avatar.bot { background: #3A6B3A; color: #fff; }
+  .chat-bubble { font-size: 0.73rem; line-height: 1.6; border-radius: 3px; padding: 0.5rem 0.75rem; font-family: 'DM Sans', sans-serif; }
+  .chat-bubble.user-bubble { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.65); }
+  .chat-bubble.bot-bubble { background: rgba(74,140,74,0.12); color: rgba(255,255,255,0.75); }
+  .chat-bubble .cite { color: #7DBF7D; font-family: var(--mono); font-size: 0.67rem; }
+  .chat-bubble .num { color: #E0C060; font-weight: 500; }
+  .chat-bubble .fallback { color: rgba(255,255,255,0.4); font-style: italic; }
+
+  /* EVALUATION */
+  .eval-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1.75rem; }
+  .eval-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; padding: 1.25rem; position: relative; overflow: hidden; }
+  .eval-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: #3A6B3A; }
+  .eval-num { font-family: 'Lora', serif; font-size: 1.6rem; font-weight: 600; color: #3A6B3A; margin-bottom: 0.3rem; }
+  .eval-title { font-size: 0.82rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.4rem; }
+  .eval-desc { font-size: 0.76rem; line-height: 1.65; color: var(--text-light); font-weight: 300; }
+
+  /* REFLECTION */
+  .reflection { background: #141A10; border-radius: 6px; padding: 2.5rem; margin-top: 1.75rem; }
+  .reflection-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #7DBF7D; margin-bottom: 1.25rem; }
+  .reflection p { color: rgba(255,255,255,0.65); font-size: 0.93rem; margin-bottom: 1rem; line-height: 1.9; font-weight: 300; }
+  .reflection p:last-child { margin-bottom: 0; }
+
+  /* CTA */
+  .cta { border-top: 1px solid var(--border); padding-top: 3rem; margin-top: 4rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+  .cta-text { font-family: 'Lora', serif; font-size: 1.15rem; font-style: italic; color: var(--text-mid); }
+  .btn-primary { background: var(--terracotta); color: #fff; padding: 0.85rem 2rem; border-radius: 2px; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
+  .btn-primary:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+
+  footer { background: #0D110A; color: rgba(255,255,255,0.3); text-align: center; padding: 1.75rem; font-size: 0.8rem; letter-spacing: 0.04em; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3.5rem; }
+    .impact-bar { padding: 2.5rem 1.5rem; }
+    .impact-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+    .impact-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 1.5rem; }
+    .impact-stat:last-child { border-bottom: none; padding-bottom: 0; }
+    .content { padding: 3rem 1.5rem 4rem; }
+    .tension, .rag-split, .behaviors, .eval-grid { grid-template-columns: 1fr; }
+    .eval-grid { grid-template-columns: 1fr 1fr; }
+    .cta { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Your Name</a>
+  <a href="index.html#projects" class="nav-back">All projects</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">RAG · AI Sustainability · UW–Madison ML Marathon 2025</div>
+    <h1>AI is transforming the world.<br>It's also <em>quietly reshaping the planet.</em></h1>
+    <p class="hero-sub">
+      The environmental cost of AI is real — but the evidence is buried across hundreds of peer-reviewed papers that most practitioners never read. WattBot is a RAG chatbot built to fix that: grounded, citation-backed answers on AI's energy and water footprint, with an honest fallback when the evidence simply isn't there.
+    </p>
+    <div class="hero-pills">
+      <span class="pill">Retrieval-Augmented Generation</span>
+      <span class="pill">50+ scholarly articles</span>
+      <span class="pill">Citation faithfulness</span>
+      <span class="pill">Numerical accuracy</span>
+      <span class="pill">Standardized fallback</span>
+      <span class="pill">AI sustainability</span>
+    </div>
+  </div>
+</div>
+
+<!-- IMPACT BAR -->
+<div class="impact-bar">
+  <div class="impact-inner">
+    <div class="impact-stat">
+      <div class="impact-num">50+</div>
+      <div class="impact-label">Scholarly articles<br>in the retrieval corpus</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">4</div>
+      <div class="impact-label">Evaluation dimensions beyond<br>fluency alone</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">1</div>
+      <div class="impact-label">Standardized fallback when<br>evidence does not exist</div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- THE PROBLEM -->
+  <div class="reveal">
+    <div class="label">The problem</div>
+    <h2>The data exists. Nobody can find it.</h2>
+    <p>AI's environmental impact — energy consumption, water use, carbon emissions — is documented across peer-reviewed literature in machine learning, energy systems, and environmental science. But the research is fragmented, technical, and inaccessible to the practitioners and decision-makers who need it most. The gap isn't a lack of evidence. It's a retrieval problem.</p>
+    <div class="tension">
+      <div class="tension-card threat">
+        <div class="tension-label">The environmental reality</div>
+        <div class="tension-item">Training a large language model can emit as much CO₂ as five cars over their lifetimes</div>
+        <div class="tension-item">Data center water consumption for cooling is growing alongside compute demand</div>
+        <div class="tension-item">Inference at scale multiplies the footprint of every deployed model continuously</div>
+        <div class="tension-item">Pressure on energy grids is increasing as AI workloads concentrate geographically</div>
+        <div class="tension-item">Carbon accounting for AI remains inconsistent and largely unregulated</div>
+      </div>
+      <div class="tension-card gap">
+        <div class="tension-label">The access gap</div>
+        <div class="tension-item">Evidence buried across disciplines — no single source of truth</div>
+        <div class="tension-item">Numbers vary widely across papers, creating confusion rather than clarity</div>
+        <div class="tension-item">Practitioners lack time to conduct literature reviews for every decision</div>
+        <div class="tension-item">Policy discussions proceed without reliable, cited quantitative grounding</div>
+        <div class="tension-item">Generative AI fills gaps with confident estimates — not cited evidence</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- WHY RAG -->
+  <div class="reveal">
+    <div class="label">Why RAG</div>
+    <h2>This is a retrieval problem. Not a generation problem.</h2>
+    <p>A purely generative approach would produce fluent, confident answers about AI's environmental impact. It would also hallucinate specific numbers, conflate studies, and never admit when it doesn't know. For a domain where policy decisions depend on cited evidence, that failure mode is worse than no answer at all.</p>
+    <div class="rag-split">
+      <div class="rag-col without">
+        <div class="rag-col-label">Purely generative approach</div>
+        <div class="rag-item bad">Produces confident estimates without citation — unverifiable</div>
+        <div class="rag-item bad">Cannot distinguish between well-supported and weakly-supported claims</div>
+        <div class="rag-item bad">Conflates numbers across different studies, models, and methodologies</div>
+        <div class="rag-item bad">No fallback — fills every gap with a generated approximation</div>
+        <div class="rag-item bad">Fluent but not faithful — the worst combination for policy contexts</div>
+      </div>
+      <div class="rag-col with">
+        <div class="rag-col-label">RAG approach</div>
+        <div class="rag-item good">Answers grounded in retrieved documents with traceable reference IDs</div>
+        <div class="rag-item good">Numeric estimates tied to specific studies with stated methodologies</div>
+        <div class="rag-item good">Supporting material surfaced: quotes, tables, figures from source papers</div>
+        <div class="rag-item good">Standardized fallback emitted when corpus evidence is insufficient</div>
+        <div class="rag-item good">Honest about uncertainty — the only acceptable stance in sustainability contexts</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SYSTEM BEHAVIORS -->
+  <div class="reveal">
+    <div class="label">System behaviors</div>
+    <h2>Four outputs. Each designed with intent.</h2>
+    <p>The system wasn't built to sound knowledgeable. It was built to be traceable. Every response behavior was a deliberate design choice about what responsible AI communication looks like in a high-stakes domain.</p>
+    <div class="behaviors">
+
+      <div class="behavior-card">
+        <div class="behavior-head">
+          <div class="behavior-tag">Behavior 1</div>
+          <div class="behavior-title">Concise natural-language answers</div>
+          <div class="behavior-desc">Synthesizes retrieved document passages into a direct, readable response — no verbatim reproduction, no padding. The answer serves the question, not the retrieval machinery behind it.</div>
+        </div>
+        <div class="chat-preview">
+          <div class="chat-q">
+            <div class="chat-avatar user">Q</div>
+            <div class="chat-bubble user-bubble">How much energy does training a large language model typically consume?</div>
+          </div>
+          <div class="chat-a">
+            <div class="chat-avatar bot">W</div>
+            <div class="chat-bubble bot-bubble">Training large language models is highly energy-intensive, with estimates ranging from <span class="num">hundreds to thousands of MWh</span> depending on model scale, hardware, and data center efficiency. <span class="cite">[doc_12, doc_27]</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="behavior-card">
+        <div class="behavior-head">
+          <div class="behavior-tag">Behavior 2</div>
+          <div class="behavior-title">Numeric estimates with units</div>
+          <div class="behavior-desc">When the corpus contains quantitative data, WattBot surfaces it with units, context, and the specific study it comes from. Numbers without provenance are not reported — preventing the false precision that makes generative AI unreliable in technical domains.</div>
+        </div>
+        <div class="chat-preview">
+          <div class="chat-q">
+            <div class="chat-avatar user">Q</div>
+            <div class="chat-bubble user-bubble">What is the water footprint of a typical data center?</div>
+          </div>
+          <div class="chat-a">
+            <div class="chat-avatar bot">W</div>
+            <div class="chat-bubble bot-bubble">Studies report water usage effectiveness (WUE) values of <span class="num">1.0–2.0 L/kWh</span> for modern data centers, with older facilities significantly higher. Cooling method and climate drive wide variation. <span class="cite">[doc_08, doc_31]</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="behavior-card">
+        <div class="behavior-head">
+          <div class="behavior-tag">Behavior 3</div>
+          <div class="behavior-title">Document reference IDs + supporting material</div>
+          <div class="behavior-desc">Every factual claim links to a document reference ID. Where the source paper contains directly relevant quotes, tables, or figures, those are surfaced alongside the answer — making the retrieval chain fully transparent and auditable.</div>
+        </div>
+        <div class="chat-preview">
+          <div class="chat-q">
+            <div class="chat-avatar user">Q</div>
+            <div class="chat-bubble user-bubble">Which AI tasks are most carbon-intensive?</div>
+          </div>
+          <div class="chat-a">
+            <div class="chat-avatar bot">W</div>
+            <div class="chat-bubble bot-bubble">NLP model training dominates emissions estimates in the literature, particularly transformer pretraining at scale. <span class="cite">[doc_04]</span> Fig. 3 in that study shows a breakdown by task type and hardware generation.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="behavior-card">
+        <div class="behavior-head">
+          <div class="behavior-tag">Behavior 4</div>
+          <div class="behavior-title">Standardized fallback on missing evidence</div>
+          <div class="behavior-desc">When the retrieved documents don't contain sufficient evidence to answer a question, WattBot emits a consistent, explicit fallback — rather than generating a plausible-sounding approximation. Honesty about the limits of the corpus is a feature, not a failure.</div>
+        </div>
+        <div class="chat-preview">
+          <div class="chat-q">
+            <div class="chat-avatar user">Q</div>
+            <div class="chat-bubble user-bubble">What is the total carbon footprint of AI inference globally in 2024?</div>
+          </div>
+          <div class="chat-a">
+            <div class="chat-avatar bot">W</div>
+            <div class="chat-bubble bot-bubble"><span class="fallback">The current corpus does not contain sufficient evidence to provide a reliable estimate for this question. No supporting documents were retrieved with adequate coverage of this specific claim.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- EVALUATION -->
+  <div class="reveal">
+    <div class="label">Evaluation</div>
+    <h2>Scored on what actually matters.</h2>
+    <p>Most NLP benchmarks reward fluency. This challenge was different — WattBot was evaluated across four dimensions that together define what a trustworthy, evidence-grounded system actually looks like. That shift in evaluation criteria is itself a statement about responsible AI.</p>
+    <div class="eval-grid">
+      <div class="eval-card">
+        <div class="eval-num">01</div>
+        <div class="eval-title">Fluency</div>
+        <div class="eval-desc">Responses are readable, grammatically correct, and appropriately concise — necessary but not sufficient.</div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-num">02</div>
+        <div class="eval-title">Retrieval precision</div>
+        <div class="eval-desc">Retrieved documents are actually relevant to the query — not just semantically adjacent. The right papers must surface for the right questions.</div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-num">03</div>
+        <div class="eval-title">Numerical accuracy</div>
+        <div class="eval-desc">Numeric estimates match what the cited documents actually report, with correct units and appropriate context. No fabricated precision.</div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-num">04</div>
+        <div class="eval-title">Citation faithfulness</div>
+        <div class="eval-desc">Claims attributed to a document are actually supported by that document. The hardest dimension — and the most important one for policy use.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- REFLECTION -->
+  <div class="reveal">
+    <div class="label">Personal reflection</div>
+    <div class="reflection">
+      <div class="reflection-label">Behind the build</div>
+      <p>This project changed how I think about what it means for an AI system to be useful. Fluency is easy. Grounding is hard. Building WattBot made the distinction viscerally clear: a system that produces a confident, well-written answer with a fabricated number is not a useful system — it's a liability. Especially in sustainability and policy contexts where decisions have real downstream consequences.</p>
+      <p>The standardized fallback was the design choice I'm most proud of. It would have been easy to let the model approximate — to generate a plausible estimate when the corpus came up short. Instead, the system emits an explicit, consistent signal that the evidence isn't there. That honesty is harder to build and harder to sell, but it's the only defensible choice when the stakes are real.</p>
+      <p>The broader lesson: responsible AI isn't a constraint you add at the end. It's an architectural decision you make at the start — about what the system is allowed to say, what it must admit it doesn't know, and how it communicates uncertainty. Those choices shape trust more than any benchmark score.</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta reveal">
+    <p class="cta-text">Interested in working together?</p>
+    <a href="index.html#contact" class="btn-primary">Get in touch</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 Your Name · <a href="index.html" style="color: inherit; text-decoration: none;">Back to portfolio</a></p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
