@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I Once Went 8 Days Without Food — Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FFF9F3;
+    --sand: #E8DDD0;
+    --terracotta: #2D6B2D;
+    --terracotta-light: #4A9A4A;
+    --terracotta-dark: #1A4A1A;
+    --brown: #1A3A1A;
+    --brown-light: #3A6B3A;
+    --text-dark: #0D1F0D;
+    --text-mid: #2E5A2E;
+    --text-light: #5A845A;
+    --border: rgba(45,107,45,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--brown);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-mid);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--terracotta); }
+
+  /* HERO */
+  .blog-hero {
+    padding: 9rem 4rem 5rem;
+    max-width: 900px;
+    margin: 0 auto;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    text-decoration: none;
+    margin-bottom: 3rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--terracotta); }
+  .back-link::before { content: '←'; font-size: 1rem; }
+
+  .blog-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1.5px;
+    background: var(--terracotta);
+  }
+
+  .blog-hero h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-hero h1 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.83rem;
+    color: var(--text-light);
+    letter-spacing: 0.03em;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .blog-meta-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--sand);
+  }
+
+  /* PHOTO GALLERY */
+  .blog-photo-gallery {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+
+  .gallery-img-wrap {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+  }
+
+  .gallery-img-wrap img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .gallery-img-wrap:hover img {
+    transform: scale(1.03);
+  }
+
+  .gallery-img-wrap .img-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    background: linear-gradient(to top, rgba(10,30,10,0.75) 0%, transparent 100%);
+    padding: 2rem 1.25rem 1rem;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.78);
+    letter-spacing: 0.04em;
+    font-style: italic;
+  }
+
+  /* CONTENT */
+  .blog-content-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 4rem 6rem;
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .blog-body {
+    animation: fadeUp 0.8s 0.25s ease both;
+  }
+
+  .blog-body p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--text-mid);
+    font-weight: 300;
+    margin-bottom: 1.75rem;
+  }
+
+  .blog-body p:last-child { margin-bottom: 0; }
+
+  .blog-body strong {
+    font-weight: 500;
+    color: var(--text-dark);
+  }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    margin: 2.5rem 0;
+    padding: 1.75rem 2rem;
+    border-left: 3px solid var(--terracotta);
+    background: var(--warm-white);
+    border-radius: 0 2px 2px 0;
+  }
+
+  .pull-quote p {
+    font-family: 'Lora', serif;
+    font-size: 1.2rem !important;
+    font-style: italic;
+    line-height: 1.6 !important;
+    color: var(--text-dark) !important;
+    font-weight: 400 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* TIMELINE / DAY TRACKER */
+  .day-tracker {
+    margin: 2.5rem 0;
+    padding: 1.75rem 2rem;
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+  }
+
+  .day-tracker-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .day-tracker-label::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 1.5px;
+    background: var(--terracotta);
+  }
+
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 0.5rem;
+  }
+
+  .day-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .day-num {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--terracotta);
+    line-height: 1;
+  }
+
+  .day-bar {
+    width: 100%;
+    height: 4px;
+    background: var(--sand);
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .day-bar::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: var(--terracotta);
+    border-radius: 2px;
+    width: 100%;
+    animation: barGrow 1s ease both;
+  }
+
+  .day-bar.tough::after { background: #8B1A1A; }
+  .day-bar.autopilot::after { background: var(--terracotta-light); }
+
+  .day-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-light);
+    text-align: center;
+  }
+
+  @keyframes barGrow {
+    from { width: 0; }
+    to   { width: 100%; }
+  }
+
+  /* SIDEBAR */
+  .blog-sidebar {
+    position: sticky;
+    top: 7rem;
+    animation: fadeUp 0.8s 0.35s ease both;
+  }
+
+  .sidebar-block {
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--warm-white);
+    margin-bottom: 1.5rem;
+  }
+
+  .sidebar-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .sidebar-label::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--terracotta);
+  }
+
+  .sidebar-text {
+    font-size: 0.85rem;
+    line-height: 1.75;
+    color: var(--text-mid);
+    font-weight: 300;
+  }
+
+  .sidebar-stat {
+    margin-top: 0.75rem;
+  }
+
+  .sidebar-stat:first-child { margin-top: 0; }
+
+  .sidebar-stat-num {
+    font-family: 'Lora', serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--terracotta);
+    line-height: 1;
+  }
+
+  .sidebar-stat-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-top: 0.15rem;
+  }
+
+  .vow-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .vow-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.83rem;
+    color: var(--text-mid);
+    font-weight: 300;
+  }
+
+  .vow-list li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    flex-shrink: 0;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    background: rgba(45,107,45,0.08);
+    border: 1px solid rgba(45,107,45,0.18);
+    padding: 0.3rem 0.65rem;
+    border-radius: 2px;
+  }
+
+  /* DIVIDER */
+  .section-divider {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 4rem;
+    border: none;
+    border-top: 1px solid var(--border);
+  }
+
+  /* FOOTER NAV */
+  .blog-footer-nav {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 4rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .footer-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.83rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-nav-link:hover { color: var(--terracotta); }
+  .footer-nav-link.back::before { content: '←'; }
+  .footer-nav-link.next::after { content: ' →'; }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+    letter-spacing: 0.04em;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.25rem; }
+    .blog-hero { padding: 7rem 1.5rem 3rem; }
+    .blog-photo-gallery { padding: 0 1.5rem; grid-template-columns: 1fr; }
+    .gallery-img-wrap img { height: 280px; }
+    .blog-content-wrap { grid-template-columns: 1fr; padding: 2.5rem 1.5rem 4rem; gap: 2.5rem; }
+    .blog-sidebar { position: static; }
+    .days-grid { grid-template-columns: repeat(4, 1fr); }
+    .section-divider { padding: 0 1.5rem; }
+    .blog-footer-nav { padding: 2rem 1.5rem 3rem; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="portfolio_with_photo_2_2_1_1.html" class="nav-logo">Your Name</a>
+  <ul class="nav-links">
+    <li><a href="portfolio_with_photo_2_2_1_1.html#about">About</a></li>
+    <li><a href="portfolio_with_photo_2_2_1_1.html#projects">Projects</a></li>
+    <li><a href="portfolio_with_photo_2_2_1_1.html#blog">Writing</a></li>
+    <li><a href="portfolio_with_photo_2_2_1_1.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- BLOG HERO -->
+<div class="blog-hero">
+  <a href="portfolio_with_photo_2_2_1_1.html#blog" class="back-link">Back to Writing</a>
+  <div class="blog-eyebrow">Life & Spirituality</div>
+  <h1>I Once Went <em>8 Days</em> Without Food</h1>
+  <div class="blog-meta">
+    <span>May 2025</span>
+    <span class="blog-meta-dot"></span>
+    <span>3 min read</span>
+    <span class="blog-meta-dot"></span>
+    <span>Jainism · Willpower · Atthai</span>
+  </div>
+</div>
+
+<!-- PHOTO GALLERY -->
+<div class="blog-photo-gallery">
+  <div class="gallery-img-wrap">
+    <img src="img-blog-atthai-1.png" alt="In traditional Jain attire during Paryushana procession">
+    <div class="img-caption">In traditional attire for the Paryushana procession, 2017</div>
+  </div>
+  <div class="gallery-img-wrap">
+    <img src="img-blog-atthai-2.png" alt="Riding a chariot in the community procession after completing Atthai">
+    <div class="img-caption">Riding a chariot in the community procession after completing Atthai</div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="blog-content-wrap">
+
+  <!-- MAIN BODY -->
+  <article class="blog-body">
+    <p>
+      I am a spiritual person who follows Jainism. In August of 2017, I did what's called an <strong>Atthai</strong> — a completely optional, voluntary practice — and what I didn't fully appreciate at the time was how defining that experience would become.
+    </p>
+
+    <p>
+      Atthai is a rigorous form of fasting practiced during <strong>Paryushana</strong>, the most important annual Jain festival — eight days dedicated to introspection, meditation, and repentance. During Atthai, one follows a water-only diet: just boiled water, consumed only between sunrise and sunset, for the entire duration. No food, no drinks, no supplements. Scientifically, your body goes into a complete detox, clearing the digestive tract of impurities. I felt rejuvenated — as if my body had been refurbished. Its deeper essence, though, is spiritual: detachment, renouncing bodily needs to strengthen mental resolve and deepen devotion. Atthai aligns with the broader goals of Paryushana — to atone for past mistakes, purify karma, and reflect on the five ethical vows.
+    </p>
+
+    <div class="pull-quote">
+      <p>"After the fourth day I was on autopilot, and my mind was rather clear. I felt confident in pulling this off — like I had power over my mind and could go on for even longer."</p>
+    </div>
+
+    <p>
+      How did I do it? A few friends joined me in the pursuit, and I had a lot of support from family. The <strong>first three days were the toughest</strong> — my body had never experienced anything like this before. Mean urges, constant temptation. But I kept telling myself: one day at a time. I kept distracted playing cards, hanging out with friends, watching TV shows. (I binged the entirety of Game of Thrones across those eight days.) I was still attending university classes and doing homework during the festival. After day four, something shifted. I was on autopilot. My mind was clear.
+    </p>
+
+    <!-- DAY TRACKER -->
+    <div class="day-tracker">
+      <div class="day-tracker-label">The 8-Day Journey</div>
+      <div class="days-grid">
+        <div class="day-cell">
+          <div class="day-num">1</div>
+          <div class="day-bar tough"></div>
+          <div class="day-label">Toughest</div>
+        </div>
+        <div class="day-cell">
+          <div class="day-num">2</div>
+          <div class="day-bar tough"></div>
+          <div class="day-label">Tough</div>
+        </div>
+        <div class="day-cell">
+          <div class="day-num">3</div>
+          <div class="day-bar tough"></div>
+          <div class="day-label">Tough</div>
+        </div>
+        <div class="day-cell">
+          <div class="day-num">4</div>
+          <div class="day-bar"></div>
+          <div class="day-label">Turning pt.</div>
+        </div>
+        <div class="day-cell">
+          <div class="day-num">5</div>
+          <div class="day-bar autopilot"></div>
+          <div class="day-label">Autopilot</div>
+        </div>
+        <div class="day-cell">
+          <div class="day-num">6</div>
+          <div class="day-bar autopilot"></div>
+          <div class="day-label">Autopilot</div>
+        </div>
+        <div class="day-cell">
+          <div class="day-num">7</div>
+          <div class="day-bar autopilot"></div>
+          <div class="day-label">Autopilot</div>
+        </div>
+        <div class="day-cell">
+          <div class="day-num">8</div>
+          <div class="day-bar autopilot"></div>
+          <div class="day-label">Samvatsari</div>
+        </div>
+      </div>
+    </div>
+
+    <p>
+      I took the 8th day off from classes — a little weak, but holding strong. Just one more day before I could taste food again. And honestly? I wasn't even craving it anymore. I felt like I had a power over my mind that I'd never known before.
+    </p>
+
+    <p>
+      As to <em>why</em> I did it — not out of devotion or societal pressure, but simply to find out <strong>if I could</strong>. Whether I had the strength and determination to push my body to its limits and see it through. This will always be one of the toughest battles I have fought, and a true testament to my willpower.
+    </p>
+
+    <p>
+      The Jain community in my area took out a procession for all Atthai practitioners and we were showered with praise and gifts. We got to <strong>ride in a chariot pulled by horses</strong>. On the 9th day, friends and family came home and fed me from a huge spread prepared in my honour. It took three more days to ease back into a normal diet. And then there's <strong>Samvatsari</strong> — on the 8th and final day, all Jains ask forgiveness from others using the phrase <em>"Micchami Dukkadam"</em> for any intentional or unintentional wrongdoings. It is truly a festival of repentance.
+    </p>
+
+    <p>
+      Oh, and did I mention? <strong>I lost 8 kgs in those 8 days.</strong> Kinda like intermittent fasting — just with very long intervals.
+    </p>
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="blog-sidebar">
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">By the Numbers</div>
+      <div class="sidebar-stat">
+        <div class="sidebar-stat-num">8</div>
+        <div class="sidebar-stat-label">Days without food</div>
+      </div>
+      <div class="sidebar-stat" style="margin-top:1.25rem;">
+        <div class="sidebar-stat-num">8 kg</div>
+        <div class="sidebar-stat-label">Lost in 8 days</div>
+      </div>
+      <div class="sidebar-stat" style="margin-top:1.25rem;">
+        <div class="sidebar-stat-num">2017</div>
+        <div class="sidebar-stat-label">August, during Paryushana</div>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">The Five Vows</div>
+      <ul class="vow-list">
+        <li>Ahimsa — Non-violence</li>
+        <li>Satya — Truth</li>
+        <li>Asteya — Non-stealing</li>
+        <li>Brahmacharya — Celibacy</li>
+        <li>Aparigraha — Non-attachment</li>
+      </ul>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">About Paryushana</div>
+      <div class="sidebar-text">
+        The most important annual Jain festival — 8 days of introspection, meditation, and repentance. Atthai is the most rigorous observance: boiled water only, sunrise to sunset.
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Tags</div>
+      <div class="tag-list">
+        <span class="tag">Jainism</span>
+        <span class="tag">Fasting</span>
+        <span class="tag">Spirituality</span>
+        <span class="tag">Willpower</span>
+        <span class="tag">Paryushana</span>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<hr class="section-divider">
+
+<div class="blog-footer-nav">
+  <a href="portfolio_with_photo_2_2_1_1.html#blog" class="footer-nav-link back">All Writing</a>
+  <a href="blog-drama-club.html" class="footer-nav-link next">Next: For the Actors, By the Actors</a>
+</div>
+
+<footer>
+  <p>© 2025 Your Name · Built with care</p>
+</footer>
+
+</body>
+</html>

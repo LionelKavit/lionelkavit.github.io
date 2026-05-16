@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For the Actors, By the Actors — Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FFF9F3;
+    --sand: #E8DDD0;
+    --terracotta: #2D6B2D;
+    --terracotta-light: #4A9A4A;
+    --terracotta-dark: #1A4A1A;
+    --brown: #1A3A1A;
+    --brown-light: #3A6B3A;
+    --text-dark: #0D1F0D;
+    --text-mid: #2E5A2E;
+    --text-light: #5A845A;
+    --border: rgba(45,107,45,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--brown);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-mid);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--terracotta); }
+
+  /* HERO */
+  .blog-hero {
+    padding: 9rem 4rem 5rem;
+    max-width: 900px;
+    margin: 0 auto;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    text-decoration: none;
+    margin-bottom: 3rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--terracotta); }
+  .back-link::before { content: '←'; font-size: 1rem; }
+
+  .blog-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1.5px;
+    background: var(--terracotta);
+  }
+
+  .blog-hero h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-hero h1 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.83rem;
+    color: var(--text-light);
+    letter-spacing: 0.03em;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .blog-meta-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--sand);
+  }
+
+  /* HERO IMAGE */
+  .blog-hero-image {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+
+  .blog-hero-image img {
+    width: 100%;
+    max-height: 520px;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  .blog-hero-image .img-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    background: linear-gradient(to top, rgba(10,30,10,0.75) 0%, transparent 100%);
+    padding: 2.5rem 2rem 1.25rem;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.05em;
+    font-style: italic;
+  }
+
+  /* CONTENT */
+  .blog-content-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 4rem;
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 5rem;
+    align-items: start;
+    padding-top: 4rem;
+    padding-bottom: 6rem;
+  }
+
+  .blog-body {
+    animation: fadeUp 0.8s 0.25s ease both;
+  }
+
+  .blog-body p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--text-mid);
+    font-weight: 300;
+    margin-bottom: 1.75rem;
+  }
+
+  .blog-body p:last-child { margin-bottom: 0; }
+
+  .blog-body strong {
+    font-weight: 500;
+    color: var(--text-dark);
+  }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    margin: 2.5rem 0;
+    padding: 1.75rem 2rem;
+    border-left: 3px solid var(--terracotta);
+    background: var(--warm-white);
+    border-radius: 0 2px 2px 0;
+  }
+
+  .pull-quote p {
+    font-family: 'Lora', serif;
+    font-size: 1.2rem !important;
+    font-style: italic;
+    line-height: 1.6 !important;
+    color: var(--text-dark) !important;
+    font-weight: 400 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* SIDEBAR */
+  .blog-sidebar {
+    position: sticky;
+    top: 7rem;
+    animation: fadeUp 0.8s 0.35s ease both;
+  }
+
+  .sidebar-block {
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--warm-white);
+    margin-bottom: 1.5rem;
+  }
+
+  .sidebar-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .sidebar-label::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--terracotta);
+  }
+
+  .sidebar-text {
+    font-size: 0.85rem;
+    line-height: 1.75;
+    color: var(--text-mid);
+    font-weight: 300;
+  }
+
+  .sidebar-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin-top: 0.75rem;
+  }
+
+  .sidebar-stat:first-child { margin-top: 0; }
+
+  .sidebar-stat-num {
+    font-family: 'Lora', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--terracotta);
+    line-height: 1;
+  }
+
+  .sidebar-stat-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    background: rgba(45,107,45,0.08);
+    border: 1px solid rgba(45,107,45,0.18);
+    padding: 0.3rem 0.65rem;
+    border-radius: 2px;
+  }
+
+  /* DIVIDER */
+  .section-divider {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 4rem;
+    border: none;
+    border-top: 1px solid var(--border);
+  }
+
+  /* FOOTER NAV */
+  .blog-footer-nav {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 4rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .footer-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.83rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-nav-link:hover { color: var(--terracotta); }
+  .footer-nav-link.back::before { content: '←'; }
+  .footer-nav-link.all::after { content: ' →'; }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+    letter-spacing: 0.04em;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .blog-hero { padding: 7rem 1.5rem 3rem; }
+    .blog-content-wrap { grid-template-columns: 1fr; padding: 0 1.5rem; padding-top: 2.5rem; padding-bottom: 4rem; gap: 2.5rem; }
+    .blog-hero-image { margin: 0 1.5rem; width: calc(100% - 3rem); }
+    .blog-sidebar { position: static; }
+    .section-divider { padding: 0 1.5rem; }
+    .blog-footer-nav { padding: 2rem 1.5rem 3rem; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="portfolio_with_photo_2_2_1_1.html" class="nav-logo">Your Name</a>
+  <ul class="nav-links">
+    <li><a href="portfolio_with_photo_2_2_1_1.html#about">About</a></li>
+    <li><a href="portfolio_with_photo_2_2_1_1.html#projects">Projects</a></li>
+    <li><a href="portfolio_with_photo_2_2_1_1.html#blog">Writing</a></li>
+    <li><a href="portfolio_with_photo_2_2_1_1.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- BLOG HERO -->
+<div class="blog-hero">
+  <a href="portfolio_with_photo_2_2_1_1.html#blog" class="back-link">Back to Writing</a>
+  <div class="blog-eyebrow">Life & Experiences</div>
+  <h1>For the Actors, <em>By the Actors</em></h1>
+  <div class="blog-meta">
+    <span>May 2025</span>
+    <span class="blog-meta-dot"></span>
+    <span>2 min read</span>
+    <span class="blog-meta-dot"></span>
+    <span>Theatre · Creativity · College</span>
+  </div>
+</div>
+
+<!-- HERO IMAGE -->
+<div class="blog-hero-image" style="max-width:900px; margin: 0 auto; padding: 0 4rem;">
+  <img src="img-blog-drama.png" alt="Drama club cast at ACTFest Rangmanch 2019">
+  <div class="img-caption">The cast and crew of एक था गधा — ACTFest Rangmanch 2019, Mumbai</div>
+</div>
+
+<!-- CONTENT -->
+<div class="blog-content-wrap">
+
+  <!-- MAIN BODY -->
+  <article class="blog-body">
+    <p>
+      I was a part of my undergrad university's drama club for three years — scripting, directing, and acting across street plays, stage plays, and short films. I led the club in 2019–20, and our most memorable achievement that year was <strong>finishing third out of twenty teams</strong> in the CINTAA ACTFest Rangmanch competition.
+    </p>
+
+    <p>
+      Rangmanch at ACTFest 2019 was an inter-collegiate theatre competition spotlighting emerging stage talent, organized by the Cine & TV Artistes' Association (CINTAA). Performances were judged and celebrated by veteran Bollywood actors including <strong>Neena Gupta, Manoj Joshi, and Rajit Kapur</strong> — names that meant the world to anyone serious about the craft. ACTFest bills itself as the world's first festival "For The Actors, By The Actors," built for empowerment and networking. Beyond competitions, it featured workshops, panel discussions, and celebrity interactions — a holistic platform for anyone who lives and breathes theatre.
+    </p>
+
+    <div class="pull-quote">
+      <p>"I always enjoy directing plays and doing what a director does — fit the pieces in a puzzle. Create a vision, get everyone on board, and see them through the journey."</p>
+    </div>
+
+    <p>
+      I acted in and co-directed — alongside <strong>Ayush Nathani</strong> — the play <strong><em>एक था गधा</em></strong> (literally: "Once there was a donkey"), a famous satirical Hindi play written by the celebrated poet and playwright Sharad Joshi. Known for its sharp, humorous take on bureaucracy, politics, and social hypocrisy, the play has endured as a timeless piece of Indian theatre.
+    </p>
+
+    <p>
+      Set in the fictional kingdom of Hinchistan, the story revolves around the death of a common man's donkey — which spirals into a comically exaggerated national crisis. To save face, the king (my character) and his ministers turn the donkey into a martyr, delivering over-the-top speeches and hollow honors. Through witty dialogue and farcical situations, Joshi makes you think about how real issues are ignored while meaningless matters are blown out of proportion for political gain. The message hits home without ever getting preachy, which is exactly why <em>Ek Tha Gadha</em> remains relevant decades after it was written.
+    </p>
+
+    <p>
+      That was my last year with the drama club, and I left it with great pride — and even greater friends.
+    </p>
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="blog-sidebar">
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Highlights</div>
+      <div class="sidebar-stat">
+        <div class="sidebar-stat-num">3rd</div>
+        <div class="sidebar-stat-label">of 20 teams, ACTFest Rangmanch</div>
+      </div>
+      <div class="sidebar-stat" style="margin-top:1.25rem;">
+        <div class="sidebar-stat-num">3 yrs</div>
+        <div class="sidebar-stat-label">Drama club member</div>
+      </div>
+      <div class="sidebar-stat" style="margin-top:1.25rem;">
+        <div class="sidebar-stat-num">2019</div>
+        <div class="sidebar-stat-label">Club President</div>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">The Play</div>
+      <div class="sidebar-text">
+        <strong style="color:var(--text-dark); font-weight:500;">एक था गधा</strong><br>
+        Written by Sharad Joshi<br><br>
+        A satirical Hindi classic on bureaucracy, politics & social hypocrisy — set in the fictional kingdom of Hinchistan.
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Roles</div>
+      <div class="tag-list">
+        <span class="tag">Actor</span>
+        <span class="tag">Co-Director</span>
+        <span class="tag">Scriptwriter</span>
+        <span class="tag">Club President</span>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">About ACTFest</div>
+      <div class="sidebar-text">
+        Organized by CINTAA, ACTFest is billed as the world's first festival "For The Actors, By The Actors" — built for actor empowerment, networking, and theatre exposure.
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<hr class="section-divider">
+
+<div class="blog-footer-nav">
+  <a href="portfolio_with_photo_2_2_1_1.html#blog" class="footer-nav-link back">All Writing</a>
+  <a href="portfolio_with_photo_2_2_1_1.html#contact" class="footer-nav-link all">Get in touch</a>
+</div>
+
+<footer>
+  <p>© 2025 Your Name · Built with care</p>
+</footer>
+
+</body>
+</html>

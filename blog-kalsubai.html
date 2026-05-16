@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conquered the Everest of Maharashtra — Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FFF9F3;
+    --sand: #E8DDD0;
+    --terracotta: #2D6B2D;
+    --terracotta-light: #4A9A4A;
+    --terracotta-dark: #1A4A1A;
+    --brown: #1A3A1A;
+    --brown-light: #3A6B3A;
+    --text-dark: #0D1F0D;
+    --text-mid: #2E5A2E;
+    --text-light: #5A845A;
+    --border: rgba(45,107,45,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--brown);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-mid);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--terracotta); }
+
+  /* CINEMATIC HERO IMAGE — full bleed */
+  .hero-image-wrap {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    min-height: 480px;
+    overflow: hidden;
+    margin-top: 0;
+  }
+
+  .hero-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+  }
+
+  .hero-image-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(10,25,10,0.25) 0%,
+      rgba(10,25,10,0.1) 40%,
+      rgba(250,247,242,0.0) 60%,
+      rgba(250,247,242,1) 100%
+    );
+  }
+
+  .hero-overlay-text {
+    position: absolute;
+    bottom: 3rem;
+    left: 4rem;
+    z-index: 2;
+    color: #fff;
+  }
+
+  .hero-overlay-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+    opacity: 0.85;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .hero-overlay-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1.5px;
+    background: #fff;
+    opacity: 0.7;
+  }
+
+  .hero-altitude-badge {
+    position: absolute;
+    top: 5.5rem;
+    right: 4rem;
+    z-index: 2;
+    background: rgba(10,25,10,0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 1.25rem 1.5rem;
+    border-radius: 2px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .altitude-num {
+    font-family: 'Lora', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .altitude-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-top: 0.3rem;
+  }
+
+  /* HERO TEXT BLOCK */
+  .blog-hero {
+    padding: 2rem 4rem 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    text-decoration: none;
+    margin-bottom: 2rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--terracotta); }
+  .back-link::before { content: '←'; font-size: 1rem; }
+
+  .blog-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1.5px;
+    background: var(--terracotta);
+  }
+
+  .blog-hero h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-hero h1 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.83rem;
+    color: var(--text-light);
+    letter-spacing: 0.03em;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .blog-meta-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--sand);
+  }
+
+  /* CONTENT */
+  .blog-content-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 4rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .blog-body {
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+
+  .blog-body p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--text-mid);
+    font-weight: 300;
+    margin-bottom: 1.75rem;
+  }
+
+  .blog-body p:last-child { margin-bottom: 0; }
+
+  .blog-body strong {
+    font-weight: 500;
+    color: var(--text-dark);
+  }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    margin: 2.5rem 0;
+    padding: 1.75rem 2rem;
+    border-left: 3px solid var(--terracotta);
+    background: var(--warm-white);
+    border-radius: 0 2px 2px 0;
+  }
+
+  .pull-quote p {
+    font-family: 'Lora', serif;
+    font-size: 1.2rem !important;
+    font-style: italic;
+    line-height: 1.6 !important;
+    color: var(--text-dark) !important;
+    font-weight: 400 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* TREK TIMELINE */
+  .trek-timeline {
+    margin: 2.5rem 0;
+    padding: 1.75rem 2rem;
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+  }
+
+  .trek-timeline-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .trek-timeline-label::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 1.5px;
+    background: var(--terracotta);
+  }
+
+  .trek-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .trek-step {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 1rem;
+    position: relative;
+  }
+
+  .trek-step:not(:last-child) .trek-step-line {
+    position: absolute;
+    left: 19px;
+    top: 28px;
+    bottom: -4px;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .trek-step-time {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    letter-spacing: 0.04em;
+    padding-top: 0.5rem;
+    text-align: right;
+    font-weight: 400;
+  }
+
+  .trek-step-dot-wrap {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    padding-top: 0.55rem;
+  }
+
+  .trek-step-body {
+    padding-bottom: 1.25rem;
+  }
+
+  .trek-step-title {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    margin-bottom: 0.2rem;
+  }
+
+  .trek-step-detail {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    font-weight: 300;
+    line-height: 1.55;
+  }
+
+  /* PHOTO MOSAIC */
+  .photo-mosaic {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 4rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 260px 260px;
+    gap: 1rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .mosaic-img {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+  }
+
+  .mosaic-img.span-col {
+    grid-column: span 2;
+  }
+
+  .mosaic-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .mosaic-img:hover img { transform: scale(1.04); }
+
+  .mosaic-img .img-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(10,30,10,0.75) 0%, transparent 100%);
+    padding: 1.5rem 1rem 0.75rem;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 0.04em;
+    font-style: italic;
+  }
+
+  /* SIDEBAR */
+  .blog-sidebar {
+    position: sticky;
+    top: 7rem;
+    animation: fadeUp 0.8s 0.25s ease both;
+  }
+
+  .sidebar-block {
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--warm-white);
+    margin-bottom: 1.5rem;
+  }
+
+  .sidebar-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .sidebar-label::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--terracotta);
+  }
+
+  .sidebar-text {
+    font-size: 0.85rem;
+    line-height: 1.75;
+    color: var(--text-mid);
+    font-weight: 300;
+  }
+
+  .sidebar-stat {
+    margin-top: 0.75rem;
+  }
+
+  .sidebar-stat:first-child { margin-top: 0; }
+
+  .sidebar-stat-num {
+    font-family: 'Lora', serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--terracotta);
+    line-height: 1;
+  }
+
+  .sidebar-stat-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-top: 0.15rem;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    background: rgba(45,107,45,0.08);
+    border: 1px solid rgba(45,107,45,0.18);
+    padding: 0.3rem 0.65rem;
+    border-radius: 2px;
+  }
+
+  /* DIVIDER */
+  .section-divider {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 4rem;
+    border: none;
+    border-top: 1px solid var(--border);
+  }
+
+  /* FOOTER NAV */
+  .blog-footer-nav {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 4rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .footer-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.83rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-nav-link:hover { color: var(--terracotta); }
+  .footer-nav-link.back::before { content: '←'; }
+  .footer-nav-link.next::after { content: ' →'; }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+    letter-spacing: 0.04em;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.25rem; }
+    .hero-image-wrap { height: 50vh; }
+    .hero-overlay-text { left: 1.5rem; bottom: 2rem; }
+    .hero-altitude-badge { top: 5rem; right: 1.5rem; }
+    .blog-hero { padding: 1.5rem 1.5rem 3rem; }
+    .blog-content-wrap { grid-template-columns: 1fr; padding: 2.5rem 1.5rem 2rem; gap: 2.5rem; }
+    .blog-sidebar { position: static; }
+    .photo-mosaic { padding: 0 1.5rem 3rem; grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .mosaic-img.span-col { grid-column: span 2; }
+    .mosaic-img img { height: 200px; }
+    .section-divider { padding: 0 1.5rem; }
+    .blog-footer-nav { padding: 2rem 1.5rem 3rem; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="portfolio_with_photo_2_2_1_1.html" class="nav-logo">Your Name</a>
+  <ul class="nav-links">
+    <li><a href="portfolio_with_photo_2_2_1_1.html#about">About</a></li>
+    <li><a href="portfolio_with_photo_2_2_1_1.html#projects">Projects</a></li>
+    <li><a href="portfolio_with_photo_2_2_1_1.html#blog">Writing</a></li>
+    <li><a href="portfolio_with_photo_2_2_1_1.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- CINEMATIC HERO IMAGE — full bleed, no top padding needed -->
+<div class="hero-image-wrap" style="margin-top:64px;">
+  <img src="img-blog-kalsubai-4.png" alt="Waterfalls cascading down the Kalsubai range in monsoon">
+  <div class="hero-altitude-badge">
+    <div class="altitude-num">5,400</div>
+    <div class="altitude-label">Feet above sea level</div>
+  </div>
+</div>
+
+<!-- BLOG HERO TEXT -->
+<div class="blog-hero">
+  <a href="portfolio_with_photo_2_2_1_1.html#blog" class="back-link">Back to Writing</a>
+  <div class="blog-eyebrow">Travel & Adventure</div>
+  <h1>Conquered the <em>Everest of Maharashtra</em></h1>
+  <div class="blog-meta">
+    <span>May 2025</span>
+    <span class="blog-meta-dot"></span>
+    <span>2 min read</span>
+    <span class="blog-meta-dot"></span>
+    <span>Trekking · Kalsubai · Western Ghats</span>
+  </div>
+</div>
+
+<!-- CONTENT + SIDEBAR -->
+<div class="blog-content-wrap">
+
+  <article class="blog-body">
+    <p>
+      Kalsubai. Standing at <strong>5,400 feet above sea level</strong>, it is the highest peak in Maharashtra — affectionately known as the "Everest of Maharashtra." In July 2019, my roommates and I decided we were going to climb it. Monsoon season. Slippery trails. Probably not the wisest timing — but we were too antsy to wait until January, and figured the weather would only add to the thrill.
+    </p>
+
+    <p>
+      We left Mumbai at <strong>4 am</strong>, a four-hour train-and-bus journey ahead of us. We arrived at <strong>Bari village</strong>, nestled at the foot of Kalsubai, just as the morning mist was still hanging low. A local was selling hot tea and snacks from a small hut — we freshened up, refuelled, and set out.
+    </p>
+
+    <!-- TREK TIMELINE -->
+    <div class="trek-timeline">
+      <div class="trek-timeline-label">The Day on the Mountain</div>
+      <div class="trek-steps">
+
+        <div class="trek-step">
+          <div class="trek-step-time">4 am</div>
+          <div class="trek-step-body">
+            <div class="trek-step-line"></div>
+            <div class="trek-step-title">Departed Mumbai</div>
+            <div class="trek-step-detail">Train + bus, ~4 hours to Bari village</div>
+          </div>
+        </div>
+
+        <div class="trek-step">
+          <div class="trek-step-time">~8 am</div>
+          <div class="trek-step-body">
+            <div class="trek-step-line"></div>
+            <div class="trek-step-title">Bari Village — Start of Trek</div>
+            <div class="trek-step-detail">Hot tea, snacks, and boots on the ground</div>
+          </div>
+        </div>
+
+        <div class="trek-step">
+          <div class="trek-step-time">+5 hrs</div>
+          <div class="trek-step-body">
+            <div class="trek-step-line"></div>
+            <div class="trek-step-title">Summit Camp</div>
+            <div class="trek-step-detail">Hot noodles and tea from a vendor shed — refuelled for the final push</div>
+          </div>
+        </div>
+
+        <div class="trek-step">
+          <div class="trek-step-time">+1 hr</div>
+          <div class="trek-step-body">
+            <div class="trek-step-line"></div>
+            <div class="trek-step-title">The Summit — 5,400 ft</div>
+            <div class="trek-step-detail">Fragile staircase. Thick mist. Ancient temple. Prayers offered.</div>
+          </div>
+        </div>
+
+        <div class="trek-step">
+          <div class="trek-step-time">−2.5 hrs</div>
+          <div class="trek-step-body">
+            <div class="trek-step-title">Descent to Bari Village</div>
+            <div class="trek-step-detail">Faster on the way down, legs definitely disagreed</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      <p>"Despite wanting to give up multiple times, I kept going — picturing the view from the peak. And up there in the clouds, it was absolutely worth it."</p>
+    </div>
+
+    <p>
+      The final stretch was something else. A long, seemingly fragile staircase rising into the clouds — the kind that looks like it should have collapsed years ago but somehow hasn't. We decided to trust its makers and the mountain's reputation. As we climbed higher, <strong>visibility dropped to just a few feet</strong>. The clouds weren't above us anymore — they were in our faces.
+    </p>
+
+    <p>
+      At the top, the peak flattens out just enough to stand and breathe it all in. We found an old temple dedicated to a local deity, offered our prayers, and took a quiet moment. On the way up, we'd also been accompanied by a wet, stoic dog who seemed entirely unfazed by the altitude — a proper mountain local.
+    </p>
+
+    <p>
+      My takeaway? We took a risk going in monsoon season, and we were <strong>rewarded for it</strong>. The waterfalls were alive, the greenery was electric, and the trail felt like something out of a film. Maybe the deity protects its patrons. Or maybe one of us was a lucky charm. Either way — strength and stamina tested, limits pushed, summit reached.
+    </p>
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="blog-sidebar">
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Trek Stats</div>
+      <div class="sidebar-stat">
+        <div class="sidebar-stat-num">5,400</div>
+        <div class="sidebar-stat-label">ft above sea level</div>
+      </div>
+      <div class="sidebar-stat" style="margin-top:1.25rem;">
+        <div class="sidebar-stat-num">~8.5h</div>
+        <div class="sidebar-stat-label">Total on the mountain</div>
+      </div>
+      <div class="sidebar-stat" style="margin-top:1.25rem;">
+        <div class="sidebar-stat-num">July</div>
+        <div class="sidebar-stat-label">Peak monsoon season, 2019</div>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">About Kalsubai</div>
+      <div class="sidebar-text">
+        The highest peak in Maharashtra at 5,400 ft. Located in the Western Ghats, near Bhandardara. Known as the "Everest of Maharashtra" — trekked year-round, most dramatic in monsoon.
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Highlight</div>
+      <div class="sidebar-text">
+        Ancient temple at the summit dedicated to a local deity. Prayers offered at the top of Maharashtra — a fitting close to a daunting climb.
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Tags</div>
+      <div class="tag-list">
+        <span class="tag">Trek</span>
+        <span class="tag">Kalsubai</span>
+        <span class="tag">Maharashtra</span>
+        <span class="tag">Monsoon</span>
+        <span class="tag">Western Ghats</span>
+        <span class="tag">Adventure</span>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- PHOTO MOSAIC -->
+<div class="photo-mosaic">
+  <div class="mosaic-img span-col">
+    <img src="img-blog-kalsubai-1.png" alt="Sitting at the edge, looking out over the valley">
+    <div class="img-caption">At the summit edge, looking out over the valley below</div>
+  </div>
+  <div class="mosaic-img">
+    <img src="img-blog-kalsubai-3.png" alt="A mountain dog surveying the misty valley from the summit">
+    <div class="img-caption">The unofficial mascot of Kalsubai</div>
+  </div>
+  <div class="mosaic-img span-col">
+    <img src="img-blog-kalsubai-2.png" alt="Standing with monsoon waterfalls cascading in the background">
+    <div class="img-caption">Thumbs up — waterfalls everywhere in monsoon</div>
+  </div>
+  <div class="mosaic-img">
+    <img src="img-blog-kalsubai-4.png" alt="Multiple waterfalls tumbling down the Sahyadri cliff face">
+    <div class="img-caption">Dozens of waterfalls, all alive at once</div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<div class="blog-footer-nav">
+  <a href="portfolio_with_photo_2_2_1_1.html#blog" class="footer-nav-link back">All Writing</a>
+  <a href="blog-comics-for-change.html" class="footer-nav-link next">Next: Comics for Change</a>
+</div>
+
+<footer>
+  <p>© 2025 Your Name · Built with care</p>
+</footer>
+
+</body>
+</html>

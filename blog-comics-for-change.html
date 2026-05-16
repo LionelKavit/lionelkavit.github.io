@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comics for Change — Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FFF9F3;
+    --sand: #E8DDD0;
+    --terracotta: #2D6B2D;
+    --terracotta-light: #4A9A4A;
+    --terracotta-dark: #1A4A1A;
+    --brown: #1A3A1A;
+    --brown-light: #3A6B3A;
+    --text-dark: #0D1F0D;
+    --text-mid: #2E5A2E;
+    --text-light: #5A845A;
+    --border: rgba(45,107,45,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--brown);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-mid);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--terracotta); }
+
+  /* HERO */
+  .blog-hero {
+    padding: 9rem 4rem 5rem;
+    max-width: 900px;
+    margin: 0 auto;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    text-decoration: none;
+    margin-bottom: 3rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--terracotta); }
+  .back-link::before { content: '←'; font-size: 1rem; }
+
+  .blog-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1.5px;
+    background: var(--terracotta);
+  }
+
+  .blog-hero h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-hero h1 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.83rem;
+    color: var(--text-light);
+    letter-spacing: 0.03em;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .blog-meta-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--sand);
+  }
+
+  /* PHOTO GALLERY — wide + stacked */
+  .blog-photo-gallery {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 4rem;
+    display: grid;
+    grid-template-columns: 5fr 4fr;
+    gap: 1rem;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+
+  .gallery-img-wrap {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+  }
+
+  .gallery-img-wrap img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .gallery-img-wrap.tall img {
+    height: 420px;
+    object-position: center top;
+  }
+
+  .gallery-img-wrap:hover img {
+    transform: scale(1.03);
+  }
+
+  .gallery-img-wrap .img-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    background: linear-gradient(to top, rgba(10,30,10,0.78) 0%, transparent 100%);
+    padding: 2rem 1.25rem 1rem;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.78);
+    letter-spacing: 0.04em;
+    font-style: italic;
+  }
+
+  /* CONTENT */
+  .blog-content-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 4rem 6rem;
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .blog-body {
+    animation: fadeUp 0.8s 0.25s ease both;
+  }
+
+  .blog-body p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--text-mid);
+    font-weight: 300;
+    margin-bottom: 1.75rem;
+  }
+
+  .blog-body p:last-child { margin-bottom: 0; }
+
+  .blog-body strong {
+    font-weight: 500;
+    color: var(--text-dark);
+  }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    margin: 2.5rem 0;
+    padding: 1.75rem 2rem;
+    border-left: 3px solid var(--terracotta);
+    background: var(--warm-white);
+    border-radius: 0 2px 2px 0;
+  }
+
+  .pull-quote p {
+    font-family: 'Lora', serif;
+    font-size: 1.2rem !important;
+    font-style: italic;
+    line-height: 1.6 !important;
+    color: var(--text-dark) !important;
+    font-weight: 400 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* LINEUP TABLE */
+  .lineup-block {
+    margin: 2.5rem 0;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    background: var(--warm-white);
+  }
+
+  .lineup-header {
+    padding: 1rem 1.5rem;
+    background: var(--terracotta);
+    color: #fff;
+  }
+
+  .lineup-header-text {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .lineup-row {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 1rem;
+    padding: 0.85rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+    transition: background 0.15s;
+  }
+
+  .lineup-row:last-child { border-bottom: none; }
+  .lineup-row:hover { background: rgba(45,107,45,0.04); }
+
+  .lineup-name {
+    font-family: 'Lora', serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-dark);
+  }
+
+  .lineup-topic {
+    font-size: 0.83rem;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .lineup-topic-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    background: rgba(45,107,45,0.08);
+    border: 1px solid rgba(45,107,45,0.18);
+    padding: 0.2rem 0.55rem;
+    border-radius: 2px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+
+  /* SIDEBAR */
+  .blog-sidebar {
+    position: sticky;
+    top: 7rem;
+    animation: fadeUp 0.8s 0.35s ease both;
+  }
+
+  .sidebar-block {
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--warm-white);
+    margin-bottom: 1.5rem;
+  }
+
+  .sidebar-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .sidebar-label::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--terracotta);
+  }
+
+  .sidebar-text {
+    font-size: 0.85rem;
+    line-height: 1.75;
+    color: var(--text-mid);
+    font-weight: 300;
+  }
+
+  .sidebar-stat {
+    margin-top: 0.75rem;
+  }
+
+  .sidebar-stat:first-child { margin-top: 0; }
+
+  .sidebar-stat-num {
+    font-family: 'Lora', serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--terracotta);
+    line-height: 1;
+  }
+
+  .sidebar-stat-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-top: 0.15rem;
+  }
+
+  .org-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .org-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.83rem;
+    color: var(--text-mid);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  .org-list li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    flex-shrink: 0;
+    margin-top: 0.45rem;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    background: rgba(45,107,45,0.08);
+    border: 1px solid rgba(45,107,45,0.18);
+    padding: 0.3rem 0.65rem;
+    border-radius: 2px;
+  }
+
+  /* DIVIDER */
+  .section-divider {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 4rem;
+    border: none;
+    border-top: 1px solid var(--border);
+  }
+
+  /* FOOTER NAV */
+  .blog-footer-nav {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 4rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .footer-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.83rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-nav-link:hover { color: var(--terracotta); }
+  .footer-nav-link.back::before { content: '←'; }
+  .footer-nav-link.next::after { content: ' →'; }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+    letter-spacing: 0.04em;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.25rem; }
+    .blog-hero { padding: 7rem 1.5rem 3rem; }
+    .blog-photo-gallery { padding: 0 1.5rem; grid-template-columns: 1fr; }
+    .gallery-img-wrap img, .gallery-img-wrap.tall img { height: 280px; }
+    .blog-content-wrap { grid-template-columns: 1fr; padding: 2.5rem 1.5rem 4rem; gap: 2.5rem; }
+    .blog-sidebar { position: static; }
+    .section-divider { padding: 0 1.5rem; }
+    .blog-footer-nav { padding: 2rem 1.5rem 3rem; flex-direction: column; align-items: flex-start; }
+    .lineup-row { grid-template-columns: 1fr; gap: 0.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="portfolio_with_photo_2_2_1_1.html" class="nav-logo">Your Name</a>
+  <ul class="nav-links">
+    <li><a href="portfolio_with_photo_2_2_1_1.html#about">About</a></li>
+    <li><a href="portfolio_with_photo_2_2_1_1.html#projects">Projects</a></li>
+    <li><a href="portfolio_with_photo_2_2_1_1.html#blog">Writing</a></li>
+    <li><a href="portfolio_with_photo_2_2_1_1.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- BLOG HERO -->
+<div class="blog-hero">
+  <a href="portfolio_with_photo_2_2_1_1.html#blog" class="back-link">Back to Writing</a>
+  <div class="blog-eyebrow">Work & Creativity</div>
+  <h1>Comics for <em>Change</em></h1>
+  <div class="blog-meta">
+    <span>May 2025</span>
+    <span class="blog-meta-dot"></span>
+    <span>3 min read</span>
+    <span class="blog-meta-dot"></span>
+    <span>Events · Sustainability · Comedy</span>
+  </div>
+</div>
+
+<!-- PHOTO GALLERY -->
+<div class="blog-photo-gallery">
+  <div class="gallery-img-wrap">
+    <img src="img-blog-cfc-2.png" alt="The team at Comics for Change event, 2020">
+    <div class="img-caption">The Comics for Change team — Jio Creative Labs, 2020</div>
+  </div>
+  <div class="gallery-img-wrap tall">
+    <img src="img-blog-cfc-1.png" alt="At the Comics for Change event backdrop">
+    <div class="img-caption">At the event backdrop, holding the CFC programme booklet</div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="blog-content-wrap">
+
+  <!-- MAIN BODY -->
+  <article class="blog-body">
+    <p>
+      Back in 2020, while working at <strong>Jio Creative Labs</strong>, my team and I created a new IP called <strong>Comics for Change</strong> — a live comedy event with a purpose. The idea was simple but ambitious: invite top stand-up comedians from across India to perform pieces that championed the <strong>17 Sustainable Development Goals</strong> laid out by the United Nations, covering themes like climate change, poverty, quality education, and responsible consumption.
+    </p>
+
+    <p>
+      The event united three generations of India's comedy scene to present serious sustainability issues through the most approachable medium there is — laughter. The guest of honour was <strong>Nobel laureate Kailash Satyarthi</strong>, who performed stand-up for the very first time, emphasizing youth engagement in the SDGs. The event was hosted by <strong>Cyrus Broacha</strong> and <strong>Kunal Vijayekar</strong>, and supported by organizations including UN Women, the Global Sustainability Network, the Kailash Satyarthi Children's Foundation, and my alma mater, SVKM's NMIMS.
+    </p>
+
+    <div class="pull-quote">
+      <p>"By providing a platform for social messages through entertainment, we made topics like climate and inequality relatable, memorable — and actually fun to talk about."</p>
+    </div>
+
+    <p>
+      The evening opened with <strong>Raageshwari Loomba</strong> performing a dance with children from the Kailash Satyarthi Children's Foundation — setting the tone beautifully. What followed was a stellar lineup, each comedian or performer matched to an SDG they brought to life on stage:
+    </p>
+
+    <!-- LINEUP TABLE -->
+    <div class="lineup-block">
+      <div class="lineup-header">
+        <div class="lineup-header-text">The Evening Lineup</div>
+      </div>
+      <div class="lineup-row">
+        <div class="lineup-name">Raageshwari Loomba</div>
+        <div class="lineup-topic">Opening dance with children from KSCF</div>
+      </div>
+      <div class="lineup-row">
+        <div class="lineup-name">Johnny Lever</div>
+        <div class="lineup-topic">Responsible Consumption <span class="lineup-topic-tag">SDG 12</span></div>
+      </div>
+      <div class="lineup-row">
+        <div class="lineup-name">Boman Irani</div>
+        <div class="lineup-topic">Poverty — closed with a sing-along of <em>Give Me Some Sunshine</em> <span class="lineup-topic-tag">SDG 1</span></div>
+      </div>
+      <div class="lineup-row">
+        <div class="lineup-name">Tanmay Bhat</div>
+        <div class="lineup-topic">Quality Education <span class="lineup-topic-tag">SDG 4</span></div>
+      </div>
+      <div class="lineup-row">
+        <div class="lineup-name">Abish Mathew</div>
+        <div class="lineup-topic">Innovation & Infrastructure <span class="lineup-topic-tag">SDG 9</span></div>
+      </div>
+      <div class="lineup-row">
+        <div class="lineup-name">Saurabh Pant & JD Majethia</div>
+        <div class="lineup-topic">Climate Change <span class="lineup-topic-tag">SDG 13</span></div>
+      </div>
+      <div class="lineup-row">
+        <div class="lineup-name">Urvashi Rautela & Supriya Pilgaonkar</div>
+        <div class="lineup-topic">Fitness & Wellbeing <span class="lineup-topic-tag">SDG 3</span></div>
+      </div>
+      <div class="lineup-row">
+        <div class="lineup-name">RJ Pritam</div>
+        <div class="lineup-topic">Zero Hunger <span class="lineup-topic-tag">SDG 2</span></div>
+      </div>
+      <div class="lineup-row">
+        <div class="lineup-name">Saumya Tandon</div>
+        <div class="lineup-topic">Life on Land <span class="lineup-topic-tag">SDG 15</span></div>
+      </div>
+      <div class="lineup-row">
+        <div class="lineup-name">Kailash Satyarthi</div>
+        <div class="lineup-topic">Guest of Honour — first-ever stand-up performance</div>
+      </div>
+    </div>
+
+    <p>
+      It was my first time organizing an event at this scale. My role covered <strong>Business and Public Outreach</strong>, along with <strong>Operations and Hospitality</strong> on the day. This was a true passion project — aimed at inspiring youth to embrace the SDGs in their daily lives and future decisions. Though targeted and by-invite only, the event garnered real media attention and proved a meaningful platform for youth-led climate and sustainability messaging.
+    </p>
+
+    <p>
+      It proved to be a great success — and a reminder that sometimes, the best way to talk about the world's hardest problems is to make people laugh first.
+    </p>
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="blog-sidebar">
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">By the Numbers</div>
+      <div class="sidebar-stat">
+        <div class="sidebar-stat-num">17</div>
+        <div class="sidebar-stat-label">UN Sustainable Development Goals</div>
+      </div>
+      <div class="sidebar-stat" style="margin-top:1.25rem;">
+        <div class="sidebar-stat-num">10+</div>
+        <div class="sidebar-stat-label">Comedians & performers</div>
+      </div>
+      <div class="sidebar-stat" style="margin-top:1.25rem;">
+        <div class="sidebar-stat-num">2020</div>
+        <div class="sidebar-stat-label">Jio Creative Labs</div>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">My Role</div>
+      <div class="sidebar-text">
+        Business & Public Outreach — bringing organizations and partners on board.<br><br>
+        Operations & Hospitality — running the show on the day of the event.
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Supported By</div>
+      <ul class="org-list">
+        <li>UN Women</li>
+        <li>Global Sustainability Network</li>
+        <li>Kailash Satyarthi Children's Foundation</li>
+        <li>SVKM's NMIMS University</li>
+      </ul>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Tags</div>
+      <div class="tag-list">
+        <span class="tag">Events</span>
+        <span class="tag">Sustainability</span>
+        <span class="tag">SDGs</span>
+        <span class="tag">Comedy</span>
+        <span class="tag">Jio</span>
+        <span class="tag">Youth</span>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<hr class="section-divider">
+
+<div class="blog-footer-nav">
+  <a href="portfolio_with_photo_2_2_1_1.html#blog" class="footer-nav-link back">All Writing</a>
+  <a href="blog-atthai.html" class="footer-nav-link next">Next: 8 Days Without Food</a>
+</div>
+
+<footer>
+  <p>© 2025 Your Name · Built with care</p>
+</footer>
+
+</body>
+</html>
