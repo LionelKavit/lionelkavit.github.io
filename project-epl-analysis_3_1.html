@@ -10,9 +10,9 @@
     --cream: #FAF7F2;
     --warm-white: #FFF9F3;
     --sand: #E8DDD0;
-    --terracotta: #2D6B2D;
-    --terracotta-light: #4A9A4A;
-    --terracotta-dark: #1A4A1A;
+    --green: #2D6B2D;
+    --green-light: #4A9A4A;
+    --green-dark: #1A4A1A;
     --brown: #1A3A1A;
     --brown-light: #3A6B3A;
     --text-dark: #0D1F0D;
@@ -37,7 +37,7 @@
   }
   .nav-logo { font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 600; color: var(--brown); text-decoration: none; }
   .nav-back { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
-  .nav-back:hover { color: var(--terracotta); }
+  .nav-back:hover { color: var(--green); }
   .nav-back::before { content: '←'; font-size: 1rem; }
 
   /* HERO */
@@ -73,8 +73,8 @@
 
   /* CONTENT */
   .content { max-width: 900px; margin: 0 auto; padding: 5rem 4rem 6rem; }
-  .label { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--terracotta); font-weight: 500; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
-  .label::before { content: ''; display: inline-block; width: 18px; height: 1.5px; background: var(--terracotta); }
+  .label { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green); font-weight: 500; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+  .label::before { content: ''; display: inline-block; width: 18px; height: 1.5px; background: var(--green); }
   h2 { font-family: 'Lora', serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 500; color: var(--text-dark); line-height: 1.25; margin-bottom: 1.25rem; }
   p { font-size: 0.97rem; line-height: 1.9; color: var(--text-mid); font-weight: 300; }
   .divider { border: none; border-top: 1px solid var(--border); margin: 4rem 0; }
@@ -89,10 +89,10 @@
   .dataset-badge { font-size: 0.72rem; background: var(--sand); color: var(--brown); padding: 0.25rem 0.65rem; border-radius: 2px; font-weight: 500; }
 
   /* MERGE CALLOUT */
-  .merge-note { background: #F0F7F0; border: 1px solid rgba(45,107,45,0.2); border-left: 3px solid var(--terracotta); border-radius: 0 4px 4px 0; padding: 1.25rem 1.5rem; margin-top: 1.25rem; }
-  .merge-note-label { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--terracotta-dark); font-weight: 500; margin-bottom: 0.5rem; }
+  .merge-note { background: #F0F7F0; border: 1px solid rgba(45,107,45,0.2); border-left: 3px solid var(--green); border-radius: 0 4px 4px 0; padding: 1.25rem 1.5rem; margin-top: 1.25rem; }
+  .merge-note-label { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green-dark); font-weight: 500; margin-bottom: 0.5rem; }
   .merge-note-text { font-size: 0.82rem; line-height: 1.7; color: var(--text-mid); font-weight: 300; }
-  .merge-note-text code { font-family: var(--mono); font-size: 0.78rem; background: rgba(45,107,45,0.1); padding: 1px 5px; border-radius: 2px; color: var(--terracotta-dark); }
+  .merge-note-text code { font-family: var(--mono); font-size: 0.78rem; background: rgba(45,107,45,0.1); padding: 1px 5px; border-radius: 2px; color: var(--green-dark); }
 
   /* RQ CARDS */
   .rq-list { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1.75rem; }
@@ -138,7 +138,7 @@
   .quad-card.ba-bd { background: rgba(180,50,50,0.05); border-color: rgba(180,50,50,0.15); }
   .quad-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.75rem; }
   .ga-gd .quad-label { color: var(--pitch-accent); }
-  .ga-bd .quad-label { color: var(--terracotta-dark); }
+  .ga-bd .quad-label { color: var(--green-dark); }
   .ba-gd .quad-label { color: var(--brown-light); }
   .ba-bd .quad-label { color: #A03030; }
   .quad-teams { font-size: 0.82rem; line-height: 1.8; color: var(--text-mid); font-weight: 300; }
@@ -153,14 +153,14 @@
   .swot-section { }
   .swot-section-label { font-size: 0.67rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.65rem; padding: 0.25rem 0.6rem; border-radius: 2px; display: inline-block; }
   .swot-s .swot-section-label { background: rgba(45,107,45,0.1); color: var(--pitch-accent); }
-  .swot-w .swot-section-label { background: rgba(45,107,45,0.1); color: var(--terracotta-dark); }
+  .swot-w .swot-section-label { background: rgba(45,107,45,0.1); color: var(--green-dark); }
   .swot-o .swot-section-label { background: rgba(45,107,45,0.08); color: var(--brown); }
   .swot-t .swot-section-label { background: rgba(180,50,50,0.07); color: #8A2020; }
   .swot-item { font-size: 0.8rem; line-height: 1.7; color: var(--text-mid); font-weight: 300; padding: 0.3rem 0; border-bottom: 1px solid var(--border); display: flex; gap: 0.5rem; }
   .swot-item:last-child { border-bottom: none; padding-bottom: 0; }
   .swot-item::before { flex-shrink: 0; font-size: 0.72rem; margin-top: 0.15rem; }
   .swot-s .swot-item::before { content: '✓'; color: var(--pitch-accent); }
-  .swot-w .swot-item::before { content: '−'; color: var(--terracotta); }
+  .swot-w .swot-item::before { content: '−'; color: var(--green); }
   .swot-o .swot-item::before { content: '→'; color: var(--brown-light); }
   .swot-t .swot-item::before { content: '⚠'; color: #A03030; font-size: 0.65rem; }
   .swot-footer { padding: 1rem 1.5rem; border-top: 1px solid var(--border); background: #FDFAF6; font-size: 0.77rem; color: var(--text-light); font-style: italic; }
@@ -209,14 +209,14 @@
   .arch-card-icon { font-size: 1.4rem; margin-bottom: 0.75rem; }
   .arch-card-title { font-size: 0.88rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.5rem; font-family: 'Lora', serif; }
   .arch-card-body { font-size: 0.8rem; line-height: 1.75; color: var(--text-light); font-weight: 300; }
-  .arch-card-body code { font-family: var(--mono); font-size: 0.75rem; background: rgba(45,107,45,0.08); padding: 1px 5px; border-radius: 2px; color: var(--terracotta-dark); }
+  .arch-card-body code { font-family: var(--mono); font-size: 0.75rem; background: rgba(45,107,45,0.08); padding: 1px 5px; border-radius: 2px; color: var(--green-dark); }
 
   /* LLM NODE BREAKDOWN */
   .llm-nodes { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.75rem; }
   .llm-node-row { display: grid; grid-template-columns: 9rem 1fr; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
   .llm-node-label { display: flex; align-items: center; justify-content: center; padding: 1.1rem 1rem; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; }
   .llm-node-label.strength { background: rgba(45,107,45,0.1); color: var(--pitch-accent); }
-  .llm-node-label.weakness { background: rgba(45,107,45,0.08); color: var(--terracotta-dark); }
+  .llm-node-label.weakness { background: rgba(45,107,45,0.08); color: var(--green-dark); }
   .llm-node-label.opportunity { background: rgba(45,107,45,0.07); color: var(--brown); }
   .llm-node-label.threat { background: rgba(180,50,50,0.07); color: #8A2020; }
   .llm-node-desc { padding: 1rem 1.25rem; font-size: 0.8rem; line-height: 1.7; color: var(--text-mid); font-weight: 300; background: var(--warm-white); border-left: 1px solid var(--border); }
@@ -236,8 +236,8 @@
   /* CTA */
   .cta { border-top: 1px solid var(--border); padding-top: 3rem; margin-top: 4rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
   .cta-text { font-family: 'Lora', serif; font-size: 1.15rem; font-style: italic; color: var(--text-mid); }
-  .btn-primary { background: var(--terracotta); color: #fff; padding: 0.85rem 2rem; border-radius: 2px; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
-  .btn-primary:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+  .btn-primary { background: var(--green); color: #fff; padding: 0.85rem 2rem; border-radius: 2px; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
+  .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
 
   footer { background: #0D1A0D; color: rgba(255,255,255,0.3); text-align: center; padding: 1.75rem; font-size: 0.8rem; letter-spacing: 0.04em; }
 
@@ -539,7 +539,7 @@
   <div class="reveal">
     <div class="label">Prompt Flow architecture</div>
     <h2>A cloud-native, agentic workflow built on Azure.</h2>
-    <p>The system is built around a deterministic Python backbone paired with sequential LLM reasoning — ensuring accurate metric computation happens before any AI interpretation occurs. Player and team statistics are stored in Azure Blob Storage as <code style="font-family:var(--mono);font-size:0.82rem;background:rgba(45,107,45,0.08);padding:1px 5px;border-radius:2px;color:var(--terracotta-dark)">.csv</code> files, retrieved securely at runtime via a Python node that loads the data into pandas for preprocessing.</p>
+    <p>The system is built around a deterministic Python backbone paired with sequential LLM reasoning — ensuring accurate metric computation happens before any AI interpretation occurs. Player and team statistics are stored in Azure Blob Storage as <code style="font-family:var(--mono);font-size:0.82rem;background:rgba(45,107,45,0.08);padding:1px 5px;border-radius:2px;color:var(--green-dark)">.csv</code> files, retrieved securely at runtime via a Python node that loads the data into pandas for preprocessing.</p>
 
     <div class="pf-graph">
       <img src="prompt-flow-graph.png" alt="Azure AI Prompt Flow graph — inputs branch into Strength, Weakness, Opportunity and Threat LLM nodes, converge into Summary, and output the final report">

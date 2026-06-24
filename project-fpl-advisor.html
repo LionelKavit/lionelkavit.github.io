@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pocket Scout — Fantasy Premier League Advisor · Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FFF9F3;
+    --sand: #E8DDD0;
+    --green: #2D6B2D;
+    --green-light: #4A9A4A;
+    --green-dark: #1A4A1A;
+    --brown: #1A3A1A;
+    --brown-light: #3A6B3A;
+    --text-dark: #0D1F0D;
+    --text-mid: #2E5A2E;
+    --text-light: #5A845A;
+    --border: rgba(45,107,45,0.15);
+    --mono: 'DM Mono', monospace;
+    --pitch: #1A3A1A;
+    --pitch-accent: #2D6B2D;
+    --pitch-light: #4A9A4A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(250,247,242,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 600; color: var(--brown); text-decoration: none; }
+  .nav-back { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
+  .nav-back:hover { color: var(--green); }
+  .nav-back::before { content: '←'; font-size: 1rem; }
+
+  /* HERO */
+  .hero {
+    background: var(--pitch);
+    padding: 10rem 4rem 5rem; position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 85% 30%, rgba(74,154,74,0.12) 0%, transparent 65%),
+      radial-gradient(ellipse 30% 40% at 5% 90%, rgba(45,107,45,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 900px; margin: 0 auto; position: relative; animation: fadeUp 0.8s ease both; }
+  .hero-tag { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--pitch-light); font-weight: 500; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+  .hero-tag::before { content: ''; display: inline-block; width: 24px; height: 1.5px; background: var(--pitch-light); }
+  .hero h1 { font-family: 'Lora', serif; font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 500; line-height: 1.12; color: #fff; margin-bottom: 1.5rem; }
+  .hero h1 em { font-style: italic; color: #7DBF7D; }
+  .hero-sub { font-size: 1rem; line-height: 1.8; color: rgba(255,255,255,0.6); max-width: 620px; font-weight: 300; margin-bottom: 3rem; }
+  .hero-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .pill { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.62); font-size: 0.74rem; font-weight: 400; letter-spacing: 0.04em; padding: 0.38rem 0.9rem; border-radius: 100px; }
+
+  /* IMPACT BAR */
+  .impact-bar { background: var(--pitch-accent); padding: 3rem 4rem; }
+  .impact-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .impact-stat { text-align: center; padding: 0 1.5rem; border-right: 1px solid rgba(255,255,255,0.18); }
+  .impact-stat:last-child { border-right: none; }
+  .impact-num { font-family: 'Lora', serif; font-size: 2.4rem; font-weight: 600; color: #fff; line-height: 1; margin-bottom: 0.4rem; }
+  .impact-label { font-size: 0.75rem; color: rgba(255,255,255,0.72); letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.4; }
+
+  /* CONTENT */
+  .content { max-width: 900px; margin: 0 auto; padding: 5rem 4rem 6rem; }
+  .label { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green); font-weight: 500; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+  .label::before { content: ''; display: inline-block; width: 18px; height: 1.5px; background: var(--green); }
+  h2 { font-family: 'Lora', serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 500; color: var(--text-dark); line-height: 1.25; margin-bottom: 1.25rem; }
+  p { font-size: 0.97rem; line-height: 1.9; color: var(--text-mid); font-weight: 300; }
+  .content p code, .arch-card-body code, .merge-note-text code { font-family: var(--mono); font-size: 0.82rem; background: rgba(45,107,45,0.08); padding: 1px 5px; border-radius: 2px; color: var(--green-dark); }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 4rem 0; }
+
+  /* SCREENSHOT FRAME */
+  .shot { margin-top: 1.75rem; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 44px rgba(26,58,26,0.14); background: #1A0A1F; }
+  .shot img, .shot video { width: 100%; display: block; }
+  .shot-cap { background: var(--pitch); padding: 0.8rem 1.25rem; font-size: 0.75rem; color: rgba(255,255,255,0.5); letter-spacing: 0.03em; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .shot-cap span { color: var(--pitch-light); font-weight: 500; white-space: nowrap; }
+  .shot-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.75rem; }
+  .shot-duo .shot { margin-top: 0; }
+
+  /* AI FLOW (two-phase engine) */
+  .ai-flow {
+    display: flex; flex-direction: row; align-items: stretch; gap: 0;
+    margin-top: 1.75rem; border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+  }
+  .ai-node {
+    flex: 1; padding: 1.5rem 1.25rem; text-align: center; background: var(--warm-white);
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+  }
+  .ai-node.center { background: var(--pitch); }
+  .ai-arrow {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; color: var(--text-light); padding: 0 0.6rem;
+    background: var(--cream); border-left: 1px solid var(--border); border-right: 1px solid var(--border); flex-shrink: 0;
+  }
+  .ai-node-icon { font-size: 1.5rem; margin-bottom: 0.65rem; }
+  .ai-node-title { font-size: 0.85rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.4rem; }
+  .ai-node.center .ai-node-title { color: #fff; }
+  .ai-node-desc { font-size: 0.76rem; line-height: 1.65; color: var(--text-light); font-weight: 300; }
+  .ai-node.center .ai-node-desc { color: rgba(255,255,255,0.6); }
+
+  /* ARCH CARDS */
+  .arch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.75rem; }
+  .arch-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; }
+  .arch-card-icon { font-size: 1.4rem; margin-bottom: 0.75rem; }
+  .arch-card-title { font-size: 0.88rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.5rem; font-family: 'Lora', serif; }
+  .arch-card-body { font-size: 0.8rem; line-height: 1.75; color: var(--text-light); font-weight: 300; }
+
+  /* DECISION ROWS (eval-first) */
+  .dec-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.75rem; }
+  .dec-row { display: grid; grid-template-columns: 11rem 1fr; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .dec-label { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem; padding: 1.1rem 1rem; text-align: center; background: rgba(45,107,45,0.08); }
+  .dec-metric { font-family: 'Lora', serif; font-size: 1.5rem; font-weight: 600; color: var(--pitch-accent); line-height: 1; }
+  .dec-metric-label { font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green-dark); font-weight: 500; }
+  .dec-desc { padding: 1rem 1.25rem; font-size: 0.8rem; line-height: 1.7; color: var(--text-mid); font-weight: 300; background: var(--warm-white); border-left: 1px solid var(--border); }
+  .dec-desc strong { color: var(--green); font-weight: 500; }
+
+  /* FEATURE CALLOUT */
+  .feature-callout { background: var(--pitch); border-radius: 6px; padding: 2rem 2.25rem; margin-top: 1.75rem; }
+  .feature-callout-label { font-size: 0.67rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pitch-light); margin-bottom: 1rem; }
+  .feature-callout p { color: rgba(255,255,255,0.66); font-size: 0.88rem; line-height: 1.85; font-weight: 300; margin: 0; }
+  .feature-callout strong { color: rgba(255,255,255,0.92); font-weight: 500; }
+
+  /* REFLECTION */
+  .reflection { background: var(--pitch); border-radius: 6px; padding: 2.5rem; margin-top: 1.75rem; }
+  .reflection-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pitch-light); margin-bottom: 1.25rem; }
+  .reflection p { color: rgba(255,255,255,0.66); font-size: 0.93rem; margin-bottom: 1rem; line-height: 1.9; font-weight: 300; }
+  .reflection p:last-child { margin-bottom: 0; }
+
+  /* CTA */
+  .cta { border-top: 1px solid var(--border); padding-top: 3rem; margin-top: 4rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+  .cta-text { font-family: 'Lora', serif; font-size: 1.15rem; font-style: italic; color: var(--text-mid); }
+  .cta-actions { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+  .btn-primary { background: var(--green); color: #fff; padding: 0.85rem 2rem; border-radius: 2px; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
+  .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+  .btn-ghost { color: var(--brown); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
+  .btn-ghost:hover { color: var(--green); }
+  .btn-ghost::after { content: '↗'; }
+
+  footer { background: #0D1A0D; color: rgba(255,255,255,0.3); text-align: center; padding: 1.75rem; font-size: 0.8rem; letter-spacing: 0.04em; }
+  footer a { color: inherit; text-decoration: none; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3.5rem; }
+    .impact-bar { padding: 2.5rem 1.5rem; }
+    .impact-inner { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .impact-stat { border-right: none; }
+    .impact-stat:nth-child(1), .impact-stat:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,0.18); padding-bottom: 1.25rem; }
+    .content { padding: 3rem 1.5rem 4rem; }
+    .arch-grid, .shot-duo { grid-template-columns: 1fr; }
+    .ai-flow { flex-direction: column; }
+    .ai-arrow { padding: 0.5rem; border: none; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); transform: rotate(90deg); }
+    .dec-row { grid-template-columns: 8rem 1fr; }
+    .cta { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Kavit Mehta</a>
+  <a href="index.html#projects" class="nav-back">All projects</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">Agentic AI · Full-Stack · Claude</div>
+    <h1>Every FPL decision,<br><em>answered at your fingertips.</em></h1>
+    <p class="hero-sub">
+      Eleven million people play Fantasy Premier League, and every week each one faces the same questions: who to transfer, who to captain, when to play a chip. Pocket Scout reads your actual squad and answers all of them — personalized advice for your team, your budget, your gameweek. And because every call is grounded in real FPL data, it's advice you can actually trust.
+    </p>
+    <div class="hero-pills">
+      <span class="pill">Next.js 16 · React 19</span>
+      <span class="pill">TypeScript</span>
+      <span class="pill">Anthropic Claude · prompt caching</span>
+      <span class="pill">Tool-grounded chat</span>
+      <span class="pill">Vitest · 331 tests</span>
+      <span class="pill">Public FPL API</span>
+      <span class="pill">Docker · Caddy</span>
+    </div>
+  </div>
+</div>
+
+<!-- IMPACT BAR -->
+<div class="impact-bar">
+  <div class="impact-inner">
+    <div class="impact-stat">
+      <div class="impact-num">11M+</div>
+      <div class="impact-label">FPL managers<br>facing the same calls</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">3</div>
+      <div class="impact-label">Decisions answered:<br>transfers · captain · chips</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">38</div>
+      <div class="impact-label">Gameweeks covered,<br>all season long</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">0</div>
+      <div class="impact-label">Invented stats —<br>grounded in real data</div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- LEAD VISUAL -->
+  <div class="reveal">
+    <div class="label">The product</div>
+    <h2>Your whole gameweek, answered on one screen.</h2>
+    <p>The moment you load your squad, Pocket Scout has a view: every player rated 0–10 on a position-aware scale, a glanceable verdict banner telling you this week's transfer, captain pick, and chip call, and an "Ask the Scout" chat docked alongside for everything else. No spreadsheets, no twelve open tabs — just your team and what to do with it.</p>
+    <div class="shot">
+      <video src="./images/fpl-advisor-demo-recording.mp4" poster="./images/fpl-advisor-hero.png" controls preload="metadata" playsinline></video>
+      <div class="shot-cap">Full walkthrough — rate your squad, plan transfers, ask the Scout<span>▶ 2-min demo</span></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PLANNER + CONSTRAINTS (the advice) -->
+  <div class="reveal">
+    <div class="label">The advice</div>
+    <h2>Transfers, captaincy, and chips — sorted.</h2>
+    <p>This is the part that actually wins your mini-league. Pocket Scout turns the week's hardest calls into a clear plan across three horizons: an immediate transfer, captain, and chip recommendation for <strong>This Week</strong>, a multi-gameweek <strong>Long Term</strong> outlook, and a <strong>Chips</strong> sequencing strategy for the season. It plans around your real budget too — respecting your 0–5 free transfers and banking a move rather than forcing a wasteful one when holding is the stronger play.</p>
+    <div class="shot">
+      <img src="./images/fpl-advisor-this-week.png" alt="The planner drawer showing This Week, Long Term and Chips tabs with a high-confidence transfer plan, captaincy pick and chip recommendation">
+      <div class="shot-cap">Planner — This Week / Long Term / Chips, with confidence and net-points deltas<span>Personalized to your squad</span></div>
+    </div>
+    <div class="shot">
+      <img src="./images/fpl-advisor-player-dialog.png" alt="Player detail dialog for Bruno Fernandes showing form, minutes, expected points and a link to the official Premier League page">
+      <div class="shot-cap">Tap any player for form, minutes, and expected points<span>PL deep link</span></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ASK THE SCOUT (answers at your fingertips) -->
+  <div class="reveal">
+    <div class="label">Ask the Scout</div>
+    <h2>Every question about your squad, answered.</h2>
+    <p>"Should I captain Haaland this week?" "Who's a rotation risk before the run-in?" "Is it worth taking a hit?" The questions FPL managers stew over all week now have an instant, specific answer — a chat that knows your actual team and talks you through the call like a mate who's done the homework. And because an open chat box also invites <strong>prompt injection</strong>, the Scout treats every message as a question to answer, not an instruction to obey — so it can't be talked off-script.</p>
+    <div class="shot">
+      <img src="./images/fpl-advisor-scout-chat-1.png" alt="Ask the Scout answering a rotation-risk question with player-specific expected points and reasoning">
+      <div class="shot-cap">Ask anything about your team — reasoned, squad-specific answers<span>Instant, specific</span></div>
+    </div>
+    <div class="shot">
+      <img src="./images/fpl-advisor-scout-chat-2.png" alt="Ask the Scout declining an off-topic request and steering the conversation back to the user's FPL squad">
+      <div class="shot-cap">Try to take it off-topic — or inject it — and it stays strictly FPL<span>Can't go off-script</span></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- DEMO MODE -->
+  <div class="reveal">
+    <div class="label">No login required</div>
+    <h2>Explore without a manager ID.</h2>
+    <p>Anyone can try the full experience through a synthesized "dream team" — the Scout's best XV built from last season's returns — so the app is fully explorable before you ever type in your FPL ID. It's a small product decision that says a lot about building for the person evaluating your work, not just the person who already uses it.</p>
+    <div class="shot">
+      <img src="./images/fpl-advisor-demo-mode.png" alt="Demo mode showing the Scout's dream XV built from last season's returns, with ratings and an Ask the Scout briefing">
+      <div class="shot-cap">Demo mode — the Scout's dream XV, no manager ID needed<span>Try it instantly</span></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- RELIABILITY (why you can trust the advice) -->
+  <div class="reveal">
+    <div class="label">Why you can trust it</div>
+    <h2>Advice that holds up when you check it.</h2>
+    <p>Advice is only worth following if it's right — and FPL managers check the numbers afterward. So the hard figures are computed deterministically before any language model is involved: a base phase rates your squad and proposes moves straight from the FPL API, and only then does Claude reason over those numbers to explain the call. The model is the pundit; it never invents the underlying stats.</p>
+    <div class="ai-flow">
+      <div class="ai-node">
+        <div class="ai-node-icon">📊</div>
+        <div class="ai-node-title">Base phase — deterministic</div>
+        <div class="ai-node-desc">Rates every player 0–10 and proposes transfers/captain instantly from FPL data. No LLM in the loop.</div>
+      </div>
+      <div class="ai-arrow">→</div>
+      <div class="ai-node center">
+        <div class="ai-node-icon">🧠</div>
+        <div class="ai-node-title">Insights phase — Claude</div>
+        <div class="ai-node-desc">Reasons over the computed numbers to explain the advice, cached for speed and cost.</div>
+      </div>
+      <div class="ai-arrow">→</div>
+      <div class="ai-node">
+        <div class="ai-node-icon">✅</div>
+        <div class="ai-node-title">Personalized verdict</div>
+        <div class="ai-node-desc">A single, actionable call on transfers, captaincy, and chips — tailored to your squad and bank.</div>
+      </div>
+    </div>
+    <div class="feature-callout">
+      <div class="feature-callout-label">Grounded, not guessing</div>
+      <p>Most FPL chatbots happily hallucinate prices, form, and fixtures. Pocket Scout's chat is wired to <strong>fetch real stats through tool calls before it answers</strong> — and if the evidence isn't there, it says so instead of making something up. That reliability is what turns a clever demo into advice you'd actually act on.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ARCHITECTURE -->
+  <div class="reveal">
+    <div class="label">Under the hood</div>
+    <h2>A modern stack, deployed for real.</h2>
+    <p>Pocket Scout is a full-stack TypeScript application, not a notebook demo — built on the Next.js App Router, served behind a Caddy reverse proxy in Docker, and guarded by a substantial test suite so behavior stays pinned as the model and rules evolve.</p>
+    <div class="arch-grid">
+      <div class="arch-card">
+        <div class="arch-card-icon">⚛️</div>
+        <div class="arch-card-title">Front end</div>
+        <div class="arch-card-body">Next.js 16 (App Router), React 19, TypeScript, and Tailwind with <code>shadcn</code> components — the rated pitch, planner drawer, and chat are all client-driven, glanceable UI.</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card-icon">🤖</div>
+        <div class="arch-card-title">Claude, cached</div>
+        <div class="arch-card-body">The insights phase calls Anthropic's Claude (Sonnet) with prompt caching, and the chat is grounded through tool calls against the FPL API rather than free-form generation.</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card-icon">🧪</div>
+        <div class="arch-card-title">Eval-first testing</div>
+        <div class="arch-card-body">A Vitest suite of <code>331</code> tests plus squad-replay backtests guards both the deterministic engine and the prompt behavior against regressions.</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card-icon">🐳</div>
+        <div class="arch-card-title">Deployment</div>
+        <div class="arch-card-body">Packaged with Docker and fronted by a Caddy reverse proxy. Data comes entirely from the public FPL API — no scraping, no private feeds.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- EVAL-FIRST DECISIONS -->
+  <div class="reveal">
+    <div class="label">Measure, don't assume</div>
+    <h2>The decisions that were earned by data.</h2>
+    <p>Development was eval-first and OpenSpec-driven — roughly fifty documented change proposals, each justified by a measurement rather than a hunch. A few of the calls that shaped the product:</p>
+    <div class="dec-list">
+      <div class="dec-row">
+        <div class="dec-label">
+          <div class="dec-metric">0.53</div>
+          <div class="dec-metric-label">Rank corr.</div>
+        </div>
+        <div class="dec-desc">Fitting the player-ranking model on ten seasons of history lifted within-position rank correlation from <strong>~0.33 to ~0.53</strong> — closing most of the gap to FPL's own ~0.59 benchmark.</div>
+      </div>
+      <div class="dec-row">
+        <div class="dec-label">
+          <div class="dec-metric">Hold</div>
+          <div class="dec-metric-label">gate added</div>
+        </div>
+        <div class="dec-desc">Squad replays showed the optimizer <strong>over-recommended transfers</strong>. An evidence-based, points-based hold gate now banks a free transfer when moving isn't worth it.</div>
+      </div>
+      <div class="dec-row">
+        <div class="dec-label">
+          <div class="dec-metric">✗</div>
+          <div class="dec-metric-label">Rejected</div>
+        </div>
+        <div class="dec-desc">A proposed fixture-difficulty model upgrade looked sensible but <strong>failed its backtest</strong> — so it was rejected. Convention lost to the numbers.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- REFLECTION -->
+  <div class="reveal">
+    <div class="label">Personal reflection</div>
+    <div class="reflection">
+      <div class="reflection-label">Behind the build</div>
+      <p>I built Pocket Scout because I am one of those eleven million managers, and the weekly decisions — who to bring in, who to captain, when to burn a chip — are genuinely hard and genuinely fun to argue about. The goal was simple: put a smart, opinionated advisor in everyone's pocket that actually knows your team, so the answer to "what should I do this week?" is one question away.</p>
+      <p>The catch is that FPL managers check the numbers. Advice that quotes the wrong price or invents a fixture gets caught instantly, so reliability wasn't optional — it was the difference between a fun demo and something people would trust with their rank. That's why the architecture computes the facts deterministically and lets Claude reason over them, rather than the other way around.</p>
+      <p>The most satisfying part was letting evaluation overrule intuition. The optimizer "felt" smart when it suggested moves every week — until replays showed it was churning value away. The fixture-difficulty upgrade "felt" like an obvious win — until the backtest said otherwise. Both got corrected because the eval harness had the final word, not me — the same standard I hold every project on this site to.</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta reveal">
+    <p class="cta-text">Want to see how it advises your squad?</p>
+    <div class="cta-actions">
+      <a href="https://github.com/LionelKavit/Fantasy-Premier-League-Advisor" target="_blank" rel="noopener noreferrer" class="btn-ghost">View on GitHub</a>
+      <a href="index.html#contact" class="btn-primary">Get in touch</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 Kavit Mehta · <a href="index.html">Back to portfolio</a></p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
