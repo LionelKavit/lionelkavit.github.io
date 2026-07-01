@@ -21,7 +21,7 @@ Each project shown in the home page `#projects` grid SHALL be represented by a c
 
 ### Requirement: Bracket Analyst narrative leads with the user problem
 
-The Bracket Analyst case-study page SHALL frame its primary value proposition as helping a casual FIFA World Cup bracket-pool player at their two moments of need — filling out a bracket well before the deadline (and standing out enough to win the pool) and following the bracket's fate once the tournament starts. Groundedness in real data (Elo-strength probabilities that are never invented) SHALL be presented as the feature that makes that advice trustworthy, NOT as the headline selling point.
+The Bracket Analyst case-study page SHALL frame its primary value proposition as helping a FIFA World Cup bracket-pool player at their two moments of need — filling out a bracket well before the deadline (and standing out enough to win the pool) and following the bracket's fate once the tournament starts. Groundedness in real data (Elo-strength probabilities that are never invented) SHALL be presented as the feature that makes that advice trustworthy, NOT as the headline selling point.
 
 #### Scenario: Hero foregrounds the bracket-player value
 
@@ -36,14 +36,14 @@ The Bracket Analyst case-study page SHALL frame its primary value proposition as
 
 ### Requirement: Bracket Analyst case-study page structure
 
-The Bracket Analyst case-study page SHALL reuse the shared design system (pitch-green palette, Lora + DM Sans typography, fixed nav with an "All projects" back link, scroll-reveal animations) and SHALL include, in order: a hero with category tag, title, and technology pills; an impact bar of four headline metrics; body sections describing the product's value, its pool-winning strategy, how it stays grounded, and its architecture; a personal reflection; and a closing call-to-action. The page SHALL also carry a disclaimer that it is an unofficial hobby project, not affiliated with FIFA, using original styling and no FIFA logos or imagery.
+The Bracket Analyst case-study page SHALL reuse the shared design system (pitch-green palette, Lora + DM Sans typography, fixed nav with an "All projects" back link, scroll-reveal animations) and SHALL include, in order: a hero with category tag, title, and technology pills; an impact bar of four headline metrics; body sections describing the product's value, its pool-winning strategy, and why it can be trusted (how it stays grounded plus the guardrails that govern the AI's behaviour); a personal reflection; and a closing call-to-action. The page SHALL also carry a disclaimer that it is an unofficial hobby project, not affiliated with FIFA, using original styling and no FIFA logos or imagery.
 
 #### Scenario: Page matches the project-page template
 
 - **WHEN** a visitor opens `project-wc-bracket-analyst.html`
 - **THEN** the page renders a dark "pitch" hero with the Bracket Analyst title and technology pills
-- **AND** an impact bar shows four headline figures framed around the problem, value, and the format it demystifies (e.g. the 48 teams / 12 groups, the 8 best third-placed teams it untangles, its product surfaces, and its grounded reliability) rather than internal engineering metrics
-- **AND** body sections explain the product's value (the two moments of need and three surfaces), the "You vs. the Model" pool-winning strategy, how it stays grounded (FIFA public JSON → Elo-strength Monte Carlo → a grounded Analyst), and the technology stack / architecture
+- **AND** an impact bar shows four headline figures framed around the product's value and rigour (e.g. how fast a complete bracket can be produced, the number of simulated tournaments behind each pick, the scale of the grounded data model, and the test coverage that keeps the numbers honest) rather than incidental facts
+- **AND** body sections explain the product's value (the bracket predictor and the group stage), the "You vs. the Model" pool-winning strategy, and why it can be trusted — how it stays grounded (Elo ratings → a Monte Carlo engine → a grounded Analyst) plus the guardrails that keep the AI from inventing or contradicting numbers
 - **AND** the page ends with a reflection and a call-to-action that links to the contact section and to the project's GitHub repository (`github.com/LionelKavit/fifa-wc-fantasy`)
 
 #### Scenario: Unofficial-project disclaimer is present
@@ -64,9 +64,15 @@ The Bracket Analyst case-study page SHALL feature real product screenshots, copi
 #### Scenario: Screenshots illustrate the key surfaces
 
 - **WHEN** a visitor scrolls the `project-wc-bracket-analyst.html` body
-- **THEN** the lead visual near the top is the knockout-predictor screenshot (`images/wc-analyst-hero.png`) in a framed container
-- **AND** the autofill bracket, the grounded "Ask the Analyst" chat, the group-stage dashboard, and the team-detail view are each illustrated by their corresponding screenshot copied from the project repository
-- **AND** every screenshot sits in a framed container with a descriptive caption
+- **THEN** the lead visual near the top is a click-to-play demo video of the working app, using the knockout-predictor screenshot (`images/wc-analyst-hero.png`) as its poster image
+- **AND** the grounded "Ask the Analyst" chat, the group-stage dashboard, and the team-detail view are each illustrated by their corresponding screenshot copied from the project repository
+- **AND** every screenshot or video sits in a framed container with a descriptive caption
+
+#### Scenario: Lead demo video loads responsibly
+
+- **WHEN** the page first loads
+- **THEN** the lead video does not download its full payload up front (it uses `preload="metadata"` with a poster image)
+- **AND** the video exposes native playback controls so the visitor plays it on demand
 
 #### Scenario: Images use descriptive alt text
 
