@@ -166,6 +166,14 @@
     .dec-row { grid-template-columns: 8rem 1fr; }
     .cta { flex-direction: column; align-items: flex-start; }
   }
+
+  /* LIGHTBOX */
+  .shot img { cursor: zoom-in; }
+  .lightbox { position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center; background: rgba(13,26,13,0.94); backdrop-filter: blur(6px); padding: 4vh 4vw; cursor: zoom-out; opacity: 0; transition: opacity 0.25s ease; }
+  .lightbox.open { display: flex; opacity: 1; }
+  .lightbox img { max-width: 100%; max-height: 92vh; border-radius: 8px; box-shadow: 0 24px 80px rgba(0,0,0,0.55); }
+  .lightbox-close { position: fixed; top: 1.1rem; right: 1.5rem; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; line-height: 1; color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; cursor: pointer; z-index: 1001; transition: background 0.2s; }
+  .lightbox-close:hover { background: rgba(255,255,255,0.18); }
 </style>
 </head>
 <body>
@@ -185,13 +193,13 @@
       Eleven million people play Fantasy Premier League, and every week each one faces the same questions: who to transfer, who to captain, when to play a chip. Pocket Scout reads your actual squad and answers all of them — personalized advice for your team, your budget, your gameweek. And because every call is grounded in real FPL data, it's advice you can actually trust.
     </p>
     <div class="hero-pills">
-      <span class="pill">Next.js 16 · React 19</span>
-      <span class="pill">TypeScript</span>
-      <span class="pill">Anthropic Claude · prompt caching</span>
-      <span class="pill">Tool-grounded chat</span>
+      <span class="pill">Deterministic scoring engine</span>
+      <span class="pill">Grounded via tool calls</span>
+      <span class="pill">Backtested · 10 seasons</span>
       <span class="pill">Vitest · 331 tests</span>
+      <span class="pill">Anthropic Claude</span>
       <span class="pill">Public FPL API</span>
-      <span class="pill">Docker · Caddy</span>
+      <span class="pill">Full-stack TypeScript</span>
     </div>
   </div>
 </div>
@@ -204,12 +212,12 @@
       <div class="impact-label">FPL managers<br>facing the same calls</div>
     </div>
     <div class="impact-stat">
-      <div class="impact-num">3</div>
-      <div class="impact-label">Decisions answered:<br>transfers · captain · chips</div>
+      <div class="impact-num">0.53</div>
+      <div class="impact-label">Model rank correlation<br>(vs FPL's own 0.59)</div>
     </div>
     <div class="impact-stat">
-      <div class="impact-num">38</div>
-      <div class="impact-label">Gameweeks covered,<br>all season long</div>
+      <div class="impact-num">10</div>
+      <div class="impact-label">Seasons of data<br>backtested</div>
     </div>
     <div class="impact-stat">
       <div class="impact-num">0</div>
@@ -220,11 +228,30 @@
 
 <div class="content">
 
-  <!-- LEAD VISUAL -->
+  <!-- 1. ENTRY -->
   <div class="reveal">
-    <div class="label">The product</div>
-    <h2>Your whole gameweek, answered on one screen.</h2>
-    <p>The moment you load your squad, Pocket Scout has a view: every player rated 0–10 on a position-aware scale, a glanceable verdict banner telling you this week's transfer, captain pick, and chip call, and an "Ask the Scout" chat docked alongside for everything else. No spreadsheets, no twelve open tabs — just your team and what to do with it.</p>
+    <div class="label">Getting started</div>
+    <h2>Two ways in — your team, or a test drive.</h2>
+    <p>The journey starts one of two ways. Enter your FPL manager ID and Pocket Scout reads your real squad — your players, your bank, the exact free transfers you're holding. Or click "Explore without a team" and it builds a sample dream XV from the season's best returns, so you can try the whole thing before you ever type in an ID.</p>
+    <div class="shot-duo">
+      <div class="shot">
+        <img src="./images/fpl-advisor-login.png" alt="Pocket Scout entry screen with a field to enter your FPL manager ID and an option to explore without a team">
+        <div class="shot-cap">Enter a manager ID to get scouted<span>Your real team</span></div>
+      </div>
+      <div class="shot">
+        <img src="./images/fpl-advisor-demo-mode.png" alt="Demo mode showing the Scout's dream XV built from the season's best returns, with ratings and an Ask the Scout briefing">
+        <div class="shot-cap">…or explore a ready-made dream XV<span>No ID needed</span></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 2. THE PITCH -->
+  <div class="reveal">
+    <div class="label">The moment you're in</div>
+    <h2>Your whole gameweek, on one screen.</h2>
+    <p>The pitch paints instantly: every player rated 0–10 on a position-aware scale, and a verdict banner across the top calling this week's move — the transfer to make, who to captain, and whether to play a chip. No spreadsheets, no twelve open tabs — just your team and what to do with it.</p>
     <div class="shot">
       <video src="./images/fpl-advisor-demo-recording.mp4" poster="./images/fpl-advisor-hero.png" controls preload="metadata" playsinline></video>
       <div class="shot-cap">Full walkthrough — rate your squad, plan transfers, ask the Scout<span>▶ 2-min demo</span></div>
@@ -233,14 +260,14 @@
 
   <hr class="divider">
 
-  <!-- PLANNER + CONSTRAINTS (the advice) -->
+  <!-- 3. THE PLAN -->
   <div class="reveal">
-    <div class="label">The advice</div>
-    <h2>Transfers, captaincy, and chips — sorted.</h2>
-    <p>This is the part that actually wins your mini-league. Pocket Scout turns the week's hardest calls into a clear plan across three horizons: an immediate transfer, captain, and chip recommendation for <strong>This Week</strong>, a multi-gameweek <strong>Long Term</strong> outlook, and a <strong>Chips</strong> sequencing strategy for the season. It plans around your real budget too — respecting your 0–5 free transfers and banking a move rather than forcing a wasteful one when holding is the stronger play.</p>
+    <div class="label">The plan</div>
+    <h2>Transfers, captaincy, and chips — sorted to your budget.</h2>
+    <p>Open the breakdown and the week's hardest calls become a clear plan across three horizons: an immediate <strong>This Week</strong> move, a multi-gameweek <strong>Long Term</strong> outlook, and a season-long <strong>Chips</strong> strategy. It plans inside your real budget — tell it how many free transfers you're holding (0–5) and it works within that, stacking moves or <strong>banking</strong> one rather than burning it on a marginal swap. Every move is judged in expected points, so when nothing clears the bar it tells you to hold — the opposite of the churn most tools push.</p>
     <div class="shot">
       <img src="./images/fpl-advisor-this-week.png" alt="The planner drawer showing This Week, Long Term and Chips tabs with a high-confidence transfer plan, captaincy pick and chip recommendation">
-      <div class="shot-cap">Planner — This Week / Long Term / Chips, with confidence and net-points deltas<span>Personalized to your squad</span></div>
+      <div class="shot-cap">This Week / Long Term / Chips, with confidence and net-points deltas<span>Personalized to your squad</span></div>
     </div>
     <div class="shot">
       <img src="./images/fpl-advisor-player-dialog.png" alt="Player detail dialog for Bruno Fernandes showing form, minutes, expected points and a link to the official Premier League page">
@@ -250,41 +277,24 @@
 
   <hr class="divider">
 
-  <!-- ASK THE SCOUT (answers at your fingertips) -->
+  <!-- 4. ASK THE SCOUT -->
   <div class="reveal">
     <div class="label">Ask the Scout</div>
-    <h2>Every question about your squad, answered.</h2>
-    <p>"Should I captain Haaland this week?" "Who's a rotation risk before the run-in?" "Is it worth taking a hit?" The questions FPL managers stew over all week now have an instant, specific answer — a chat that knows your actual team and talks you through the call like a mate who's done the homework. And because an open chat box also invites <strong>prompt injection</strong>, the Scout treats every message as a question to answer, not an instruction to obey — so it can't be talked off-script.</p>
+    <h2>Then ask it anything.</h2>
+    <p>"Should I captain Haaland this week?" "Who's a rotation risk before the run-in?" "Is it worth taking a hit?" The questions managers stew over all week get an instant, specific answer — a chat that knows your actual squad and the plan it just built, and talks you through the call like a mate who's done the homework.</p>
     <div class="shot">
       <img src="./images/fpl-advisor-scout-chat-1.png" alt="Ask the Scout answering a rotation-risk question with player-specific expected points and reasoning">
       <div class="shot-cap">Ask anything about your team — reasoned, squad-specific answers<span>Instant, specific</span></div>
     </div>
-    <div class="shot">
-      <img src="./images/fpl-advisor-scout-chat-2.png" alt="Ask the Scout declining an off-topic request and steering the conversation back to the user's FPL squad">
-      <div class="shot-cap">Try to take it off-topic — or inject it — and it stays strictly FPL<span>Can't go off-script</span></div>
-    </div>
   </div>
 
   <hr class="divider">
 
-  <!-- DEMO MODE -->
-  <div class="reveal">
-    <div class="label">No login required</div>
-    <h2>Explore without a manager ID.</h2>
-    <p>Anyone can try the full experience through a synthesized "dream team" — the Scout's best XV built from last season's returns — so the app is fully explorable before you ever type in your FPL ID. It's a small product decision that says a lot about building for the person evaluating your work, not just the person who already uses it.</p>
-    <div class="shot">
-      <img src="./images/fpl-advisor-demo-mode.png" alt="Demo mode showing the Scout's dream XV built from last season's returns, with ratings and an Ask the Scout briefing">
-      <div class="shot-cap">Demo mode — the Scout's dream XV, no manager ID needed<span>Try it instantly</span></div>
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <!-- RELIABILITY (why you can trust the advice) -->
+  <!-- 5. WHY YOU CAN TRUST IT -->
   <div class="reveal">
     <div class="label">Why you can trust it</div>
     <h2>Advice that holds up when you check it.</h2>
-    <p>Advice is only worth following if it's right — and FPL managers check the numbers afterward. So the hard figures are computed deterministically before any language model is involved: a base phase rates your squad and proposes moves straight from the FPL API, and only then does Claude reason over those numbers to explain the call. The model is the pundit; it never invents the underlying stats.</p>
+    <p>Managers check the numbers afterward, so the hard figures are computed before any language model is involved: a deterministic base phase rates your squad and proposes moves straight from the FPL API, and only then does Claude reason over those numbers to explain the call. The model is the pundit; it never invents the underlying stats.</p>
     <div class="ai-flow">
       <div class="ai-node">
         <div class="ai-node-icon">📊</div>
@@ -306,48 +316,21 @@
     </div>
     <div class="feature-callout">
       <div class="feature-callout-label">Grounded, not guessing</div>
-      <p>Most FPL chatbots happily hallucinate prices, form, and fixtures. Pocket Scout's chat is wired to <strong>fetch real stats through tool calls before it answers</strong> — and if the evidence isn't there, it says so instead of making something up. That reliability is what turns a clever demo into advice you'd actually act on.</p>
+      <p>Most FPL chatbots happily hallucinate prices, form, and fixtures. Pocket Scout <strong>fetches real stats through tool calls before it answers</strong> — and if the evidence isn't there, it says so instead of making one up. It also treats every message as a question to answer, not an instruction to obey, so it <strong>can't be talked off its own plan</strong>.</p>
+    </div>
+    <div class="shot">
+      <img src="./images/fpl-advisor-scout-chat-2.png" alt="Ask the Scout declining an off-topic request and steering the conversation back to the user's FPL squad">
+      <div class="shot-cap">Try to take it off-topic — or inject it — and it stays strictly FPL<span>Can't go off-script</span></div>
     </div>
   </div>
 
   <hr class="divider">
 
-  <!-- ARCHITECTURE -->
-  <div class="reveal">
-    <div class="label">Under the hood</div>
-    <h2>A modern stack, deployed for real.</h2>
-    <p>Pocket Scout is a full-stack TypeScript application, not a notebook demo — built on the Next.js App Router, served behind a Caddy reverse proxy in Docker, and guarded by a substantial test suite so behavior stays pinned as the model and rules evolve.</p>
-    <div class="arch-grid">
-      <div class="arch-card">
-        <div class="arch-card-icon">⚛️</div>
-        <div class="arch-card-title">Front end</div>
-        <div class="arch-card-body">Next.js 16 (App Router), React 19, TypeScript, and Tailwind with <code>shadcn</code> components — the rated pitch, planner drawer, and chat are all client-driven, glanceable UI.</div>
-      </div>
-      <div class="arch-card">
-        <div class="arch-card-icon">🤖</div>
-        <div class="arch-card-title">Claude, cached</div>
-        <div class="arch-card-body">The insights phase calls Anthropic's Claude (Sonnet) with prompt caching, and the chat is grounded through tool calls against the FPL API rather than free-form generation.</div>
-      </div>
-      <div class="arch-card">
-        <div class="arch-card-icon">🧪</div>
-        <div class="arch-card-title">Eval-first testing</div>
-        <div class="arch-card-body">A Vitest suite of <code>331</code> tests plus squad-replay backtests guards both the deterministic engine and the prompt behavior against regressions.</div>
-      </div>
-      <div class="arch-card">
-        <div class="arch-card-icon">🐳</div>
-        <div class="arch-card-title">Deployment</div>
-        <div class="arch-card-body">Packaged with Docker and fronted by a Caddy reverse proxy. Data comes entirely from the public FPL API — no scraping, no private feeds.</div>
-      </div>
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <!-- EVAL-FIRST DECISIONS -->
+  <!-- 6. BUILT EVAL-FIRST -->
   <div class="reveal">
     <div class="label">Measure, don't assume</div>
-    <h2>The decisions that were earned by data.</h2>
-    <p>Development was eval-first and OpenSpec-driven — roughly fifty documented change proposals, each justified by a measurement rather than a hunch. A few of the calls that shaped the product:</p>
+    <h2>A real app, with decisions earned by data.</h2>
+    <p>Pocket Scout is a deployed full-stack TypeScript app — not a notebook demo — guarded by a <code>331</code>-test suite so behaviour stays pinned as the model and rules evolve. And it was built eval-first: a point-in-time backtest over ten seasons of FPL data drove the model, and the calls that shaped it were made on evidence, including the honest negatives.</p>
     <div class="dec-list">
       <div class="dec-row">
         <div class="dec-label">
@@ -380,9 +363,8 @@
     <div class="label">Personal reflection</div>
     <div class="reflection">
       <div class="reflection-label">Behind the build</div>
-      <p>I built Pocket Scout because I am one of those eleven million managers, and the weekly decisions — who to bring in, who to captain, when to burn a chip — are genuinely hard and genuinely fun to argue about. The goal was simple: put a smart, opinionated advisor in everyone's pocket that actually knows your team, so the answer to "what should I do this week?" is one question away.</p>
-      <p>The catch is that FPL managers check the numbers. Advice that quotes the wrong price or invents a fixture gets caught instantly, so reliability wasn't optional — it was the difference between a fun demo and something people would trust with their rank. That's why the architecture computes the facts deterministically and lets Claude reason over them, rather than the other way around.</p>
-      <p>The most satisfying part was letting evaluation overrule intuition. The optimizer "felt" smart when it suggested moves every week — until replays showed it was churning value away. The fixture-difficulty upgrade "felt" like an obvious win — until the backtest said otherwise. Both got corrected because the eval harness had the final word, not me — the same standard I hold every project on this site to.</p>
+      <p>I built Pocket Scout because I'm one of those eleven million managers, and the weekly decisions — who to bring in, who to captain, when to burn a chip — are genuinely hard and genuinely fun to argue about. I wanted a smart, opinionated advisor that actually knows my team, so "what should I do this week?" is one question away.</p>
+      <p>The part I'm proudest of is letting evaluation overrule intuition. More than once the data killed a change that felt obviously right — and the eval harness got the final word, not me. That's the same bar I hold every project on this site to.</p>
     </div>
   </div>
 
@@ -401,6 +383,11 @@
   <p>© 2026 Kavit Mehta · <a href="index.html">Back to portfolio</a></p>
 </footer>
 
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded image">
+  <button class="lightbox-close" aria-label="Close">&times;</button>
+  <img src="" alt="">
+</div>
+
 <script>
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
@@ -412,6 +399,20 @@
     });
   }, { threshold: 0.08 });
   reveals.forEach(el => observer.observe(el));
+
+  const lb = document.getElementById('lightbox');
+  const lbImg = lb.querySelector('img');
+  const closeLb = () => { lb.classList.remove('open'); document.body.style.overflow = ''; };
+  document.querySelectorAll('.shot img').forEach(img => {
+    img.addEventListener('click', () => {
+      lbImg.src = img.currentSrc || img.src;
+      lbImg.alt = img.alt;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  lb.addEventListener('click', closeLb);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
 </script>
 </body>
 </html>
