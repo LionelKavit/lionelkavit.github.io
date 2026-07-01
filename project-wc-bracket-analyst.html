@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Bracket Analyst — FIFA World Cup 2026 · Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FFF9F3;
+    --sand: #E8DDD0;
+    --green: #2D6B2D;
+    --green-light: #4A9A4A;
+    --green-dark: #1A4A1A;
+    --brown: #1A3A1A;
+    --brown-light: #3A6B3A;
+    --text-dark: #0D1F0D;
+    --text-mid: #2E5A2E;
+    --text-light: #5A845A;
+    --border: rgba(45,107,45,0.15);
+    --mono: 'DM Mono', monospace;
+    --pitch: #1A3A1A;
+    --pitch-accent: #2D6B2D;
+    --pitch-light: #4A9A4A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(250,247,242,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 600; color: var(--brown); text-decoration: none; }
+  .nav-back { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
+  .nav-back:hover { color: var(--green); }
+  .nav-back::before { content: '←'; font-size: 1rem; }
+
+  /* HERO */
+  .hero {
+    background: var(--pitch);
+    padding: 10rem 4rem 5rem; position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 85% 30%, rgba(74,154,74,0.12) 0%, transparent 65%),
+      radial-gradient(ellipse 30% 40% at 5% 90%, rgba(45,107,45,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 900px; margin: 0 auto; position: relative; animation: fadeUp 0.8s ease both; }
+  .hero-tag { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--pitch-light); font-weight: 500; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+  .hero-tag::before { content: ''; display: inline-block; width: 24px; height: 1.5px; background: var(--pitch-light); }
+  .hero h1 { font-family: 'Lora', serif; font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 500; line-height: 1.12; color: #fff; margin-bottom: 1.5rem; }
+  .hero h1 em { font-style: italic; color: #7DBF7D; }
+  .hero-sub { font-size: 1rem; line-height: 1.8; color: rgba(255,255,255,0.6); max-width: 620px; font-weight: 300; margin-bottom: 3rem; }
+  .hero-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .pill { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.62); font-size: 0.74rem; font-weight: 400; letter-spacing: 0.04em; padding: 0.38rem 0.9rem; border-radius: 100px; }
+
+  /* IMPACT BAR */
+  .impact-bar { background: var(--pitch-accent); padding: 3rem 4rem; }
+  .impact-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .impact-stat { text-align: center; padding: 0 1.5rem; border-right: 1px solid rgba(255,255,255,0.18); }
+  .impact-stat:last-child { border-right: none; }
+  .impact-num { font-family: 'Lora', serif; font-size: 2.4rem; font-weight: 600; color: #fff; line-height: 1; margin-bottom: 0.4rem; }
+  .impact-label { font-size: 0.75rem; color: rgba(255,255,255,0.72); letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.4; }
+
+  /* CONTENT */
+  .content { max-width: 900px; margin: 0 auto; padding: 5rem 4rem 6rem; }
+  .label { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green); font-weight: 500; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+  .label::before { content: ''; display: inline-block; width: 18px; height: 1.5px; background: var(--green); }
+  h2 { font-family: 'Lora', serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 500; color: var(--text-dark); line-height: 1.25; margin-bottom: 1.25rem; }
+  p { font-size: 0.97rem; line-height: 1.9; color: var(--text-mid); font-weight: 300; }
+  .content p code, .arch-card-body code, .merge-note-text code { font-family: var(--mono); font-size: 0.82rem; background: rgba(45,107,45,0.08); padding: 1px 5px; border-radius: 2px; color: var(--green-dark); }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 4rem 0; }
+
+  /* SCREENSHOT FRAME */
+  .shot { margin-top: 1.75rem; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 44px rgba(26,58,26,0.14); background: #0E1F0E; }
+  .shot img, .shot video { width: 100%; display: block; }
+  .shot-cap { background: var(--pitch); padding: 0.8rem 1.25rem; font-size: 0.75rem; color: rgba(255,255,255,0.5); letter-spacing: 0.03em; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .shot-cap span { color: var(--pitch-light); font-weight: 500; white-space: nowrap; }
+  .shot-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.75rem; }
+  .shot-duo .shot { margin-top: 0; }
+
+  /* AI FLOW */
+  .ai-flow {
+    display: flex; flex-direction: row; align-items: stretch; gap: 0;
+    margin-top: 1.75rem; border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+  }
+  .ai-node {
+    flex: 1; padding: 1.5rem 1.25rem; text-align: center; background: var(--warm-white);
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+  }
+  .ai-node.center { background: var(--pitch); }
+  .ai-arrow {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; color: var(--text-light); padding: 0 0.6rem;
+    background: var(--cream); border-left: 1px solid var(--border); border-right: 1px solid var(--border); flex-shrink: 0;
+  }
+  .ai-node-icon { font-size: 1.5rem; margin-bottom: 0.65rem; }
+  .ai-node-title { font-size: 0.85rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.4rem; }
+  .ai-node.center .ai-node-title { color: #fff; }
+  .ai-node-desc { font-size: 0.76rem; line-height: 1.65; color: var(--text-light); font-weight: 300; }
+  .ai-node.center .ai-node-desc { color: rgba(255,255,255,0.6); }
+
+  /* ARCH CARDS */
+  .arch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.75rem; }
+  .arch-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; }
+  .arch-card-icon { font-size: 1.4rem; margin-bottom: 0.75rem; }
+  .arch-card-title { font-size: 0.88rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.5rem; font-family: 'Lora', serif; }
+  .arch-card-body { font-size: 0.8rem; line-height: 1.75; color: var(--text-light); font-weight: 300; }
+
+  /* DECISION ROWS */
+  .dec-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.75rem; }
+  .dec-row { display: grid; grid-template-columns: 11rem 1fr; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .dec-label { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem; padding: 1.1rem 1rem; text-align: center; background: rgba(45,107,45,0.08); }
+  .dec-metric { font-family: 'Lora', serif; font-size: 1.5rem; font-weight: 600; color: var(--pitch-accent); line-height: 1; }
+  .dec-metric-label { font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green-dark); font-weight: 500; }
+  .dec-desc { padding: 1rem 1.25rem; font-size: 0.8rem; line-height: 1.7; color: var(--text-mid); font-weight: 300; background: var(--warm-white); border-left: 1px solid var(--border); }
+  .dec-desc strong { color: var(--green); font-weight: 500; }
+
+  /* FEATURE CALLOUT */
+  .feature-callout { background: var(--pitch); border-radius: 6px; padding: 2rem 2.25rem; margin-top: 1.75rem; }
+  .feature-callout-label { font-size: 0.67rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pitch-light); margin-bottom: 1rem; }
+  .feature-callout p { color: rgba(255,255,255,0.66); font-size: 0.88rem; line-height: 1.85; font-weight: 300; margin: 0; }
+  .feature-callout strong { color: rgba(255,255,255,0.92); font-weight: 500; }
+
+  /* REFLECTION */
+  .reflection { background: var(--pitch); border-radius: 6px; padding: 2.5rem; margin-top: 1.75rem; }
+  .reflection-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pitch-light); margin-bottom: 1.25rem; }
+  .reflection p { color: rgba(255,255,255,0.66); font-size: 0.93rem; margin-bottom: 1rem; line-height: 1.9; font-weight: 300; }
+  .reflection p:last-child { margin-bottom: 0; }
+
+  /* DISCLAIMER */
+  .disclaimer { margin-top: 3rem; border: 1px solid var(--border); border-left: 3px solid var(--pitch-light); border-radius: 4px; background: var(--warm-white); padding: 1.1rem 1.4rem; }
+  .disclaimer p { font-size: 0.78rem; line-height: 1.7; color: var(--text-light); font-weight: 300; margin: 0; }
+
+  /* CTA */
+  .cta { border-top: 1px solid var(--border); padding-top: 3rem; margin-top: 4rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+  .cta-text { font-family: 'Lora', serif; font-size: 1.15rem; font-style: italic; color: var(--text-mid); }
+  .cta-actions { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+  .btn-primary { background: var(--green); color: #fff; padding: 0.85rem 2rem; border-radius: 2px; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
+  .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+  .btn-ghost { color: var(--brown); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
+  .btn-ghost:hover { color: var(--green); }
+  .btn-ghost::after { content: '↗'; }
+
+  footer { background: #0D1A0D; color: rgba(255,255,255,0.3); text-align: center; padding: 1.75rem; font-size: 0.8rem; letter-spacing: 0.04em; }
+  footer a { color: inherit; text-decoration: none; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3.5rem; }
+    .impact-bar { padding: 2.5rem 1.5rem; }
+    .impact-inner { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .impact-stat { border-right: none; }
+    .impact-stat:nth-child(1), .impact-stat:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,0.18); padding-bottom: 1.25rem; }
+    .content { padding: 3rem 1.5rem 4rem; }
+    .arch-grid, .shot-duo { grid-template-columns: 1fr; }
+    .ai-flow { flex-direction: column; }
+    .ai-arrow { padding: 0.5rem; border: none; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); transform: rotate(90deg); }
+    .dec-row { grid-template-columns: 8rem 1fr; }
+    .cta { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Kavit Mehta</a>
+  <a href="index.html#projects" class="nav-back">All projects</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">Agentic AI · Full-Stack · Claude</div>
+    <h1>Fill out a World Cup bracket<br><em>like you actually know ball.</em></h1>
+    <p class="hero-sub">
+      Millions of people fill out a World Cup bracket in a pool with friends — and most couldn't tell you who half the teams are, so they agonize for twenty minutes and pick by flag. The Bracket Analyst is the knowledgeable friend they'd text: it knows every team, weighs each pick's real odds, and shows you how to stand out enough to actually win your pool. And because those odds are built on real Elo team ratings — the kind FIFA ranks teams by — it's advice you can trust.
+    </p>
+    <div class="hero-pills">
+      <span class="pill">Next.js 16 · React 19</span>
+      <span class="pill">TypeScript</span>
+      <span class="pill">Anthropic Claude · tool-grounded</span>
+      <span class="pill">Monte Carlo · 50k sims</span>
+      <span class="pill">Vitest · 287 tests</span>
+      <span class="pill">Public FIFA JSON · zod</span>
+    </div>
+  </div>
+</div>
+
+<!-- IMPACT BAR -->
+<div class="impact-bar">
+  <div class="impact-inner">
+    <div class="impact-stat">
+      <div class="impact-num">~60s</div>
+      <div class="impact-label">From one chat to a<br>complete, editable bracket</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">50,000</div>
+      <div class="impact-label">Tournaments simulated<br>behind every pick's odds</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">1,489</div>
+      <div class="impact-label">Players, 48 teams —<br>one grounded data model</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">287</div>
+      <div class="impact-label">Tests keeping every<br>number honest</div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- BRACKET PREDICTOR -->
+  <div class="reveal">
+    <div class="label">The bracket predictor</div>
+    <h2>A complete World Cup bracket, in one sitting.</h2>
+    <p>A 48-team World Cup has a genuinely hard first step: working out who survives the group stage. The Analyst predicts each team's odds of advancing — including the tricky bit, the <strong>8 best third-placed teams</strong> drawn from across the 12 groups, whose fate decides the final knockout spots. Those predictions seed a complete <strong>Round of 32</strong>, so you start from a filled-in knockout draw instead of a blank one.</p>
+    <p style="margin-top: 1rem;">From there, it's the knockout bracket you actually fill in — yourself, or let the Analyst <strong>autofill</strong> a complete, editable one, calibrated to your pool size and risk appetite. Every pick carries its real head-to-head odds, bold underdogs are flagged, and when you're happy you lock it and export to CSV straight into your pool.</p>
+    <div class="shot">
+      <video src="./images/fifa-wc-bracket-advisor-demo.mp4" poster="./images/wc-analyst-hero.png" controls preload="metadata" playsinline></video>
+      <div class="shot-cap">Full walkthrough — autofill a bracket, weigh the odds, ask the Analyst<span>▶ Demo</span></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- POOL-WINNING STRATEGY -->
+  <div class="reveal">
+    <div class="label">Pool-winning strategy</div>
+    <h2>Winning a pool isn't the same as being right.</h2>
+    <p>Winning a <em>small</em> pool is about being <strong>differentiated</strong>, not just accurate — if everyone picks the chalk, being right wins you nothing. The "You vs. the Model" view measures how bold your bracket is versus the favourites and calibrates the payoff to your pool size, so you stand out enough to win without blowing it up.</p>
+    <div class="feature-callout">
+      <div class="feature-callout-label">You vs. the Model</div>
+      <p>Ask it straight — <strong>"Is my bracket too safe to win?"</strong> — and it answers with numbers: how far you stray from the chalk, and where a well-chosen upset actually buys you an edge.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- GROUP STAGE -->
+  <div class="reveal">
+    <div class="label">The group stage</div>
+    <h2>The part no scoreboard shows you.</h2>
+    <p>The dashboard tracks all 12 groups live — every team marked <strong>Through</strong>, <strong>In contention</strong>, <strong>in the 3rd-place race</strong>, or <strong>Out</strong>, with a Next-Round % beside it. The top two of each group always advance; the twist is that the <strong>8 best third-placed teams out of the 12 groups</strong> go through as well, and working out which ones means weighing results across every group at once — the part no single group's table can show you. Tap any team for the exact scenarios that decide its fate.</p>
+    <div class="shot">
+      <img src="./images/wc-analyst-groups.png" alt="Group-stage dashboard showing all twelve groups with live-aware standings, each team's status and a Next Round percentage, including the eight best third-placed teams">
+      <div class="shot-cap">Group dashboard — standings, status, and Next-Round % across all 12 groups<span>3rd-place race, solved</span></div>
+    </div>
+    <div class="shot">
+      <img src="./images/wc-analyst-team.png" alt="Team detail view breaking down a single team's qualification situation and the scenarios that decide whether it advances">
+      <div class="shot-cap">Team detail — the scenarios that decide whether a team advances<span>Tap to expand</span></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ASK THE ANALYST -->
+  <div class="reveal">
+    <div class="label">Ask the Analyst</div>
+    <h2>The expert friend you'd text for advice.</h2>
+    <p>"Why are Netherlands favoured?" "NED vs MAR — who wins?" "Who's the top scorer so far?" A chat on both tabs answers free-form questions in plain English, drawing on the exact same engine that powers the bracket and the dashboard — so the chat and your bracket never disagree.</p>
+    <div class="shot">
+      <img src="./images/wc-analyst-chat.png" alt="Ask the Analyst answering a free-form question about the bracket in plain English, grounded in the model's probabilities">
+      <div class="shot-cap">Ask the Analyst — plain-English answers grounded in the model's numbers<span>Same engine, everywhere</span></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- WHY YOU CAN TRUST IT -->
+  <div class="reveal">
+    <div class="label">Why you can trust it</div>
+    <h2>The math is real; the AI can't fake it.</h2>
+    <p>Every probability starts from <strong>Elo team ratings — the same rating method FIFA uses for its own World Ranking</strong>, not opinions. From those ratings a dedicated engine plays the whole tournament out tens of thousands of times — modelling each match from the two teams' relative strength — to produce every standing, verdict, and knockout odd, with its rules locked down by an automated test suite so the numbers don't drift. The AI never computes any of it; it only reads what the engine produced and explains it in plain English.</p>
+    <div class="ai-flow">
+      <div class="ai-node">
+        <div class="ai-node-icon">📥</div>
+        <div class="ai-node-title">FIFA public JSON</div>
+        <div class="ai-node-desc">Fetched and validated with <code>zod</code> into a typed tournament snapshot.</div>
+      </div>
+      <div class="ai-arrow">→</div>
+      <div class="ai-node center">
+        <div class="ai-node-icon">🎲</div>
+        <div class="ai-node-title">Elo-strength engine</div>
+        <div class="ai-node-desc"><strong>50,000 simulated tournaments</strong> per forecast — standings, odds, and pool-finish. Pure math, no I/O.</div>
+      </div>
+      <div class="ai-arrow">→</div>
+      <div class="ai-node">
+        <div class="ai-node-icon">💬</div>
+        <div class="ai-node-title">The grounded Analyst</div>
+        <div class="ai-node-desc">Claude reads the computed facts through tool calls and explains them.</div>
+      </div>
+    </div>
+    <p style="margin-top: 1.75rem;">And the way it behaves around those numbers is governed by hard rules, not left to the model's discretion:</p>
+    <div class="arch-grid">
+      <div class="arch-card">
+        <div class="arch-card-icon">🛡️</div>
+        <div class="arch-card-title">Grounded, or it declines</div>
+        <div class="arch-card-body">Every figure the Analyst gives is pulled from the engine, not written by the model. Ask something it can't ground and it says it doesn't have that — it won't invent a number to fill the gap.</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card-icon">🔗</div>
+        <div class="arch-card-title">One model, no contradictions</div>
+        <div class="arch-card-body">The odds on a bracket pick and the Analyst's answer for that same matchup are drawn from one shared model — so your bracket and the chat can never disagree.</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card-icon">📌</div>
+        <div class="arch-card-title">Settled facts are pinned</div>
+        <div class="arch-card-body">A team that's clinched reads 100% and one that's out reads 0% — fixed, never left to simulation. Uncertainty is added only where the result is genuinely still open.</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card-icon">⚖️</div>
+        <div class="arch-card-title">It won't oversell a pick</div>
+        <div class="arch-card-body">A long shot is never dressed up as a lock, a bracket is called busted only when it truly is, and past World Cups are context only — history never bends a 2026 number.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- REFLECTION -->
+  <div class="reveal">
+    <div class="label">Personal reflection</div>
+    <div class="reflection">
+      <div class="reflection-label">Behind the build</div>
+      <p>I built the Bracket Analyst because I've been in that group chat — everyone fills out a World Cup bracket, nobody actually knows half the teams, and everyone secretly wants to beat their friends. I wanted to put the knowledgeable friend they'd text into an app.</p>
+      <p>The insight that shaped it: winning a small pool isn't about being the most accurate, it's about being differentiated in the right way — while keeping every number honest enough to hold up when someone checks it. Getting both right is the part I'm proudest of.</p>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer reveal">
+    <p>Unofficial hobby project. The Bracket Analyst reads FIFA's undocumented public JSON endpoints and uses original styling only — no FIFA logos or imagery. It is not affiliated with, endorsed by, or associated with FIFA.</p>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta reveal">
+    <p class="cta-text">Want to see how it fills out a bracket?</p>
+    <div class="cta-actions">
+      <a href="https://github.com/LionelKavit/fifa-wc-fantasy" target="_blank" rel="noopener noreferrer" class="btn-ghost">View on GitHub</a>
+      <a href="index.html#contact" class="btn-primary">Get in touch</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 Kavit Mehta · <a href="index.html">Back to portfolio</a></p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
