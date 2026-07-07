@@ -148,6 +148,7 @@
   .btn-ghost { color: var(--brown); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
   .btn-ghost:hover { color: var(--green); }
   .btn-ghost::after { content: '↗'; }
+  .btn-ghost.internal::after { content: ''; }
 
   footer { background: #0D1A0D; color: rgba(255,255,255,0.3); text-align: center; padding: 1.75rem; font-size: 0.8rem; letter-spacing: 0.04em; }
   footer a { color: inherit; text-decoration: none; }
@@ -356,10 +357,11 @@
 
   <!-- CTA -->
   <div class="cta reveal">
-    <p class="cta-text">Want to see how it fills out a bracket?</p>
+    <p class="cta-text">See it live — or dig into the build.</p>
     <div class="cta-actions">
+      <a href="https://fifa-wc-bracket.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-primary">Try the live app</a>
       <a href="https://github.com/LionelKavit/fifa-wc-fantasy" target="_blank" rel="noopener noreferrer" class="btn-ghost">View on GitHub</a>
-      <a href="index.html#contact" class="btn-primary">Get in touch</a>
+      <a href="index.html#contact" class="btn-ghost internal">Get in touch</a>
     </div>
   </div>
 

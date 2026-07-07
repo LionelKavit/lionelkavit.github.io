@@ -476,6 +476,8 @@
 
   .project-link:hover { gap: 0.7rem; }
   .project-link::after { content: '→'; }
+  .project-links { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+  .project-link.external::after { content: '↗'; }
 
   .project-thumb-link {
     display: block;
@@ -1096,7 +1098,10 @@
         <div class="project-tag">Agentic AI · Full-Stack · Claude</div>
         <div class="project-title"><a href="project-fpl-advisor.html" class="project-title-link">Pocket Scout — Fantasy Premier League Advisor</a></div>
         <p class="project-desc">Personalized Fantasy Premier League advice at your fingertips — transfers, captaincy, and chip calls for your exact squad, plus a chat that answers any question about your team. Grounded in real FPL data so the advice actually holds up.</p>
-        <a href="project-fpl-advisor.html" class="project-link">Read case study</a>
+        <div class="project-links">
+          <a href="project-fpl-advisor.html" class="project-link">Read case study</a>
+          <a href="https://fantasy-premier-league-advisor.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-link external">Live app</a>
+        </div>
       </div>
     </div>
     <div class="project-card reveal">
@@ -1105,7 +1110,10 @@
         <div class="project-tag">Agentic AI · Full-Stack · Claude</div>
         <div class="project-title"><a href="project-wc-bracket-analyst.html" class="project-title-link">The Bracket Analyst — FIFA World Cup 2026</a></div>
         <p class="project-desc">Your expert friend for a World Cup bracket pool. It weighs every pick's real odds, shows how bold your bracket is versus the chalk so you can actually win your pool, and demystifies the 48-team format — grounded in a real strength model, not vibes.</p>
-        <a href="project-wc-bracket-analyst.html" class="project-link">Read case study</a>
+        <div class="project-links">
+          <a href="project-wc-bracket-analyst.html" class="project-link">Read case study</a>
+          <a href="https://fifa-wc-bracket.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-link external">Live app</a>
+        </div>
       </div>
     </div>
   </div>
