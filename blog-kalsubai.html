@@ -60,6 +60,8 @@
     list-style: none;
   }
 
+  .nav-hamburger { display: none; }
+
   .nav-links a {
     font-size: 0.85rem;
     font-weight: 400;
@@ -550,8 +552,27 @@
   }
 
   @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { gap: 1.25rem; }
+    nav { padding: 1rem 1.5rem; position: fixed; }
+    .nav-hamburger {
+      display: flex; flex-direction: column; justify-content: center; gap: 5px;
+      width: 28px; height: 24px; cursor: pointer;
+    }
+    .nav-hamburger span {
+      display: block; height: 2px; width: 100%; background: var(--brown, #1A3A1A);
+      border-radius: 2px; transition: transform 0.25s, opacity 0.25s;
+    }
+    .nav-toggle:checked ~ .nav-hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle:checked ~ .nav-hamburger span:nth-child(2) { opacity: 0; }
+    .nav-toggle:checked ~ .nav-hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-links {
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; gap: 0; padding: 0.5rem 0;
+      background: rgba(250,247,242,0.98); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-toggle:checked ~ .nav-links { display: flex; }
+    .nav-links li { padding: 0.85rem 1.5rem; border-top: 1px solid var(--border); }
+    .nav-links a { font-size: 0.95rem; }
     .hero-image-wrap { height: 50vh; }
     .hero-overlay-text { left: 1.5rem; bottom: 2rem; }
     .hero-altitude-badge { top: 5rem; right: 1.5rem; }
@@ -571,6 +592,8 @@
 <!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">Kavit Mehta</a>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+  <label for="nav-toggle" class="nav-hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></label>
   <ul class="nav-links">
     <li><a href="index.html#about">About</a></li>
     <li><a href="index.html#projects">Projects</a></li>
