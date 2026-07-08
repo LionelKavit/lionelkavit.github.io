@@ -551,6 +551,7 @@
   @media (max-width: 768px) {
     nav { padding: 1rem 1.25rem; }
     .nav-back { font-size: 0.72rem; letter-spacing: 0.03em; gap: 0.35rem; }
+    .hero-pills { justify-content: center; }
     .hero { padding: 7rem 1.5rem 3.5rem; }
     .impact-bar { padding: 2.5rem 1.5rem; }
     .impact-inner { grid-template-columns: 1fr; gap: 1.5rem; }
@@ -558,8 +559,19 @@
     .impact-stat:last-child { border-bottom: none; padding-bottom: 0; }
     .content { padding: 3rem 1.5rem 4rem; }
     .problem-grid, .flows-grid, .eval-grid { grid-template-columns: 1fr; }
-    .pipeline { justify-content: flex-start; }
+    .pipeline { justify-content: space-between; align-items: flex-start; gap: 0.15rem; overflow-x: visible; }
+    .pipe-node { min-width: 0; flex: 1; gap: 0.3rem; }
+    .pipe-icon { width: 34px; height: 34px; font-size: 0.95rem; border-radius: 8px; }
+    .pipe-name { font-size: 0.52rem; line-height: 1.2; }
+    .pipe-sub { display: none; }
+    .pipe-arrow { padding: 0; font-size: 0.7rem; margin-top: 11px; }
     .cta { flex-direction: column; }
+  }
+
+  @media (max-width: 360px) {
+    .pipe-icon { width: 30px; height: 30px; font-size: 0.85rem; }
+    .pipe-name { font-size: 0.46rem; }
+    .pipe-arrow { margin-top: 9px; }
   }
 </style>
 </head>
@@ -672,7 +684,7 @@
           <div class="pipe-name">SharePoint</div>
           <div class="pipe-sub">Data dictionary</div>
         </div>
-        <div class="pipe-arrow">↔</div>
+        <div class="pipe-arrow">→</div>
         <div class="pipe-node">
           <div class="pipe-icon agent">🤖</div>
           <div class="pipe-name">Copilot Agent</div>
