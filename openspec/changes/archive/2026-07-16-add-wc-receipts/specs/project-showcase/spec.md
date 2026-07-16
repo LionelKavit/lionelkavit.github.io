@@ -3,8 +3,8 @@
 ### Requirement: Prediction receipts section
 
 The Bracket Analyst case-study page SHALL include a "receipts" section presenting the bracket's
-predicted-vs-actual record for World Cup 2026, placed after the trust/guardrails section and before
-the personal reflection. The section SHALL group picks by round with a per-round tally, showing for
+predicted-vs-actual record for World Cup 2026, placed before the personal reflection at the position
+the page-structure requirement assigns it in the narrative order. The section SHALL group picks by round with a per-round tally, showing for
 each pick the prediction, the real result, and a correct/missed/in-play mark. Misses decided by
 penalty shootouts SHALL be annotated as such. The section SHALL state the overall record honestly —
 including the misses — and every displayed pick MUST match the bracket export verbatim: no pick may
@@ -13,7 +13,12 @@ provenance note that attributes the bracket accurately (Kavit's bracket, built w
 autofill plus hand-tweaked picks) and, because no pre-tournament lock evidence exists, makes no
 locked-before-kickoff claim, plus a link to the live app. Real-world results MUST match the
 user-verified scorecard; undecided matches MUST be marked in play rather than correct or missed. The
-section SHALL reuse the page's existing design system and introduce no JavaScript.
+section SHALL reuse the page's existing design system and introduce no JavaScript. The section's
+on-page title SHALL NOT use the internal "receipts" name; it SHALL present the bracket's identity —
+a balanced-risk bracket built for a 50-person pool (settings per Kavit, user-verified) — so a neutral
+fan can identify with it, with the intro noting that this balanced philosophy showed most from the
+quarterfinals onward. On-page cross-references from other sections SHALL match this public framing
+rather than the internal name.
 
 #### Scenario: Round-grouped record with tallies
 

@@ -80,12 +80,11 @@
   .receipt-tally { color: var(--text-light); letter-spacing: 0.08em; }
   .receipt-row { display: grid; grid-template-columns: 1.2fr 1fr 1.6rem; gap: 0.9rem; align-items: baseline; padding: 0.42rem 1.4rem; font-size: 0.82rem; border-top: 1px solid rgba(45,107,45,0.07); }
   .receipts .receipt-row:last-child { padding-bottom: 1rem; }
-  .r-pick { color: var(--text-dark); }
+  .r-pick { color: var(--green); }
   .r-result { color: var(--text-light); font-weight: 300; }
   .r-mark { font-family: var(--mono); font-size: 0.8rem; text-align: right; color: var(--green); }
-  .receipt-row.miss .r-pick { color: var(--text-light); }
-  .receipt-row.miss .r-mark { color: var(--text-light); opacity: 0.75; }
-  .receipt-row.pending .r-mark { color: var(--text-light); }
+  .receipt-row.miss .r-pick, .receipt-row.miss .r-result, .receipt-row.miss .r-mark { color: #A63A2E; }
+  .receipt-row.pending .r-pick, .receipt-row.pending .r-result, .receipt-row.pending .r-mark { color: var(--text-dark); }
   .receipts-note { margin-top: 1.25rem; }
   .receipts-note a { color: var(--green); }
 
@@ -232,7 +231,7 @@
     <div class="hero-tag">Agentic AI · Full-Stack · Claude</div>
     <h1>My bracket called the final.<br><em>I built the engine behind it.</em></h1>
     <p class="hero-sub">
-      All four semifinalists. Both semifinal results. The exact final — Spain vs Argentina — with the champion pick still live. Not luck, and not chalk: the Bracket Analyst pairs Elo-grounded odds — the kind FIFA ranks teams by — with an upset-watch engine that calculates how bold a bracket should be for your pool size and risk appetite. I built it for everyone who fills out a bracket picking by flag, then trusted it with my own. The receipts are below.
+      All four semifinalists. Both semifinal results. The exact final — Spain vs Argentina — with the champion pick still live. Not luck, and not guesswork: the Bracket Analyst pairs Elo-grounded odds — the kind FIFA ranks teams by — with an upset-watch engine that calculates how bold a bracket should be for your pool size and risk appetite. I built it for everyone who fills out a bracket picking by flag, then trusted it with my own. The full bracket is graded below.
     </p>
     <div class="hero-pills">
       <span class="pill">Next.js 16 · React 19</span>
@@ -286,9 +285,16 @@
   <!-- BRACKET PREDICTOR -->
   <div class="reveal">
     <div class="label">The bracket predictor</div>
-    <h2>A complete World Cup bracket, in one sitting.</h2>
-    <p>A 48-team World Cup has a genuinely hard first step: working out who survives the group stage. The Analyst predicts each team's odds of advancing — including the tricky bit, the <strong>8 best third-placed teams</strong> drawn from across the 12 groups, whose fate decides the final knockout spots. Those predictions seed a complete <strong>Round of 32</strong>, so you start from a filled-in knockout draw instead of a blank one.</p>
-    <p style="margin-top: 1rem;">From there, it's the knockout bracket you actually fill in — yourself, or let the Analyst <strong>autofill</strong> a complete, editable one, calibrated to your pool size and risk appetite. Every pick carries its real head-to-head odds, bold underdogs are flagged, and when you're happy you lock it and export to CSV straight into your pool.</p>
+    <h2>One chat. A complete, odds-backed bracket.</h2>
+    <p>Tell the Analyst your pool size and how bold you feel, and about a minute later you're looking at a <strong>complete World Cup bracket</strong> — every pick backed by real odds, ready to defend. The hard part happens invisibly: 48 teams, 12 groups, and the puzzle of the <strong>8 best third-placed teams</strong>, all resolved into a filled-in knockout draw before you touch a thing.</p>
+    <p style="margin-top: 1rem;">From there it's yours. Keep the <strong>autofill</strong> or overrule it — every matchup shows its real head-to-head odds, and bold underdogs are flagged as you go. Happy with it? Lock it and export the CSV straight into your pool. It's the same autofill that seeded my bracket, graded below.</p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- DEMO -->
+  <div class="reveal">
+    <div class="label">See it work</div>
     <div class="shot">
       <video src="./images/fifa-wc-bracket-advisor-demo.mp4" poster="./images/wc-analyst-hero.png" controls preload="metadata" playsinline></video>
       <div class="shot-cap">Full walkthrough — autofill a bracket, weigh the odds, ask the Analyst<span>▶ Demo</span></div>
@@ -297,105 +303,11 @@
 
   <hr class="divider">
 
-  <!-- POOL-WINNING STRATEGY -->
-  <div class="reveal">
-    <div class="label">Upset watch · pool-winning strategy</div>
-    <h2>Winning a pool isn't the same as being right.</h2>
-    <p>Winning a <em>small</em> pool is about being <strong>differentiated</strong>, not just accurate — if everyone picks the chalk, being right wins you nothing. That's the upset-watch engine's job: it doesn't just compute the odds of being right, it calculates the statistical payoff of a bold pick against your pool size and risk appetite. The "You vs. the Model" view shows how far your bracket strays from the favourites, so you stand out enough to win without blowing it up.</p>
-    <div class="feature-callout">
-      <div class="feature-callout-label">You vs. the Model</div>
-      <p>Ask it straight — <strong>"Is my bracket too safe to win?"</strong> — and it answers with numbers: how far you stray from the chalk, and where a well-chosen upset actually buys you an edge.</p>
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <!-- GROUP STAGE -->
-  <div class="reveal">
-    <div class="label">The group stage</div>
-    <h2>The part no scoreboard shows you.</h2>
-    <p>The dashboard tracks all 12 groups live — every team marked <strong>Through</strong>, <strong>In contention</strong>, <strong>in the 3rd-place race</strong>, or <strong>Out</strong>, with a Next-Round % beside it. The top two of each group always advance; the twist is that the <strong>8 best third-placed teams out of the 12 groups</strong> go through as well, and working out which ones means weighing results across every group at once — the part no single group's table can show you. Tap any team for the exact scenarios that decide its fate.</p>
-    <div class="shot">
-      <img src="./images/wc-analyst-groups.png" alt="Group-stage dashboard showing all twelve groups with live-aware standings, each team's status and a Next Round percentage, including the eight best third-placed teams">
-      <div class="shot-cap">Group dashboard — standings, status, and Next-Round % across all 12 groups<span>3rd-place race, solved</span></div>
-    </div>
-    <div class="shot">
-      <img src="./images/wc-analyst-team.png" alt="Team detail view breaking down a single team's qualification situation and the scenarios that decide whether it advances">
-      <div class="shot-cap">Team detail — the scenarios that decide whether a team advances<span>Tap to expand</span></div>
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <!-- ASK THE ANALYST -->
-  <div class="reveal">
-    <div class="label">Ask the Analyst</div>
-    <h2>The expert friend you'd text for advice.</h2>
-    <p>"Why are Netherlands favoured?" "NED vs MAR — who wins?" "Who's the top scorer so far?" A chat on both tabs answers free-form questions in plain English, drawing on the exact same engine that powers the bracket and the dashboard — so the chat and your bracket never disagree.</p>
-    <div class="shot">
-      <img src="./images/wc-analyst-chat.png" alt="Ask the Analyst answering a free-form question about the bracket in plain English, grounded in the model's probabilities">
-      <div class="shot-cap">Ask the Analyst — plain-English answers grounded in the model's numbers<span>Same engine, everywhere</span></div>
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <!-- WHY YOU CAN TRUST IT -->
-  <div class="reveal">
-    <div class="label">Why you can trust it</div>
-    <h2>The math is real; the AI can't fake it.</h2>
-    <p>Every probability starts from <strong>Elo team ratings — the same rating method FIFA uses for its own World Ranking</strong>, not opinions. From those ratings a dedicated engine plays the whole tournament out tens of thousands of times — modelling each match from the two teams' relative strength — to produce every standing, verdict, and knockout odd, with its rules locked down by an automated test suite so the numbers don't drift. The AI never computes any of it; it only reads what the engine produced and explains it in plain English.</p>
-    <div class="ai-flow">
-      <div class="ai-node">
-        <div class="ai-node-icon">📥</div>
-        <div class="ai-node-title">FIFA public JSON</div>
-        <div class="ai-node-desc">Fetched and validated with <code>zod</code> into a typed tournament snapshot.</div>
-      </div>
-      <div class="ai-arrow">→</div>
-      <div class="ai-node center">
-        <div class="ai-node-icon">🎲</div>
-        <div class="ai-node-title">Elo-strength engine</div>
-        <div class="ai-node-desc"><strong>50,000 simulated tournaments</strong> per forecast — standings, odds, and pool-finish. Pure math, no I/O.</div>
-      </div>
-      <div class="ai-arrow">→</div>
-      <div class="ai-node">
-        <div class="ai-node-icon">💬</div>
-        <div class="ai-node-title">The grounded Analyst</div>
-        <div class="ai-node-desc">Claude reads the computed facts through tool calls and explains them.</div>
-      </div>
-    </div>
-    <p style="margin-top: 1.75rem;">And the way it behaves around those numbers is governed by hard rules, not left to the model's discretion:</p>
-    <div class="arch-grid">
-      <div class="arch-card">
-        <div class="arch-card-icon">🛡️</div>
-        <div class="arch-card-title">Grounded, or it declines</div>
-        <div class="arch-card-body">Every figure the Analyst gives is pulled from the engine, not written by the model. Ask something it can't ground and it says it doesn't have that — it won't invent a number to fill the gap.</div>
-      </div>
-      <div class="arch-card">
-        <div class="arch-card-icon">🔗</div>
-        <div class="arch-card-title">One model, no contradictions</div>
-        <div class="arch-card-body">The odds on a bracket pick and the Analyst's answer for that same matchup are drawn from one shared model — so your bracket and the chat can never disagree.</div>
-      </div>
-      <div class="arch-card">
-        <div class="arch-card-icon">📌</div>
-        <div class="arch-card-title">Settled facts are pinned</div>
-        <div class="arch-card-body">A team that's clinched reads 100% and one that's out reads 0% — fixed, never left to simulation. Uncertainty is added only where the result is genuinely still open.</div>
-      </div>
-      <div class="arch-card">
-        <div class="arch-card-icon">⚖️</div>
-        <div class="arch-card-title">It won't oversell a pick</div>
-        <div class="arch-card-body">A long shot is never dressed up as a lock, a bracket is called busted only when it truly is, and past World Cups are context only — history never bends a 2026 number.</div>
-      </div>
-    </div>
-  </div>
-
-  <hr class="divider">
-
   <!-- THE RECEIPTS -->
   <div class="reveal">
-    <div class="label">The receipts · World Cup 2026</div>
-    <h2>The bracket, graded in public.</h2>
-    <p>Talk is cheap, so here's the whole bracket against what actually happened — every pick exactly as exported from the app, nothing edited after the fact, misses included. Three of the four round-of-32 misses went to penalty shootouts, literal coin flips. All four quarterfinal calls landed, two of them against different opponents than predicted (England drew Norway, not Brazil; France drew Morocco, not the Netherlands) — the deep branches held even where the paths shifted. All four semifinalists were called, both semifinal results were called exactly, and Sunday's final is the final this bracket predicted — Spain vs Argentina, with the champion pick still in play. A pick is graded ✓ if the picked team advanced from that round.</p>
+    <div class="label">Graded in public · World Cup 2026</div>
+    <h2>What a balanced bracket in a pool of 50 looks like.</h2>
+    <p>Talk is cheap, so here's the whole bracket against what actually happened — every pick exactly as exported from the app, nothing edited after the fact, misses included. It was built at a <strong>balanced risk setting for a 50-person pool</strong> — a neutral fan's bracket, not a hero call sheet: chalk where the chalk is right, bold only where the numbers earned it. And that philosophy shows in where it shone. Three of the four round-of-32 misses were penalty shootouts, literal coin flips — and from the quarterfinals on, it hasn't missed a call. All four quarterfinal picks landed, two of them against different opponents than predicted (England drew Norway, not Brazil; France drew Morocco, not the Netherlands). All four semifinalists were called, both semifinal results were called exactly, and Sunday's final is the final this bracket predicted — Spain vs Argentina, champion pick still in play. A pick is graded ✓ if the picked team advanced from that round.</p>
     <div class="receipts">
       <div class="receipt-round-head">Round of 32 <span class="receipt-tally">12/16</span></div>
       <div class="receipt-row"><span class="r-pick">Canada over South Africa</span><span class="r-result">Canada advanced</span><span class="r-mark">✓</span></div>
@@ -448,7 +360,102 @@
       <div class="reflection-label">Behind the build</div>
       <p>I built the Bracket Analyst because I've been in that group chat — everyone fills out a World Cup bracket, nobody actually knows half the teams, and everyone secretly wants to beat their friends. I wanted to put the knowledgeable friend they'd text into an app.</p>
       <p>The insight that shaped it: winning a small pool isn't about being the most accurate, it's about being differentiated in the right way — while keeping every number honest enough to hold up when someone checks it. Getting both right is the part I'm proudest of.</p>
-      <p>This World Cup made it concrete. I ran my own bracket through the engine — the model's autofill plus my own reads — and the calls landed in public: every semifinalist, both semifinal results, the exact final. I set out to build the knowledgeable friend you'd text; ending up as the tool's first proven user is the ending I didn't script. The receipts are one scroll up, misses included.</p>
+      <p>This World Cup made it concrete. I ran my own bracket through the engine — the model's autofill plus my own reads — and the calls landed in public: every semifinalist, both semifinal results, the exact final. I set out to build the knowledgeable friend you'd text; ending up as the tool's first proven user is the ending I didn't script. The graded bracket is one scroll up, misses included.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- WHY YOU CAN TRUST IT -->
+  <div class="reveal">
+    <div class="label">Why you can trust it</div>
+    <h2>Consistency you can compute.</h2>
+    <p>So how does it actually decide a match? Take one matchup. The engine turns the two teams' <strong>Elo gap — the same rating method FIFA uses for its own World Ranking</strong> — into a win probability, and draws the result from it. No vibes, no reputations, no pundit narratives. Now play the whole tournament out that way, <strong>50,000 times</strong>, and you get every standing, knockout odd, and pool verdict on this page — rules locked down by an automated test suite so the numbers don't drift. The AI never computes any of it; it only reads what the engine produced and explains it in plain English.</p>
+    <p style="margin-top: 1rem;">It's also why the model kept faith with Spain and Argentina while the form narrative crowned France and England. <strong>Form is the last three games; Elo is years of results.</strong> Consistency beat form in both semifinals — the graded bracket above did the arguing. And your settings never bend the simulation: pool size and risk appetite only decide <em>which underdogs are worth backing</em> — the odds themselves are untouchable.</p>
+    <div class="ai-flow">
+      <div class="ai-node">
+        <div class="ai-node-icon">📥</div>
+        <div class="ai-node-title">FIFA public JSON</div>
+        <div class="ai-node-desc">Fetched and validated with <code>zod</code> into a typed tournament snapshot.</div>
+      </div>
+      <div class="ai-arrow">→</div>
+      <div class="ai-node center">
+        <div class="ai-node-icon">🎲</div>
+        <div class="ai-node-title">Elo-strength engine</div>
+        <div class="ai-node-desc"><strong>50,000 simulated tournaments</strong> per forecast — standings, odds, and pool-finish. Pure math, no I/O.</div>
+      </div>
+      <div class="ai-arrow">→</div>
+      <div class="ai-node">
+        <div class="ai-node-icon">💬</div>
+        <div class="ai-node-title">The grounded Analyst</div>
+        <div class="ai-node-desc">Claude reads the computed facts through tool calls and explains them.</div>
+      </div>
+    </div>
+    <p style="margin-top: 1.75rem;">And the way it behaves around those numbers is governed by hard rules, not left to the model's discretion:</p>
+    <div class="arch-grid">
+      <div class="arch-card">
+        <div class="arch-card-icon">🛡️</div>
+        <div class="arch-card-title">Grounded, or it declines</div>
+        <div class="arch-card-body">Every figure the Analyst gives is pulled from the engine, not written by the model. Ask something it can't ground and it says it doesn't have that — it won't invent a number to fill the gap.</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card-icon">🔗</div>
+        <div class="arch-card-title">One model, no contradictions</div>
+        <div class="arch-card-body">The odds on a bracket pick and the Analyst's answer for that same matchup are drawn from one shared model — so your bracket and the chat can never disagree.</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card-icon">📌</div>
+        <div class="arch-card-title">Settled facts are pinned</div>
+        <div class="arch-card-body">A team that's clinched reads 100% and one that's out reads 0% — fixed, never left to simulation. Uncertainty is added only where the result is genuinely still open.</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card-icon">⚖️</div>
+        <div class="arch-card-title">It won't oversell a pick</div>
+        <div class="arch-card-body">A long shot is never dressed up as a lock, a bracket is called busted only when it truly is, and past World Cups are context only — history never bends a 2026 number.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- POOL-WINNING STRATEGY -->
+  <div class="reveal">
+    <div class="label">Upset watch · pool-winning strategy</div>
+    <h2>Winning a pool isn't the same as being right.</h2>
+    <p>Winning a <em>small</em> pool is about being <strong>differentiated</strong>, not just accurate — if everyone picks the chalk, being right wins you nothing. That's the upset-watch engine's job: it doesn't just compute the odds of being right, it calculates the statistical payoff of a bold pick against your pool size and risk appetite. The "You vs. the Model" view shows how far your bracket strays from the favourites, so you stand out enough to win without blowing it up. That calibration is why my bracket's deep branches held even when the tournament's paths shifted — quarterfinal calls that outlived the opponents they were supposed to meet.</p>
+    <div class="feature-callout">
+      <div class="feature-callout-label">You vs. the Model</div>
+      <p>Ask it straight — <strong>"Is my bracket too safe to win?"</strong> — and it answers with numbers: how far you stray from the chalk, and where a well-chosen upset actually buys you an edge.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- GROUP STAGE -->
+  <div class="reveal">
+    <div class="label">The group stage</div>
+    <h2>The part no scoreboard shows you.</h2>
+    <p>The dashboard tracks all 12 groups live — every team marked <strong>Through</strong>, <strong>In contention</strong>, <strong>in the 3rd-place race</strong>, or <strong>Out</strong>, with a Next-Round % beside it. The top two of each group always advance; the twist is that the <strong>8 best third-placed teams out of the 12 groups</strong> go through as well, and working out which ones means weighing results across every group at once — the part no single group's table can show you. Tap any team for the exact scenarios that decide its fate. It's the same group engine that seeded the Round of 32 my bracket was graded on above.</p>
+    <div class="shot">
+      <img src="./images/wc-analyst-groups.png" alt="Group-stage dashboard showing all twelve groups with live-aware standings, each team's status and a Next Round percentage, including the eight best third-placed teams">
+      <div class="shot-cap">Group dashboard — standings, status, and Next-Round % across all 12 groups<span>3rd-place race, solved</span></div>
+    </div>
+    <div class="shot">
+      <img src="./images/wc-analyst-team.png" alt="Team detail view breaking down a single team's qualification situation and the scenarios that decide whether it advances">
+      <div class="shot-cap">Team detail — the scenarios that decide whether a team advances<span>Tap to expand</span></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ASK THE ANALYST -->
+  <div class="reveal">
+    <div class="label">Ask the Analyst</div>
+    <h2>The expert friend you'd text for advice.</h2>
+    <p>"Why are Netherlands favoured?" "NED vs MAR — who wins?" "Who's the top scorer so far?" A chat on both tabs answers free-form questions in plain English, drawing on the exact same engine that powers the bracket and the dashboard — so the chat and your bracket never disagree. It's the same grounded analyst that stood behind every call in the graded bracket above.</p>
+    <div class="shot">
+      <img src="./images/wc-analyst-chat.png" alt="Ask the Analyst answering a free-form question about the bracket in plain English, grounded in the model's probabilities">
+      <div class="shot-cap">Ask the Analyst — plain-English answers grounded in the model's numbers<span>Same engine, everywhere</span></div>
     </div>
   </div>
 
@@ -459,7 +466,7 @@
 
   <!-- CTA -->
   <div class="cta reveal">
-    <p class="cta-text">See it live — or dig into the build.</p>
+    <p class="cta-text">Run your bracket the way I ran mine — or dig into the build.</p>
     <div class="cta-actions">
       <a href="https://fifa-wc-bracket.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-primary">Try the live app</a>
       <a href="https://github.com/LionelKavit/fifa-wc-fantasy" target="_blank" rel="noopener noreferrer" class="btn-ghost">View on GitHub</a>
