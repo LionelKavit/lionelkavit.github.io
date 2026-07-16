@@ -61,6 +61,34 @@
   .hero-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
   .pill { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.62); font-size: 0.74rem; font-weight: 400; letter-spacing: 0.04em; padding: 0.38rem 0.9rem; border-radius: 100px; }
 
+  /* LIVE SCOREBOARD */
+  .scoreboard { background: var(--pitch); border-top: 1px solid rgba(255,255,255,0.14); padding: 1.3rem 4rem; }
+  .scoreboard-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; flex-wrap: wrap; gap: 0.9rem 1.25rem; }
+  .scoreboard-label { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: #7DBF7D; font-weight: 500; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; }
+  .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #7DBF7D; }
+  .score-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .score-pill { font-size: 0.76rem; font-weight: 400; letter-spacing: 0.02em; color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.25); border-radius: 100px; padding: 0.34rem 0.85rem; }
+  .score-pill.hit { border-color: rgba(125,191,125,0.55); color: #7DBF7D; }
+  .score-pill.miss { border-color: rgba(255,255,255,0.16); color: rgba(255,255,255,0.45); }
+  .score-pill.pending { border-style: dashed; color: rgba(255,255,255,0.65); }
+  .scoreboard-stamp { margin-left: auto; font-size: 0.66rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.45); font-weight: 300; white-space: nowrap; }
+
+  /* RECEIPTS */
+  .receipts { margin-top: 1.75rem; border: 1px solid var(--border); border-radius: 6px; background: var(--warm-white); overflow: hidden; }
+  .receipt-round-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); font-weight: 500; padding: 1rem 1.4rem 0.55rem; border-top: 1px solid var(--border); }
+  .receipts .receipt-round-head:first-child { border-top: none; }
+  .receipt-tally { color: var(--text-light); letter-spacing: 0.08em; }
+  .receipt-row { display: grid; grid-template-columns: 1.2fr 1fr 1.6rem; gap: 0.9rem; align-items: baseline; padding: 0.42rem 1.4rem; font-size: 0.82rem; border-top: 1px solid rgba(45,107,45,0.07); }
+  .receipts .receipt-row:last-child { padding-bottom: 1rem; }
+  .r-pick { color: var(--text-dark); }
+  .r-result { color: var(--text-light); font-weight: 300; }
+  .r-mark { font-family: var(--mono); font-size: 0.8rem; text-align: right; color: var(--green); }
+  .receipt-row.miss .r-pick { color: var(--text-light); }
+  .receipt-row.miss .r-mark { color: var(--text-light); opacity: 0.75; }
+  .receipt-row.pending .r-mark { color: var(--text-light); }
+  .receipts-note { margin-top: 1.25rem; }
+  .receipts-note a { color: var(--green); }
+
   /* IMPACT BAR */
   .impact-bar { background: var(--pitch-accent); padding: 3rem 4rem; }
   .impact-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
@@ -162,6 +190,13 @@
     .nav-back { font-size: 0.72rem; letter-spacing: 0.03em; gap: 0.35rem; }
     .hero-pills { justify-content: center; }
     .hero { padding: 7rem 1.5rem 3.5rem; }
+    .scoreboard { padding: 1.1rem 1.5rem; }
+    .scoreboard-inner { flex-direction: column; align-items: center; gap: 0.6rem; }
+    .score-pills { justify-content: center; }
+    .score-pill { font-size: 0.72rem; text-align: center; }
+    .scoreboard-stamp { margin-left: 0; }
+    .receipt-round-head { padding: 0.9rem 1rem 0.5rem; }
+    .receipt-row { grid-template-columns: 1fr 1fr 1.2rem; gap: 0.5rem; padding: 0.42rem 1rem; font-size: 0.75rem; }
     .impact-bar { padding: 2.5rem 1.5rem; }
     .impact-inner { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
     .impact-stat { border-right: none; }
@@ -195,9 +230,9 @@
   <div class="hero-bg"></div>
   <div class="hero-inner">
     <div class="hero-tag">Agentic AI · Full-Stack · Claude</div>
-    <h1>Fill out a World Cup bracket<br><em>like you actually know ball.</em></h1>
+    <h1>My bracket called the final.<br><em>I built the engine behind it.</em></h1>
     <p class="hero-sub">
-      Millions of people fill out a World Cup bracket in a pool with friends — and most couldn't tell you who half the teams are, so they agonize for twenty minutes and pick by flag. The Bracket Analyst is the knowledgeable friend they'd text: it knows every team, weighs each pick's real odds, and shows you how to stand out enough to actually win your pool. And because those odds are built on real Elo team ratings — the kind FIFA ranks teams by — it's advice you can trust.
+      All four semifinalists. Both semifinal results. The exact final — Spain vs Argentina — with the champion pick still live. Not luck, and not chalk: the Bracket Analyst pairs Elo-grounded odds — the kind FIFA ranks teams by — with an upset-watch engine that calculates how bold a bracket should be for your pool size and risk appetite. I built it for everyone who fills out a bracket picking by flag, then trusted it with my own. The receipts are below.
     </p>
     <div class="hero-pills">
       <span class="pill">Next.js 16 · React 19</span>
@@ -207,6 +242,20 @@
       <span class="pill">Vitest · 287 tests</span>
       <span class="pill">Public FIFA JSON · zod</span>
     </div>
+  </div>
+</div>
+
+<!-- LIVE SCOREBOARD -->
+<div class="scoreboard">
+  <div class="scoreboard-inner">
+    <div class="scoreboard-label"><span class="live-dot"></span>Live · World Cup 2026</div>
+    <div class="score-pills">
+      <span class="score-pill hit">✓ 4/4 semifinalists called</span>
+      <span class="score-pill hit">✓ Both semifinal results called</span>
+      <span class="score-pill hit">✓ Final matchup called: Spain vs Argentina</span>
+      <span class="score-pill pending">Champion pick: Argentina — in play</span>
+    </div>
+    <div class="scoreboard-stamp">as of July 15, 2026</div>
   </div>
 </div>
 
@@ -222,8 +271,8 @@
       <div class="impact-label">Tournaments simulated<br>behind every pick's odds</div>
     </div>
     <div class="impact-stat">
-      <div class="impact-num">1,489</div>
-      <div class="impact-label">Players, 48 teams —<br>one grounded data model</div>
+      <div class="impact-num">4/4</div>
+      <div class="impact-label">Semifinalists called —<br>World Cup 2026</div>
     </div>
     <div class="impact-stat">
       <div class="impact-num">287</div>
@@ -250,9 +299,9 @@
 
   <!-- POOL-WINNING STRATEGY -->
   <div class="reveal">
-    <div class="label">Pool-winning strategy</div>
+    <div class="label">Upset watch · pool-winning strategy</div>
     <h2>Winning a pool isn't the same as being right.</h2>
-    <p>Winning a <em>small</em> pool is about being <strong>differentiated</strong>, not just accurate — if everyone picks the chalk, being right wins you nothing. The "You vs. the Model" view measures how bold your bracket is versus the favourites and calibrates the payoff to your pool size, so you stand out enough to win without blowing it up.</p>
+    <p>Winning a <em>small</em> pool is about being <strong>differentiated</strong>, not just accurate — if everyone picks the chalk, being right wins you nothing. That's the upset-watch engine's job: it doesn't just compute the odds of being right, it calculates the statistical payoff of a bold pick against your pool size and risk appetite. The "You vs. the Model" view shows how far your bracket strays from the favourites, so you stand out enough to win without blowing it up.</p>
     <div class="feature-callout">
       <div class="feature-callout-label">You vs. the Model</div>
       <p>Ask it straight — <strong>"Is my bracket too safe to win?"</strong> — and it answers with numbers: how far you stray from the chalk, and where a well-chosen upset actually buys you an edge.</p>
@@ -342,6 +391,56 @@
 
   <hr class="divider">
 
+  <!-- THE RECEIPTS -->
+  <div class="reveal">
+    <div class="label">The receipts · World Cup 2026</div>
+    <h2>The bracket, graded in public.</h2>
+    <p>Talk is cheap, so here's the whole bracket against what actually happened — every pick exactly as exported from the app, nothing edited after the fact, misses included. Three of the four round-of-32 misses went to penalty shootouts, literal coin flips. All four quarterfinal calls landed, two of them against different opponents than predicted (England drew Norway, not Brazil; France drew Morocco, not the Netherlands) — the deep branches held even where the paths shifted. All four semifinalists were called, both semifinal results were called exactly, and Sunday's final is the final this bracket predicted — Spain vs Argentina, with the champion pick still in play. A pick is graded ✓ if the picked team advanced from that round.</p>
+    <div class="receipts">
+      <div class="receipt-round-head">Round of 32 <span class="receipt-tally">12/16</span></div>
+      <div class="receipt-row"><span class="r-pick">Canada over South Africa</span><span class="r-result">Canada advanced</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row miss"><span class="r-pick">Germany over Paraguay</span><span class="r-result">Lost on pens</span><span class="r-mark">✗</span></div>
+      <div class="receipt-row miss"><span class="r-pick">Netherlands over Morocco</span><span class="r-result">Lost on pens</span><span class="r-mark">✗</span></div>
+      <div class="receipt-row"><span class="r-pick">Brazil over Japan</span><span class="r-result">Brazil advanced</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row"><span class="r-pick">France over Sweden</span><span class="r-result">France advanced</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row"><span class="r-pick">Norway over Côte d'Ivoire</span><span class="r-result">Norway advanced</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row"><span class="r-pick">Mexico over Ecuador</span><span class="r-result">Mexico advanced</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row"><span class="r-pick">England over Congo DR</span><span class="r-result">England advanced</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row"><span class="r-pick">USA over Bosnia and Herzegovina</span><span class="r-result">USA advanced</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row"><span class="r-pick">Belgium over Senegal</span><span class="r-result">Belgium advanced</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row"><span class="r-pick">Portugal over Croatia</span><span class="r-result">Portugal advanced</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row"><span class="r-pick">Spain over Austria</span><span class="r-result">Spain advanced</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row miss"><span class="r-pick">Algeria over Switzerland</span><span class="r-result">Switzerland won</span><span class="r-mark">✗</span></div>
+      <div class="receipt-row"><span class="r-pick">Argentina over Cabo Verde</span><span class="r-result">Argentina advanced</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row"><span class="r-pick">Colombia over Ghana</span><span class="r-result">Colombia advanced</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row miss"><span class="r-pick">Australia over Egypt</span><span class="r-result">Lost on pens</span><span class="r-mark">✗</span></div>
+      <div class="receipt-round-head">Round of 16 <span class="receipt-tally">5/8</span></div>
+      <div class="receipt-row"><span class="r-pick">France over Germany</span><span class="r-result">France advanced</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row miss"><span class="r-pick">Netherlands over Canada</span><span class="r-result">Already out — Morocco advanced</span><span class="r-mark">✗</span></div>
+      <div class="receipt-row miss"><span class="r-pick">Brazil over Norway</span><span class="r-result">Upset by Norway</span><span class="r-mark">✗</span></div>
+      <div class="receipt-row"><span class="r-pick">England over Mexico</span><span class="r-result">England advanced</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row"><span class="r-pick">Spain over Portugal</span><span class="r-result">Spain advanced</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row"><span class="r-pick">Belgium over USA</span><span class="r-result">Belgium advanced</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row"><span class="r-pick">Argentina over Australia</span><span class="r-result">Argentina advanced</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row miss"><span class="r-pick">Colombia over Algeria</span><span class="r-result">Upset by Switzerland</span><span class="r-mark">✗</span></div>
+      <div class="receipt-round-head">Quarterfinals <span class="receipt-tally">4/4</span></div>
+      <div class="receipt-row"><span class="r-pick">France over Netherlands</span><span class="r-result">Advanced — beat Morocco</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row"><span class="r-pick">Spain over Belgium</span><span class="r-result">Advanced — beat Belgium</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row"><span class="r-pick">England over Brazil</span><span class="r-result">Advanced — beat Norway</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row"><span class="r-pick">Argentina over Colombia</span><span class="r-result">Advanced — beat Switzerland</span><span class="r-mark">✓</span></div>
+      <div class="receipt-round-head">Semifinals <span class="receipt-tally">2/2</span></div>
+      <div class="receipt-row"><span class="r-pick">Spain over France</span><span class="r-result">Called exactly</span><span class="r-mark">✓</span></div>
+      <div class="receipt-row"><span class="r-pick">Argentina over England</span><span class="r-result">Called exactly</span><span class="r-mark">✓</span></div>
+      <div class="receipt-round-head">Final <span class="receipt-tally">In play</span></div>
+      <div class="receipt-row pending"><span class="r-pick">Argentina over Spain — champion</span><span class="r-result">Matchup called — result in play</span><span class="r-mark">–</span></div>
+    </div>
+    <div class="disclaimer receipts-note">
+      <p>These are my picks, built in the Bracket Analyst — the model's autofill plus my own judgment calls. That's the product working as intended: grounded odds, human bracket. I can't cryptographically prove the pick dates, so I won't claim a pre-tournament lock — next World Cup, the bracket gets published before kickoff. Every pick above matches the app's export verbatim, and you can build your own in <a href="https://fifa-wc-bracket.vercel.app/" target="_blank" rel="noopener noreferrer">the live app</a>.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
   <!-- REFLECTION -->
   <div class="reveal">
     <div class="label">Personal reflection</div>
@@ -349,6 +448,7 @@
       <div class="reflection-label">Behind the build</div>
       <p>I built the Bracket Analyst because I've been in that group chat — everyone fills out a World Cup bracket, nobody actually knows half the teams, and everyone secretly wants to beat their friends. I wanted to put the knowledgeable friend they'd text into an app.</p>
       <p>The insight that shaped it: winning a small pool isn't about being the most accurate, it's about being differentiated in the right way — while keeping every number honest enough to hold up when someone checks it. Getting both right is the part I'm proudest of.</p>
+      <p>This World Cup made it concrete. I ran my own bracket through the engine — the model's autofill plus my own reads — and the calls landed in public: every semifinalist, both semifinal results, the exact final. I set out to build the knowledgeable friend you'd text; ending up as the tool's first proven user is the ending I didn't script. The receipts are one scroll up, misses included.</p>
     </div>
   </div>
 
