@@ -57,9 +57,10 @@
   .hero-tag::before { content: ''; display: inline-block; width: 24px; height: 1.5px; background: var(--pitch-light); }
   .hero h1 { font-family: 'Lora', serif; font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 500; line-height: 1.12; color: #fff; margin-bottom: 1.5rem; }
   .hero h1 em { font-style: italic; color: #7DBF7D; }
-  .hero-sub { font-size: 1rem; line-height: 1.8; color: rgba(255,255,255,0.6); max-width: 620px; font-weight: 300; margin-bottom: 3rem; }
+  .hero-sub { font-size: 1rem; line-height: 1.8; color: rgba(255,255,255,0.6); max-width: 620px; font-weight: 300; margin-bottom: 0; }
   .hero-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
   .pill { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.62); font-size: 0.74rem; font-weight: 400; letter-spacing: 0.04em; padding: 0.38rem 0.9rem; border-radius: 100px; }
+  .tech-stack .pill { background: rgba(45,107,45,0.05); border-color: var(--border); color: var(--text-light); }
 
   /* LIVE SCOREBOARD */
   .scoreboard { background: var(--pitch); border-top: 1px solid rgba(255,255,255,0.14); padding: 1.3rem 4rem; }
@@ -134,13 +135,6 @@
   .ai-node-desc { font-size: 0.76rem; line-height: 1.65; color: var(--text-light); font-weight: 300; }
   .ai-node.center .ai-node-desc { color: rgba(255,255,255,0.6); }
 
-  /* ARCH CARDS */
-  .arch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.75rem; }
-  .arch-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; }
-  .arch-card-icon { font-size: 1.4rem; margin-bottom: 0.75rem; }
-  .arch-card-title { font-size: 0.88rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.5rem; font-family: 'Lora', serif; }
-  .arch-card-body { font-size: 0.8rem; line-height: 1.75; color: var(--text-light); font-weight: 300; }
-
   /* DECISION ROWS */
   .dec-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.75rem; }
   .dec-row { display: grid; grid-template-columns: 11rem 1fr; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
@@ -201,7 +195,7 @@
     .impact-stat { border-right: none; }
     .impact-stat:nth-child(1), .impact-stat:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,0.18); padding-bottom: 1.25rem; }
     .content { padding: 3rem 1.5rem 4rem; }
-    .arch-grid, .shot-duo { grid-template-columns: 1fr; }
+    .shot-duo { grid-template-columns: 1fr; }
     .ai-flow { flex-direction: column; }
     .ai-arrow { align-self: center; background: none; border: none; padding: 0.4rem 0; transform: rotate(90deg); }
     .dec-row { grid-template-columns: 8rem 1fr; }
@@ -233,14 +227,6 @@
     <p class="hero-sub">
       All four semifinalists. Both semifinal results. The exact final — Spain vs Argentina — with the champion pick still live. Not luck, and not guesswork: the Bracket Analyst pairs Elo-grounded odds — the kind FIFA ranks teams by — with an upset-watch engine that calculates how bold a bracket should be for your pool size and risk appetite. I built it for everyone who fills out a bracket picking by flag, then trusted it with my own. The full bracket is graded below.
     </p>
-    <div class="hero-pills">
-      <span class="pill">Next.js 16 · React 19</span>
-      <span class="pill">TypeScript</span>
-      <span class="pill">Anthropic Claude · tool-grounded</span>
-      <span class="pill">Monte Carlo · 50k sims</span>
-      <span class="pill">Vitest · 287 tests</span>
-      <span class="pill">Public FIFA JSON · zod</span>
-    </div>
   </div>
 </div>
 
@@ -249,9 +235,8 @@
   <div class="scoreboard-inner">
     <div class="scoreboard-label"><span class="live-dot"></span>Live · World Cup 2026</div>
     <div class="score-pills">
-      <span class="score-pill hit">✓ 4/4 semifinalists called</span>
-      <span class="score-pill hit">✓ Both semifinal results called</span>
-      <span class="score-pill hit">✓ Final matchup called: Spain vs Argentina</span>
+      <span class="score-pill hit">✓ 4/4 quarterfinal results called</span>
+      <span class="score-pill hit">✓ 2/2 semifinal results called</span>
       <span class="score-pill pending">Champion pick: Argentina — in play</span>
     </div>
     <div class="scoreboard-stamp">as of July 15, 2026</div>
@@ -375,45 +360,23 @@
     <div class="ai-flow">
       <div class="ai-node">
         <div class="ai-node-icon">📥</div>
-        <div class="ai-node-title">FIFA public JSON</div>
-        <div class="ai-node-desc">Fetched and validated with <code>zod</code> into a typed tournament snapshot.</div>
+        <div class="ai-node-title">Real FIFA data</div>
+        <div class="ai-node-desc">Live standings, fixtures, and results — straight from FIFA's public feed.</div>
       </div>
       <div class="ai-arrow">→</div>
       <div class="ai-node center">
         <div class="ai-node-icon">🎲</div>
-        <div class="ai-node-title">Elo-strength engine</div>
-        <div class="ai-node-desc"><strong>50,000 simulated tournaments</strong> per forecast — standings, odds, and pool-finish. Pure math, no I/O.</div>
+        <div class="ai-node-title">The simulation engine</div>
+        <div class="ai-node-desc">Plays the whole tournament out <strong>50,000 times</strong> to turn team strength into every odd on the page.</div>
       </div>
       <div class="ai-arrow">→</div>
       <div class="ai-node">
         <div class="ai-node-icon">💬</div>
-        <div class="ai-node-title">The grounded Analyst</div>
-        <div class="ai-node-desc">Claude reads the computed facts through tool calls and explains them.</div>
+        <div class="ai-node-title">The Analyst</div>
+        <div class="ai-node-desc">The AI reads those numbers and explains them — it never invents its own.</div>
       </div>
     </div>
-    <p style="margin-top: 1.75rem;">And the way it behaves around those numbers is governed by hard rules, not left to the model's discretion:</p>
-    <div class="arch-grid">
-      <div class="arch-card">
-        <div class="arch-card-icon">🛡️</div>
-        <div class="arch-card-title">Grounded, or it declines</div>
-        <div class="arch-card-body">Every figure the Analyst gives is pulled from the engine, not written by the model. Ask something it can't ground and it says it doesn't have that — it won't invent a number to fill the gap.</div>
-      </div>
-      <div class="arch-card">
-        <div class="arch-card-icon">🔗</div>
-        <div class="arch-card-title">One model, no contradictions</div>
-        <div class="arch-card-body">The odds on a bracket pick and the Analyst's answer for that same matchup are drawn from one shared model — so your bracket and the chat can never disagree.</div>
-      </div>
-      <div class="arch-card">
-        <div class="arch-card-icon">📌</div>
-        <div class="arch-card-title">Settled facts are pinned</div>
-        <div class="arch-card-body">A team that's clinched reads 100% and one that's out reads 0% — fixed, never left to simulation. Uncertainty is added only where the result is genuinely still open.</div>
-      </div>
-      <div class="arch-card">
-        <div class="arch-card-icon">⚖️</div>
-        <div class="arch-card-title">It won't oversell a pick</div>
-        <div class="arch-card-body">A long shot is never dressed up as a lock, a bracket is called busted only when it truly is, and past World Cups are context only — history never bends a 2026 number.</div>
-      </div>
-    </div>
+    <p style="margin-top: 1.75rem;">And it's governed by one hard rule: if the Analyst can't back an answer with those numbers, it says so — it will never invent one to fill the gap.</p>
   </div>
 
   <hr class="divider">
@@ -456,6 +419,21 @@
     <div class="shot">
       <img src="./images/wc-analyst-chat.png" alt="Ask the Analyst answering a free-form question about the bracket in plain English, grounded in the model's probabilities">
       <div class="shot-cap">Ask the Analyst — plain-English answers grounded in the model's numbers<span>Same engine, everywhere</span></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- BUILT WITH -->
+  <div class="reveal tech-stack">
+    <div class="label">Built with</div>
+    <div class="hero-pills">
+      <span class="pill">Next.js 16 · React 19</span>
+      <span class="pill">TypeScript</span>
+      <span class="pill">Anthropic Claude · tool-grounded</span>
+      <span class="pill">Monte Carlo · 50k sims</span>
+      <span class="pill">Vitest · 287 tests</span>
+      <span class="pill">Public FIFA JSON · zod</span>
     </div>
   </div>
 
