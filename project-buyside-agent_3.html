@@ -304,7 +304,7 @@
   footer { background: #0D110A; color: rgba(255,255,255,0.35); text-align: center; padding: 1.75rem; font-size: 0.8rem; letter-spacing: 0.04em; }
 
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: none; }
 
   @media (max-width: 768px) {
@@ -342,9 +342,15 @@
     .two-col, .decisions-grid, .outputs-grid, .verdict-grid { grid-template-columns: 1fr; }
     .cta { flex-direction: column; }
   }
+
+  @media (max-width: 400px) {
+    .hero h1, h1 { font-size: 1.8rem; }
+    h1 br { display: none; }
+  }
 </style>
 </head>
 <body>
+<script>if('IntersectionObserver' in window)document.documentElement.classList.add('js');</script>
 
 <nav>
   <a href="index.html" class="nav-logo">Kavit Mehta</a>

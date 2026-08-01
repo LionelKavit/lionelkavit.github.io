@@ -798,69 +798,20 @@
     font-weight: 300;
   }
 
-  .contact-form {
-    max-width: 540px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    text-align: left;
-  }
-
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-
-  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-
-  .form-group label {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.55);
-  }
-
-  .form-group input,
-  .form-group textarea {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 2px;
-    color: #fff;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.95rem;
-    padding: 0.85rem 1rem;
-    outline: none;
-    transition: border-color 0.2s, background 0.2s;
-    resize: vertical;
-  }
-
-  .form-group input::placeholder,
-  .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
-
-  .form-group input:focus,
-  .form-group textarea:focus {
-    border-color: var(--green-light);
-    background: rgba(255,255,255,0.1);
-  }
-
-  .form-group textarea { min-height: 120px; }
-
-  .btn-submit {
+  .btn-email {
+    display: inline-block;
     background: var(--green);
     color: #fff;
-    border: none;
+    font-family: 'Lora', serif;
+    font-size: 1.15rem;
     padding: 1rem 2.5rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
     border-radius: 2px;
-    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: 0.02em;
     transition: background 0.2s, transform 0.15s;
-    align-self: flex-start;
   }
 
-  .btn-submit:hover {
+  .btn-email:hover {
     background: #7DBF7D;
     transform: translateY(-1px);
   }
@@ -899,7 +850,7 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .reveal {
+  .js .reveal {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.7s ease, transform 0.7s ease;
@@ -1073,6 +1024,9 @@
 
   @media (max-width: 768px) {
     #experience { padding: 4rem 1.5rem; }
+    .exp-card-head { padding: 1.5rem 1.25rem; }
+    .exp-achievements { padding: 1rem 1.25rem; }
+    .exp-metric { padding: 1.25rem 1rem; }
     .exp-metrics { grid-template-columns: 1fr 1fr; }
     .exp-metric:nth-child(2) { border-right: none; }
     .exp-metric:nth-child(1), .exp-metric:nth-child(2) { border-bottom: 1px solid var(--border); }
@@ -1139,12 +1093,27 @@
     }
     .blog-item { grid-template-columns: 1fr; gap: 0.5rem; }
     .blog-arrow { display: none; }
-    .form-row { grid-template-columns: 1fr; }
     .about-accent-box { right: 0; }
+    #contact { padding: 4.5rem 1.5rem; }
+    .btn-email { font-size: 1rem; padding: 0.9rem 1.6rem; max-width: 100%; }
+  }
+
+  @media (max-width: 400px) {
+    h1 { font-size: 1.8rem; }
+    h1 br { display: none; }
+    section, .hero { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .story-act p, .about-text p { font-size: 0.95rem; line-height: 1.7; }
+    .project-body { padding: 1.4rem 1.25rem; }
+    .mini-card { padding: 1.4rem 1.25rem; }
+    .trust-slot { padding: 0.6rem 0.75rem; }
+    .trust-slot-text { font-size: 0.8rem; }
+    .exp-icon { display: none; }
+    .exp-item-desc { font-size: 0.8rem; }
   }
 </style>
 </head>
 <body>
+<script>if('IntersectionObserver' in window)document.documentElement.classList.add('js');</script>
 
 <nav>
   <div class="nav-logo">Kavit Mehta</div>
@@ -1504,33 +1473,12 @@
 <section id="contact">
   <div class="section-tag">Contact</div>
   <h2>Let's build something.</h2>
-  <p>Whether you're looking to automate a trading workflow, build a financial AI system, or just want to talk fintech and agentic AI — I'd love to hear from you.</p>
-  <form class="contact-form" onsubmit="handleSubmit(event)">
-    <div class="form-row">
-      <div class="form-group">
-        <label>Name</label>
-        <input type="text" placeholder="Jane Smith">
-      </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" placeholder="jane@company.com">
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Subject</label>
-      <input type="text" placeholder="What's this about?">
-    </div>
-    <div class="form-group">
-      <label>Message</label>
-      <textarea placeholder="Tell me about your project or question..."></textarea>
-    </div>
-    <button type="submit" class="btn-submit">Send message</button>
-  </form>
+  <p>Hiring for a role at the intersection of finance and AI — or want to automate a workflow your team is drowning in? One email is all it takes.</p>
+  <a href="mailto:ksmehta5@wisc.edu" class="btn-email">ksmehta5@wisc.edu</a>
   <div class="contact-links">
     <a href="https://www.linkedin.com/in/kavit-mehta-2986b112b" target="_blank" rel="noopener noreferrer" class="contact-link">LinkedIn</a>
     <a href="https://github.com/LionelKavit" target="_blank" rel="noopener noreferrer" class="contact-link">GitHub</a>
     <a href="Kavit-Mehta-Resume.pdf" class="contact-link" download>Resume</a>
-    <a href="mailto:ksmehta5@wisc.edu" class="contact-link">Email</a>
   </div>
 </section>
 
@@ -1549,33 +1497,6 @@
     });
   }, { threshold: 0.1 });
   reveals.forEach(el => observer.observe(el));
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    const form = e.target;
-    const inputs = form.querySelectorAll('input, textarea');
-    const name    = inputs[0].value.trim();
-    const email   = inputs[1].value.trim();
-    const subject = inputs[2].value.trim();
-    const message = inputs[3].value.trim();
-
-    const mailSubject = encodeURIComponent(subject || 'Portfolio Contact');
-    const mailBody = encodeURIComponent(
-      (name  ? 'Name: ' + name + '\n'    : '') +
-      (email ? 'From: ' + email + '\n\n' : '') +
-      (message || '')
-    );
-
-    window.location.href = 'mailto:ksmehta5@wisc.edu?subject=' + mailSubject + '&body=' + mailBody;
-
-    const btn = form.querySelector('.btn-submit');
-    btn.textContent = 'Opening email client \u2713';
-    btn.style.background = '#1A3A1A';
-    setTimeout(() => {
-      btn.textContent = 'Send message';
-      btn.style.background = '';
-    }, 3000);
-  }
 </script>
 </body>
 </html>
