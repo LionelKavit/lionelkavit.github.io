@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio — Finance & Business</title>
+<title>Kavit Mehta — AI Engineer & Financial Analyst</title>
+<meta name="description" content="3+ years inside buy-side operations, now building AI systems finance can trust — agentic tools grounded in real data, honest about uncertainty, verified before they ship.">
+<meta property="og:title" content="Kavit Mehta — AI Engineer & Financial Analyst">
+<meta property="og:description" content="3+ years inside buy-side operations, now building AI systems finance can trust. Portfolio, case studies, and receipts.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kavitmehta.blog/">
+<meta property="og:image" content="https://kavitmehta.blog/images/IMG_0086.jpeg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%232D6B2D'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='bold' fill='%23FAF7F2' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -217,6 +224,74 @@
   .btn-ghost:hover { color: var(--green); }
   .btn-ghost::after { content: '↓'; }
 
+  .btn-outline {
+    border: 1.5px solid var(--green);
+    color: var(--green);
+    padding: 0.78rem 1.6rem;
+    border-radius: 2px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+    display: inline-block;
+  }
+
+  .btn-outline:hover { background: var(--green); color: #fff; }
+
+  .btn-ghost-link {
+    color: var(--brown);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .btn-ghost-link:hover { color: var(--green); }
+
+  /* PROOF CHIP */
+  .proof-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 2.25rem;
+    padding: 0.6rem 1.1rem 0.6rem 0.6rem;
+    background: rgba(45,107,45,0.07);
+    border: 1px solid rgba(45,107,45,0.25);
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-mid);
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .proof-chip:hover {
+    border-color: var(--green);
+    background: rgba(45,107,45,0.11);
+  }
+
+  .proof-chip-badge {
+    background: var(--green);
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border-radius: 100px;
+    flex-shrink: 0;
+  }
+
+  .proof-chip-arrow {
+    color: var(--green);
+    transition: transform 0.2s;
+  }
+
+  .proof-chip:hover .proof-chip-arrow { transform: translateX(3px); }
+
   .hero-stats {
     display: flex;
     gap: 3rem;
@@ -278,13 +353,91 @@
     line-height: 1.2;
   }
 
-  /* ABOUT */
+  /* ABOUT / MY STORY */
   #about {
     background: var(--warm-white);
+  }
+
+  .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 6rem;
     align-items: center;
+  }
+
+  .story-act { margin-bottom: 1.5rem; }
+
+  .story-act-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.4rem;
+  }
+
+  .story-timeline {
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .story-timeline-head {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green);
+    font-weight: 500;
+    margin-bottom: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .story-timeline-head::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--green);
+  }
+
+  .story-timeline-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .tl-mini {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.07);
+    border-left: 2px solid var(--green);
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+  }
+
+  .tl-mini.exp { border-left-color: #A86520; }
+
+  .tl-mini-years {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--text-light);
+    margin-bottom: 0.35rem;
+  }
+
+  .tl-mini-org {
+    font-family: 'Lora', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.35;
+  }
+
+  .tl-mini-role {
+    font-size: 0.8rem;
+    color: var(--text-mid);
+    margin-top: 0.15rem;
+    font-weight: 300;
   }
 
   .about-image-wrap {
@@ -487,6 +640,76 @@
   .project-title-link:hover {
     color: var(--green);
   }
+
+  /* TRUST SLOT */
+  .trust-slot {
+    margin-bottom: 1.25rem;
+    padding: 0.7rem 0.9rem;
+    background: rgba(45,107,45,0.05);
+    border-left: 2px solid var(--green);
+    border-radius: 0 2px 2px 0;
+  }
+
+  .trust-slot-label {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.3rem;
+  }
+
+  .trust-slot-text {
+    font-size: 0.78rem;
+    line-height: 1.65;
+    color: var(--text-mid);
+    font-weight: 300;
+  }
+
+  /* COMPACT PROJECT ROW */
+  .projects-more-head {
+    margin: 3.5rem 0 1.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .projects-more-head::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--green);
+  }
+
+  .projects-mini {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .mini-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 1.6rem 1.65rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+
+  .mini-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 32px rgba(45,107,45,0.1);
+  }
+
+  .mini-card .project-desc { margin-bottom: 1rem; }
+  .mini-card .trust-slot { margin-top: auto; }
 
   /* BLOG */
   #blog { background: var(--warm-white); }
@@ -903,8 +1126,13 @@
 
     /* Projects grid: single full-width column (drop the 300px min that overflows at 320px) */
     .projects-grid { grid-template-columns: 1fr; }
+    .projects-mini { grid-template-columns: 1fr; gap: 1.25rem; }
+    .proof-chip { font-size: 0.78rem; line-height: 1.45; margin-bottom: 1.75rem; border-radius: 16px; }
+    .hero-actions { gap: 0.85rem; }
 
-    #about { grid-template-columns: 1fr; gap: 3rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .story-timeline { margin-top: 3rem; padding-top: 2.5rem; }
+    .story-timeline-grid { grid-template-columns: 1fr; gap: 0.85rem; }
     .hero-stats {
       flex-direction: column; align-items: center; text-align: center;
       gap: 1.25rem; margin-top: 2.5rem; padding-top: 2rem;
@@ -923,9 +1151,9 @@
   <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
   <label for="nav-toggle" class="nav-hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></label>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#projects">Work</a></li>
-    <li><a href="journey_1.html">My Journey</a></li>
+    <li><a href="#about">My Story</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
     <li><a href="#blog">Writing</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -945,9 +1173,16 @@
     <p class="hero-desc">
       3+ years inside buy-side operations gave me a clear view of where the workflow breaks. Now I build AI systems that automate the repetitive, surface the critical, and close the gap between what analysts need and what technology actually delivers — shipping agentic tools and fintech infrastructure that trading teams can adopt, verify, and trust.
     </p>
+    <a href="project-wc-bracket-analyst.html" class="proof-chip">
+      <span class="proof-chip-badge">Receipts</span>
+      My engine called all 4 World Cup 2026 semifinalists — and the final
+      <span class="proof-chip-arrow">→</span>
+    </a>
     <div class="hero-actions">
       <a href="#projects" class="btn-primary">View my work</a>
-      <a href="#contact" class="btn-ghost">Get in touch</a>
+      <a href="Kavit-Mehta-Resume.pdf" class="btn-outline" download>Resume ↓</a>
+      <a href="https://github.com/LionelKavit" target="_blank" rel="noopener noreferrer" class="btn-ghost-link">GitHub ↗</a>
+      <a href="https://www.linkedin.com/in/kavit-mehta-2986b112b" target="_blank" rel="noopener noreferrer" class="btn-ghost-link">LinkedIn ↗</a>
     </div>
     <div class="hero-stats">
       <div>
@@ -966,32 +1201,76 @@
   </div>
 </section>
 
-<!-- ABOUT -->
+<!-- ABOUT / MY STORY -->
 <section id="about">
-  <div class="about-image-wrap reveal">
-    <div class="about-photo-placeholder" style="background:none; overflow:hidden;">
-      <img src="./images/IMG_0268.jpeg" alt="Profile photo" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
+  <div class="about-grid">
+    <div class="about-image-wrap reveal">
+      <div class="about-photo-placeholder" style="background:none; overflow:hidden;">
+        <img src="./images/IMG_0268.jpeg" alt="Kavit Mehta at UW–Madison" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
+      </div>
+      <div class="about-accent-box">
+        <div class="num">On,</div>
+        <div class="lbl">Wisconsin!</div>
+      </div>
     </div>
-    <div class="about-accent-box">
-      <div class="num">On,</div>
-      <div class="lbl">Wisconsin!</div>
+    <div class="about-text reveal">
+      <div class="section-tag">My story</div>
+      <h2>From the trading desk<br>to building what it needs.</h2>
+      <div class="story-act" style="margin-top:1.5rem;">
+        <div class="story-act-label">01 · The desk — 2021–2024</div>
+        <p>Three years at Enfusion (now Clearwater Analytics) supporting hedge funds: portfolio reporting, trade operations, post-trade compliance. I watched sharp analysts lose hours to reconciliations, data breaks, and duplicate reporting — and automated what I could from inside the workflow.</p>
+      </div>
+      <div class="story-act">
+        <div class="story-act-label">02 · The build — 2024–2026</div>
+        <p>I came to UW–Madison's School of Computer, Data & Information Sciences to close the gap properly — shipping agentic AI systems for real clients: an ERP documentation agent for MSA Professional Services and a manufacturing decision-support system on Azure AI.</p>
+      </div>
+      <div class="story-act">
+        <div class="story-act-label">03 · Now</div>
+        <p>I build AI systems finance can actually adopt — grounded in real data, honest about uncertainty, verified before they ship. Spring 2026 graduate, open to relocation.</p>
+      </div>
+      <ul class="values-list">
+        <li>Trade operations, Risk, Pricing & Valuation</li>
+        <li>Agentic AI systems, RAG pipelines & MCP workflows</li>
+        <li>SQL, Python, C++, Tableau, ML & data engineering</li>
+        <li>Product management & stakeholder communication</li>
+      </ul>
     </div>
   </div>
-  <div class="about-text reveal">
-    <div class="section-tag">About me</div>
-    <h2>Spring 2026 Grad.<br>Fresh Perspective.<br>Finance fluency.<br>Engineering depth.</h2>
-    <p>
-      I spent 2 years at the UW–Madison School of Computer, Data & Information Sciences, partnering with industry leaders to build agentic AI systems that reduced analysis lifecycles and accelerated decision-making.
-    </p>
-    <p>
-      Before that, I was a hedge fund analyst for 3 years – leading portfolio analyses, trade operations, and reporting for buy-side firms. I've built T+1 settlement tools, automated growing operational workflows using AI frameworks, and driven practical adoption across trading desk teams. Deep OEMS/PMS knowledge meets a full technical stack.
-    </p>
-    <ul class="values-list">
-      <li>Trade operations, Risk, Pricing & Valuation</li>
-      <li>Agentic AI systems, RAG pipelines & MCP workflows</li>
-      <li>SQL, Python, C++, Tableau, ML & data engineering</li>
-      <li>Product management & stakeholder communication</li>
-    </ul>
+
+  <div class="story-timeline reveal">
+    <div class="story-timeline-head">The full path</div>
+    <div class="story-timeline-grid">
+      <div class="tl-mini">
+        <div class="tl-mini-years">2016–2021</div>
+        <div class="tl-mini-org">NMIMS University</div>
+        <div class="tl-mini-role">BTech, Information Technology</div>
+      </div>
+      <div class="tl-mini exp">
+        <div class="tl-mini-years">2019–2020</div>
+        <div class="tl-mini-org">Reliance Jio Creative Labs</div>
+        <div class="tl-mini-role">Market Data Analyst Intern</div>
+      </div>
+      <div class="tl-mini">
+        <div class="tl-mini-years">2019–2021</div>
+        <div class="tl-mini-org">NMIMS University</div>
+        <div class="tl-mini-role">MBA, Finance</div>
+      </div>
+      <div class="tl-mini exp">
+        <div class="tl-mini-years">2020–2021</div>
+        <div class="tl-mini-org">Ecovia</div>
+        <div class="tl-mini-role">Product Manager</div>
+      </div>
+      <div class="tl-mini exp">
+        <div class="tl-mini-years">2021–2024</div>
+        <div class="tl-mini-org">Enfusion (now Clearwater Analytics)</div>
+        <div class="tl-mini-role">Financial Analyst → Senior Financial Analyst</div>
+      </div>
+      <div class="tl-mini">
+        <div class="tl-mini-years">2024–2026</div>
+        <div class="tl-mini-org">University of Wisconsin–Madison</div>
+        <div class="tl-mini-role">MS, Information</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1034,8 +1313,8 @@
         <div class="exp-metric-label">Client ops waste<br>eliminated</div>
       </div>
       <div class="exp-metric">
-        <div class="exp-metric-num">18</div>
-        <div class="exp-metric-label">Revenue deals<br>led end-to-end</div>
+        <div class="exp-metric-num">15+</div>
+        <div class="exp-metric-label">Revenue deals<br>supported end-to-end</div>
       </div>
     </div>
 
@@ -1050,8 +1329,8 @@
       <div class="exp-item">
         <div class="exp-icon">🤖</div>
         <div>
-          <div class="exp-item-title">Agentic TCA & broken trade triaging</div>
-          <div class="exp-item-desc">Built agentic frameworks for transaction cost analysis and broken trade triaging in real-time, bringing the true physicalizer approach to trade desk operations.</div>
+          <div class="exp-item-title">Electronic trade monitoring & surveillance</div>
+          <div class="exp-item-desc">Designed CI/CD monitoring controls to flag <strong>short-sale exceptions, potential wash trades, and CFTC reporting obligations</strong> on live trading data.</div>
         </div>
       </div>
       <div class="exp-item">
@@ -1071,8 +1350,8 @@
       <div class="exp-item">
         <div class="exp-icon">🚀</div>
         <div>
-          <div class="exp-item-title">Revenue growth across 18 deals</div>
-          <div class="exp-item-desc">Led product demos, onboarding, and training for new funds — collaborating with sales teams to drive revenue across <strong>18 deals</strong> with tailored delivery.</div>
+          <div class="exp-item-title">Revenue growth across 15+ deals</div>
+          <div class="exp-item-desc">Led product demos, onboarding, and training for new funds — collaborating with sales teams to drive revenue across <strong>15+ deals</strong> with tailored delivery.</div>
         </div>
       </div>
       <div class="exp-item">
@@ -1099,7 +1378,11 @@
       <div class="project-body">
         <div class="project-tag">Agentic AI · Full-Stack · Claude</div>
         <div class="project-title"><a href="project-wc-bracket-analyst.html" class="project-title-link">The Bracket Analyst — FIFA World Cup 2026</a></div>
-        <p class="project-desc">The engine behind my World Cup 2026 run — all four semifinalists, both semifinal results, and the exact final called, receipts public. Elo-grounded odds plus an upset-watch engine that sizes your boldness to your pool, so your bracket stands out for the right reasons.</p>
+        <p class="project-desc">The engine behind my World Cup 2026 run — Elo-grounded odds plus an upset-watch engine that sizes your boldness to your pool, so your bracket stands out for the right reasons.</p>
+        <div class="trust-slot">
+          <div class="trust-slot-label">Trust mechanism</div>
+          <div class="trust-slot-text">All 4 semifinalists and the exact final called — the one miss (the champion pick) graded openly. Receipts public, 287 passing tests.</div>
+        </div>
         <div class="project-links">
           <a href="project-wc-bracket-analyst.html" class="project-link">Read case study</a>
           <a href="https://fifa-wc-bracket.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-link external">Live app</a>
@@ -1111,7 +1394,11 @@
       <div class="project-body">
         <div class="project-tag">Agentic AI · Full-Stack · Claude</div>
         <div class="project-title"><a href="project-fpl-advisor.html" class="project-title-link">Pocket Scout — Fantasy Premier League Advisor</a></div>
-        <p class="project-desc">Personalized Fantasy Premier League advice at your fingertips — transfers, captaincy, and chip calls for your exact squad, plus a chat that answers any question about your team. Grounded in real FPL data so the advice actually holds up.</p>
+        <p class="project-desc">Personalized Fantasy Premier League advice at your fingertips — transfers, captaincy, and chip calls for your exact squad, plus a chat that answers any question about your team.</p>
+        <div class="trust-slot">
+          <div class="trust-slot-label">Trust mechanism</div>
+          <div class="trust-slot-text">Grounded in real FPL data with a deterministic scoring tool — and honest about model error: 0.53 vs FPL's own 0.59.</div>
+        </div>
         <div class="project-links">
           <a href="project-fpl-advisor.html" class="project-link">Read case study</a>
           <a href="https://fantasy-premier-league-advisor.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-link external">Live app</a>
@@ -1124,35 +1411,48 @@
         <div class="project-tag">Data & AI Engineering</div>
         <div class="project-title"><a href="project-msa-data-agent_3.html" class="project-title-link">Enterprise Data Management Agent for MSA</a></div>
         <p class="project-desc">AI-driven system to document MS Dynamics 365 ERP data at scale — saving months of analyst time through agent-run ETL pipelines and conversational Copilot Studio agents.</p>
-        <a href="project-msa-data-agent_3.html" class="project-link">Read case study</a>
+        <div class="trust-slot">
+          <div class="trust-slot-label">Trust mechanism</div>
+          <div class="trust-slot-text">Limits stated up front — tested on synthesized ERP data, with human review kept in the loop on every AI-generated definition.</div>
+        </div>
+        <div class="project-links">
+          <a href="project-msa-data-agent_3.html" class="project-link">Read case study</a>
+        </div>
       </div>
     </div>
-    <div class="project-card reveal">
-      <a href="project-buyside-agent_3.html" class="project-thumb-link"><div class="project-thumb p2"><img src="./images/img-buyside.png" alt="Buy-side Analyst Agent"></div></a>
-      <div class="project-body">
-        <div class="project-tag">Agentic AI · Equity Research</div>
-        <div class="project-title"><a href="project-buyside-agent_3.html" class="project-title-link">Buy-side Analyst Agent with Claude</a></div>
-        <p class="project-desc">A structured AI research agent that enforces a mandatory 7-step data pipeline — live quotes, technicals, options chain, filings, and cross-signal synthesis — before forming any view.</p>
-        <a href="project-buyside-agent_3.html" class="project-link">Read case study</a>
+  </div>
+
+  <div class="projects-more-head reveal">More builds</div>
+  <div class="projects-mini">
+    <div class="mini-card reveal">
+      <div class="project-tag">Agentic AI · Equity Research</div>
+      <div class="project-title"><a href="project-buyside-agent_3.html" class="project-title-link">Buy-side Analyst Agent with Claude</a></div>
+      <p class="project-desc">A structured research agent with 19 financial analysis tools — live quotes, technicals, options chain, filings, and cross-signal synthesis.</p>
+      <div class="trust-slot">
+        <div class="trust-slot-label">Trust mechanism</div>
+        <div class="trust-slot-text">A mandatory 7-step data pipeline — the agent cannot form a view before the evidence is in.</div>
       </div>
+      <a href="project-buyside-agent_3.html" class="project-link">Read case study</a>
     </div>
-    <div class="project-card reveal">
-      <a href="project-process-capability_2.html" class="project-thumb-link"><div class="project-thumb p3"><img src="./images/img-process-capability.png" alt="Agentic AI for Process Capability"></div></a>
-      <div class="project-body">
-        <div class="project-tag">Agentic AI · Performance Analysis</div>
-        <div class="project-title"><a href="project-process-capability_2.html" class="project-title-link">Agentic AI for Process Capability & Behavior Assessment</a></div>
-        <p class="project-desc">An Azure AI Foundry workflow that turns raw manufacturing process data into leadership-ready capability assessments — enforcing stability checks before any interpretation, grounded in internal standards via RAG.</p>
-        <a href="project-process-capability_2.html" class="project-link">Read case study</a>
+    <div class="mini-card reveal">
+      <div class="project-tag">Agentic AI · Manufacturing</div>
+      <div class="project-title"><a href="project-process-capability_2.html" class="project-title-link">Process Capability & Behavior Assessment</a></div>
+      <p class="project-desc">An Azure AI Foundry workflow that turns raw manufacturing process data into leadership-ready capability assessments.</p>
+      <div class="trust-slot">
+        <div class="trust-slot-label">Trust mechanism</div>
+        <div class="trust-slot-text">Refuses to interpret unstable processes — statistical stability checks gate every assessment.</div>
       </div>
+      <a href="project-process-capability_2.html" class="project-link">Read case study</a>
     </div>
-    <div class="project-card reveal">
-      <a href="project-wattbot_2.html" class="project-thumb-link"><div class="project-thumb p1"><img src="./images/img-wattbot.png" alt="WattBot"></div></a>
-      <div class="project-body">
-        <div class="project-tag">RAG · AI Sustainability</div>
-        <div class="project-title"><a href="project-wattbot_2.html" class="project-title-link">WattBot — AI Environmental Impact RAG Chatbot</a></div>
-        <p class="project-desc">A citation-grounded RAG chatbot over 50+ scholarly articles on AI's energy and water footprint — evaluated on retrieval precision, numerical accuracy, and citation faithfulness, with an honest fallback when evidence is missing.</p>
-        <a href="project-wattbot_2.html" class="project-link">Read case study</a>
+    <div class="mini-card reveal">
+      <div class="project-tag">RAG · AI Sustainability</div>
+      <div class="project-title"><a href="project-wattbot_2.html" class="project-title-link">WattBot — AI Environmental Impact Chatbot</a></div>
+      <p class="project-desc">A citation-grounded RAG chatbot over 50+ scholarly articles on AI's energy and water footprint.</p>
+      <div class="trust-slot">
+        <div class="trust-slot-label">Trust mechanism</div>
+        <div class="trust-slot-text">Every number cited to its source paper — with an honest fallback when the evidence isn't there.</div>
       </div>
+      <a href="project-wattbot_2.html" class="project-link">Read case study</a>
     </div>
   </div>
 </section>
@@ -1166,7 +1466,7 @@
   </div>
   <div class="blog-list">
     <a href="blog-drama-club.html" class="blog-item reveal">
-      <div class="blog-date">May 2026<br>2 min read</div>
+      <div class="blog-date">Story from 2019<br>2 min read</div>
       <div>
         <div class="blog-title">For the Actors, By the Actors</div>
         <p class="blog-excerpt">Three years in a drama club — scripting, directing, acting. Our most memorable chapter: finishing third out of twenty at ACTFest Rangmanch 2019, performing Sharad Joshi's timeless satirical classic, एक था गधा.</p>
@@ -1174,7 +1474,7 @@
       <div class="blog-arrow">→</div>
     </a>
     <a href="blog-atthai.html" class="blog-item reveal">
-      <div class="blog-date">May 2026<br>3 min read</div>
+      <div class="blog-date">Story from 2017<br>3 min read</div>
       <div>
         <div class="blog-title">I Once Went 8 Days Without Food</div>
         <p class="blog-excerpt">I am a spiritual person who follows Jainism. In August of 2017, I did what's called an Atthai — a completely optional, voluntary practice — and what I didn't fully appreciate at the time was how defining it would become.</p>
@@ -1182,7 +1482,7 @@
       <div class="blog-arrow">→</div>
     </a>
     <a href="blog-comics-for-change.html" class="blog-item reveal">
-      <div class="blog-date">May 2026<br>3 min read</div>
+      <div class="blog-date">Story from 2020<br>3 min read</div>
       <div>
         <div class="blog-title">Comics for Change</div>
         <p class="blog-excerpt">Back in 2020, while working at Jio Creative Labs, my team and I created a new IP called Comics for Change — a live comedy event with a purpose. The idea was simple but ambitious: invite top stand-up comedians to perform sets tied to the UN's Sustainable Development Goals.</p>
@@ -1190,7 +1490,7 @@
       <div class="blog-arrow">→</div>
     </a>
     <a href="blog-kalsubai.html" class="blog-item reveal">
-      <div class="blog-date">May 2026<br>2 min read</div>
+      <div class="blog-date">Story from 2019<br>2 min read</div>
       <div>
         <div class="blog-title">Conquered the Everest of Maharashtra</div>
         <p class="blog-excerpt">Kalsubai. Standing at 5,400 feet above sea level, it is the highest peak in Maharashtra — affectionately known as the "Everest of Maharashtra." In July 2019, my roommates and I decided we were going to climb it.</p>
@@ -1228,6 +1528,8 @@
   </form>
   <div class="contact-links">
     <a href="https://www.linkedin.com/in/kavit-mehta-2986b112b" target="_blank" rel="noopener noreferrer" class="contact-link">LinkedIn</a>
+    <a href="https://github.com/LionelKavit" target="_blank" rel="noopener noreferrer" class="contact-link">GitHub</a>
+    <a href="Kavit-Mehta-Resume.pdf" class="contact-link" download>Resume</a>
     <a href="mailto:ksmehta5@wisc.edu" class="contact-link">Email</a>
   </div>
 </section>

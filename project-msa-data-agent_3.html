@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Enterprise Data Management Agent — Case Study</title>
+<meta name="description" content="An enterprise data management agent built on Microsoft Fabric and Copilot Studio that automates Dynamics 365 ERP documentation — and makes updating the data dictionary as easy as a chat.">
+<meta property="og:title" content="Enterprise Data Management Agent — Case Study">
+<meta property="og:description" content="An enterprise data management agent built on Microsoft Fabric and Copilot Studio that automates Dynamics 365 ERP documentation — and makes updating the data dictionary as easy as a chat.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kavitmehta.blog/project-msa-data-agent_3.html">
+<meta property="og:image" content="https://kavitmehta.blog/images/img-msa.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%232D6B2D'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='bold' fill='%23FAF7F2' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -51,20 +58,22 @@
     color: var(--brown);
     text-decoration: none;
   }
-  .nav-back {
+  .nav-links {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.82rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 400;
     color: var(--text-mid);
     text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     transition: color 0.2s;
   }
-  .nav-back:hover { color: var(--green); }
-  .nav-back::before { content: '←'; font-size: 1rem; }
+  .nav-links a:hover { color: var(--green); }
+  .nav-hamburger { display: none; }
 
   /* HERO */
   .hero {
@@ -171,6 +180,12 @@
     text-transform: uppercase;
     line-height: 1.4;
   }
+
+  /* TRUST STRIP */
+  .trust-strip { background: rgba(45,107,45,0.05); border-bottom: 1px solid var(--border); }
+  .trust-strip-inner { max-width: 860px; margin: 0 auto; padding: 1.1rem 4rem; display: flex; align-items: baseline; gap: 1.25rem; }
+  .trust-strip-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); white-space: nowrap; }
+  .trust-strip-text { font-size: 0.85rem; line-height: 1.7; color: var(--text-mid); font-weight: 300; margin: 0; }
 
   /* CONTENT */
   .content {
@@ -550,13 +565,33 @@
 
   @media (max-width: 768px) {
     nav { padding: 1rem 1.25rem; }
-    .nav-back { font-size: 0.72rem; letter-spacing: 0.03em; gap: 0.35rem; }
+    .nav-hamburger {
+      display: flex; flex-direction: column; justify-content: center; gap: 5px;
+      width: 28px; height: 24px; cursor: pointer;
+    }
+    .nav-hamburger span {
+      display: block; height: 2px; width: 100%; background: var(--brown);
+      border-radius: 2px; transition: transform 0.25s, opacity 0.25s;
+    }
+    .nav-toggle:checked ~ .nav-hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle:checked ~ .nav-hamburger span:nth-child(2) { opacity: 0; }
+    .nav-toggle:checked ~ .nav-hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-links {
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; gap: 0; padding: 0.5rem 0;
+      background: rgba(250,247,242,0.98); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-toggle:checked ~ .nav-links { display: flex; }
+    .nav-links li { padding: 0.85rem 1.5rem; border-top: 1px solid var(--border); }
+    .nav-links a { font-size: 0.95rem; }
     .hero-pills { justify-content: center; }
     .hero { padding: 7rem 1.5rem 3.5rem; }
     .impact-bar { padding: 2.5rem 1.5rem; }
     .impact-inner { grid-template-columns: 1fr; gap: 1.5rem; }
     .impact-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 1.5rem; }
     .impact-stat:last-child { border-bottom: none; padding-bottom: 0; }
+    .trust-strip-inner { padding: 1rem 1.5rem; flex-direction: column; gap: 0.35rem; }
     .content { padding: 3rem 1.5rem 4rem; }
     .problem-grid, .flows-grid, .eval-grid { grid-template-columns: 1fr; }
     .pipeline { justify-content: space-between; align-items: flex-start; gap: 0.15rem; overflow-x: visible; }
@@ -579,7 +614,15 @@
 
 <nav>
   <a href="index.html" class="nav-logo">Kavit Mehta</a>
-  <a href="index.html#projects" class="nav-back">All projects</a>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+  <label for="nav-toggle" class="nav-hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></label>
+  <ul class="nav-links">
+    <li><a href="index.html#about">My Story</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="index.html#projects">Projects</a></li>
+    <li><a href="index.html#blog">Writing</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
 </nav>
 
 <!-- HERO -->
@@ -617,6 +660,13 @@
       <div class="impact-num">1-click</div>
       <div class="impact-label">Agent access from Teams,<br>Outlook, or any MS tool</div>
     </div>
+  </div>
+</div>
+
+<div class="trust-strip">
+  <div class="trust-strip-inner">
+    <span class="trust-strip-label">Trust mechanism</span>
+    <p class="trust-strip-text">Limits stated up front: tested on synthesized ERP data, performance at production scale not yet validated, and human review treated as essential on every AI-generated definition.</p>
   </div>
 </div>
 

@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Bracket Analyst — FIFA World Cup 2026 · Case Study</title>
+<meta name="description" content="An agentic World Cup 2026 bracket analyst pairing Elo-grounded odds with an upset-watch engine — it called all four semifinalists and the exact final, graded in public on this page.">
+<meta property="og:title" content="The Bracket Analyst — FIFA World Cup 2026 · Case Study">
+<meta property="og:description" content="An agentic World Cup 2026 bracket analyst pairing Elo-grounded odds with an upset-watch engine — it called all four semifinalists and the exact final, graded in public on this page.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kavitmehta.blog/project-wc-bracket-analyst.html">
+<meta property="og:image" content="https://kavitmehta.blog/images/wc-analyst-hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%232D6B2D'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='bold' fill='%23FAF7F2' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -36,9 +43,22 @@
     border-bottom: 1px solid var(--border);
   }
   .nav-logo { font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 600; color: var(--brown); text-decoration: none; }
-  .nav-back { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
-  .nav-back:hover { color: var(--green); }
-  .nav-back::before { content: '←'; font-size: 1rem; }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-mid);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+  .nav-hamburger { display: none; }
 
   /* HERO */
   .hero {
@@ -96,6 +116,12 @@
   .impact-stat:last-child { border-right: none; }
   .impact-num { font-family: 'Lora', serif; font-size: 2.4rem; font-weight: 600; color: #fff; line-height: 1; margin-bottom: 0.4rem; }
   .impact-label { font-size: 0.75rem; color: rgba(255,255,255,0.72); letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.4; }
+
+  /* TRUST STRIP */
+  .trust-strip { background: rgba(45,107,45,0.05); border-bottom: 1px solid var(--border); }
+  .trust-strip-inner { max-width: 900px; margin: 0 auto; padding: 1.1rem 4rem; display: flex; align-items: baseline; gap: 1.25rem; }
+  .trust-strip-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); white-space: nowrap; }
+  .trust-strip-text { font-size: 0.85rem; line-height: 1.7; color: var(--text-mid); font-weight: 300; margin: 0; }
 
   /* CONTENT */
   .content { max-width: 900px; margin: 0 auto; padding: 5rem 4rem 6rem; }
@@ -180,7 +206,26 @@
 
   @media (max-width: 768px) {
     nav { padding: 1rem 1.25rem; }
-    .nav-back { font-size: 0.72rem; letter-spacing: 0.03em; gap: 0.35rem; }
+    .nav-hamburger {
+      display: flex; flex-direction: column; justify-content: center; gap: 5px;
+      width: 28px; height: 24px; cursor: pointer;
+    }
+    .nav-hamburger span {
+      display: block; height: 2px; width: 100%; background: var(--brown);
+      border-radius: 2px; transition: transform 0.25s, opacity 0.25s;
+    }
+    .nav-toggle:checked ~ .nav-hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle:checked ~ .nav-hamburger span:nth-child(2) { opacity: 0; }
+    .nav-toggle:checked ~ .nav-hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-links {
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; gap: 0; padding: 0.5rem 0;
+      background: rgba(250,247,242,0.98); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-toggle:checked ~ .nav-links { display: flex; }
+    .nav-links li { padding: 0.85rem 1.5rem; border-top: 1px solid var(--border); }
+    .nav-links a { font-size: 0.95rem; }
     .hero-pills { justify-content: center; }
     .hero { padding: 7rem 1.5rem 3.5rem; }
     .scoreboard { padding: 1.1rem 1.5rem; }
@@ -194,6 +239,7 @@
     .impact-inner { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
     .impact-stat { border-right: none; }
     .impact-stat:nth-child(1), .impact-stat:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,0.18); padding-bottom: 1.25rem; }
+    .trust-strip-inner { padding: 1rem 1.5rem; flex-direction: column; gap: 0.35rem; }
     .content { padding: 3rem 1.5rem 4rem; }
     .shot-duo { grid-template-columns: 1fr; }
     .ai-flow { flex-direction: column; }
@@ -215,7 +261,15 @@
 
 <nav>
   <a href="index.html" class="nav-logo">Kavit Mehta</a>
-  <a href="index.html#projects" class="nav-back">All projects</a>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+  <label for="nav-toggle" class="nav-hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></label>
+  <ul class="nav-links">
+    <li><a href="index.html#about">My Story</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="index.html#projects">Projects</a></li>
+    <li><a href="index.html#blog">Writing</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
 </nav>
 
 <!-- HERO -->
@@ -225,7 +279,7 @@
     <div class="hero-tag">Agentic AI · Full-Stack · Claude</div>
     <h1>My bracket called the final.<br><em>I built the engine behind it.</em></h1>
     <p class="hero-sub">
-      All four semifinalists. Both semifinal results. The exact final — Spain vs Argentina — with the champion pick still live. Not luck, and not guesswork: the Bracket Analyst pairs Elo-grounded odds — the kind FIFA ranks teams by — with an upset-watch engine that calculates how bold a bracket should be for your pool size and risk appetite. I built it for everyone who fills out a bracket picking by flag, then trusted it with my own. The full bracket is graded below.
+      All four semifinalists. Both semifinal results. The exact final — Spain vs Argentina — called before the knockouts began. The champion pick fell one extra-time goal short. Not luck, and not guesswork: the Bracket Analyst pairs Elo-grounded odds — the kind FIFA ranks teams by — with an upset-watch engine that calculates how bold a bracket should be for your pool size and risk appetite. I built it for everyone who fills out a bracket picking by flag, then trusted it with my own. The full bracket is graded below.
     </p>
   </div>
 </div>
@@ -233,13 +287,14 @@
 <!-- LIVE SCOREBOARD -->
 <div class="scoreboard">
   <div class="scoreboard-inner">
-    <div class="scoreboard-label"><span class="live-dot"></span>Live · World Cup 2026</div>
+    <div class="scoreboard-label"><span class="live-dot"></span>Final grade · World Cup 2026</div>
     <div class="score-pills">
       <span class="score-pill hit">✓ 4/4 quarterfinal results called</span>
       <span class="score-pill hit">✓ 2/2 semifinal results called</span>
-      <span class="score-pill pending">Champion pick: Argentina — in play</span>
+      <span class="score-pill hit">✓ Exact final called: Spain vs Argentina</span>
+      <span class="score-pill miss">✗ Champion pick: Argentina — Spain won 1–0 aet</span>
     </div>
-    <div class="scoreboard-stamp">as of July 15, 2026</div>
+    <div class="scoreboard-stamp">final graded July 19, 2026</div>
   </div>
 </div>
 
@@ -262,6 +317,13 @@
       <div class="impact-num">287</div>
       <div class="impact-label">Tests keeping every<br>number honest</div>
     </div>
+  </div>
+</div>
+
+<div class="trust-strip">
+  <div class="trust-strip-inner">
+    <span class="trust-strip-label">Trust mechanism</span>
+    <p class="trust-strip-text">All 4 semifinalists and the exact final called; the champion pick missed by one extra-time goal — graded openly below, with public receipts, 287 passing tests, and a verified live session.</p>
   </div>
 </div>
 
@@ -293,7 +355,7 @@
   <div class="reveal">
     <div class="label">Graded in public · World Cup 2026</div>
     <h2>What a balanced bracket in a pool of 50 looks like.</h2>
-    <p>Talk is cheap, so here's the whole bracket against what actually happened — every pick exactly as exported from the app, nothing edited after the fact, misses included. It was built at a <strong>balanced risk setting for a 50-person pool</strong> — a neutral fan's bracket, not a hero call sheet: chalk where the chalk is right, bold only where the numbers earned it. And that philosophy shows in where it shone. Three of the four round-of-32 misses were penalty shootouts, literal coin flips — and from the quarterfinals on, it hasn't missed a call. All four quarterfinal picks landed, two of them against different opponents than predicted (England drew Norway, not Brazil; France drew Morocco, not the Netherlands). All four semifinalists were called, both semifinal results were called exactly, and Sunday's final is the final this bracket predicted — Spain vs Argentina, champion pick still in play. A pick is graded ✓ if the picked team advanced from that round.</p>
+    <p>Talk is cheap, so here's the whole bracket against what actually happened — every pick exactly as exported from the app, nothing edited after the fact, misses included. It was built at a <strong>balanced risk setting for a 50-person pool</strong> — a neutral fan's bracket, not a hero call sheet: chalk where the chalk is right, bold only where the numbers earned it. And that philosophy shows in where it shone. Three of the four round-of-32 misses were penalty shootouts, literal coin flips — and from the quarterfinals to the final matchup, it didn't miss a call. All four quarterfinal picks landed, two of them against different opponents than predicted (England drew Norway, not Brazil; France drew Morocco, not the Netherlands). All four semifinalists were called, both semifinal results were called exactly, and the final was the final this bracket predicted — Spain vs Argentina. The champion pick was the one that got away: Argentina fell 1–0 to Spain in extra time. A pick is graded ✓ if the picked team advanced from that round.</p>
     <div class="receipts">
       <div class="receipt-round-head">Round of 32 <span class="receipt-tally">12/16</span></div>
       <div class="receipt-row"><span class="r-pick">Canada over South Africa</span><span class="r-result">Canada advanced</span><span class="r-mark">✓</span></div>
@@ -329,8 +391,8 @@
       <div class="receipt-round-head">Semifinals <span class="receipt-tally">2/2</span></div>
       <div class="receipt-row"><span class="r-pick">Spain over France</span><span class="r-result">Called exactly</span><span class="r-mark">✓</span></div>
       <div class="receipt-row"><span class="r-pick">Argentina over England</span><span class="r-result">Called exactly</span><span class="r-mark">✓</span></div>
-      <div class="receipt-round-head">Final <span class="receipt-tally">In play</span></div>
-      <div class="receipt-row pending"><span class="r-pick">Argentina over Spain — champion</span><span class="r-result">Matchup called — result in play</span><span class="r-mark">–</span></div>
+      <div class="receipt-round-head">Final <span class="receipt-tally">0/1</span></div>
+      <div class="receipt-row miss"><span class="r-pick">Argentina over Spain — champion</span><span class="r-result">Matchup called — Spain won 1–0 aet</span><span class="r-mark">✗</span></div>
     </div>
     <div class="disclaimer receipts-note">
       <p>These are my picks, built in the Bracket Analyst — the model's autofill plus my own judgment calls. That's the product working as intended: grounded odds, human bracket. The session is on tape above — balanced risk, 50-person pool — in this site's public repo since July 1 and live on this page before the quarterfinals were played. I kept refining after the recording: the graded export is one save later, with a few picks changed along the way, so the video's end screen and the table above differ in places — noted so you don't have to spot it yourself. I still won't claim a pre-tournament lock (I can't cryptographically prove pick dates) — next World Cup, the bracket gets published before kickoff. Every pick above matches the app's export verbatim, and you can build your own in <a href="https://fifa-wc-bracket.vercel.app/" target="_blank" rel="noopener noreferrer">the live app</a>.</p>
