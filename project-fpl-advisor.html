@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pocket Scout — Fantasy Premier League Advisor · Case Study</title>
+<meta name="description" content="Pocket Scout reads your actual FPL squad and answers the week's hardest calls — transfers, captaincy, chips — with personalized advice grounded in real FPL data.">
+<meta property="og:title" content="Pocket Scout — Fantasy Premier League Advisor · Case Study">
+<meta property="og:description" content="Pocket Scout reads your actual FPL squad and answers the week's hardest calls — transfers, captaincy, chips — with personalized advice grounded in real FPL data.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kavitmehta.blog/project-fpl-advisor.html">
+<meta property="og:image" content="https://kavitmehta.blog/images/img-epl.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%232D6B2D'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='bold' fill='%23FAF7F2' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -36,9 +43,22 @@
     border-bottom: 1px solid var(--border);
   }
   .nav-logo { font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 600; color: var(--brown); text-decoration: none; }
-  .nav-back { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
-  .nav-back:hover { color: var(--green); }
-  .nav-back::before { content: '←'; font-size: 1rem; }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-mid);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+  .nav-hamburger { display: none; }
 
   /* HERO */
   .hero {
@@ -68,6 +88,12 @@
   .impact-stat:last-child { border-right: none; }
   .impact-num { font-family: 'Lora', serif; font-size: 2.4rem; font-weight: 600; color: #fff; line-height: 1; margin-bottom: 0.4rem; }
   .impact-label { font-size: 0.75rem; color: rgba(255,255,255,0.72); letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.4; }
+
+  /* TRUST STRIP */
+  .trust-strip { background: rgba(45,107,45,0.05); border-bottom: 1px solid var(--border); }
+  .trust-strip-inner { max-width: 900px; margin: 0 auto; padding: 1.1rem 4rem; display: flex; align-items: baseline; gap: 1.25rem; }
+  .trust-strip-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); white-space: nowrap; }
+  .trust-strip-text { font-size: 0.85rem; line-height: 1.7; color: var(--text-mid); font-weight: 300; margin: 0; }
 
   /* CONTENT */
   .content { max-width: 900px; margin: 0 auto; padding: 5rem 4rem 6rem; }
@@ -155,10 +181,30 @@
 
   @media (max-width: 768px) {
     nav { padding: 1rem 1.25rem; }
-    .nav-back { font-size: 0.72rem; letter-spacing: 0.03em; gap: 0.35rem; }
+    .nav-hamburger {
+      display: flex; flex-direction: column; justify-content: center; gap: 5px;
+      width: 28px; height: 24px; cursor: pointer;
+    }
+    .nav-hamburger span {
+      display: block; height: 2px; width: 100%; background: var(--brown);
+      border-radius: 2px; transition: transform 0.25s, opacity 0.25s;
+    }
+    .nav-toggle:checked ~ .nav-hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle:checked ~ .nav-hamburger span:nth-child(2) { opacity: 0; }
+    .nav-toggle:checked ~ .nav-hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-links {
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; gap: 0; padding: 0.5rem 0;
+      background: rgba(250,247,242,0.98); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-toggle:checked ~ .nav-links { display: flex; }
+    .nav-links li { padding: 0.85rem 1.5rem; border-top: 1px solid var(--border); }
+    .nav-links a { font-size: 0.95rem; }
     .hero-pills { justify-content: center; }
     .hero { padding: 7rem 1.5rem 3.5rem; }
     .impact-bar { padding: 2.5rem 1.5rem; }
+    .trust-strip-inner { padding: 1rem 1.5rem; flex-direction: column; gap: 0.35rem; }
     .impact-inner { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
     .impact-stat { border-right: none; }
     .impact-stat:nth-child(1), .impact-stat:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,0.18); padding-bottom: 1.25rem; }
@@ -183,7 +229,15 @@
 
 <nav>
   <a href="index.html" class="nav-logo">Kavit Mehta</a>
-  <a href="index.html#projects" class="nav-back">All projects</a>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+  <label for="nav-toggle" class="nav-hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></label>
+  <ul class="nav-links">
+    <li><a href="index.html#about">My Story</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="index.html#projects">Projects</a></li>
+    <li><a href="index.html#blog">Writing</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
 </nav>
 
 <!-- HERO -->
@@ -226,6 +280,13 @@
       <div class="impact-num">0</div>
       <div class="impact-label">Invented stats —<br>grounded in real data</div>
     </div>
+  </div>
+</div>
+
+<div class="trust-strip">
+  <div class="trust-strip-inner">
+    <span class="trust-strip-label">Trust mechanism</span>
+    <p class="trust-strip-text">Advice is grounded in live FPL data through a deterministic scoring engine — no invented stats — and the model's own rank correlation is reported honestly: 0.53 vs FPL's 0.59.</p>
   </div>
 </div>
 
@@ -366,7 +427,7 @@
     <div class="label">Personal reflection</div>
     <div class="reflection">
       <div class="reflection-label">Behind the build</div>
-      <p>I built Pocket Scout because I'm one of those eleven million managers, and the weekly decisions — who to bring in, who to captain, when to burn a chip — are genuinely hard and genuinely fun to argue about. I wanted a smart, opinionated advisor that actually knows my team, so "what should I do this week?" is one question away.</p>
+      <p>I built Pocket Scout because I'm one of those eleven million managers, and the weekly decisions — who to bring in, who to captain, when to burn a chip — are genuinely hard and genuinely fun to argue about. I wanted a smart, opinionated advisor that actually knows my team, so "what should I do this week?" is one question away. The idea grew out of an earlier English Premier League quant analysis I built on Azure AI Hub Prompt Flow, pairing statistical analysis with LLM-generated SWOT reports.</p>
       <p>The part I'm proudest of is letting evaluation overrule intuition. More than once the data killed a change that felt obviously right — and the eval harness got the final word, not me. That's the same bar I hold every project on this site to.</p>
     </div>
   </div>
