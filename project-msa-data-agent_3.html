@@ -235,23 +235,6 @@
     margin: 4rem 0;
   }
 
-  /* PROBLEM GRID */
-  .problem-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-top: 1.75rem;
-  }
-  .problem-card {
-    background: var(--warm-white);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1.5rem;
-  }
-  .problem-card-icon { font-size: 1.3rem; margin-bottom: 0.65rem; }
-  .problem-card-title { font-size: 0.88rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.4rem; }
-  .problem-card-desc { font-size: 0.81rem; line-height: 1.7; color: var(--text-light); font-weight: 300; }
-
   /* PIPELINE */
   .arch-wrap {
     background: var(--warm-white);
@@ -297,87 +280,6 @@
   .pipe-name { font-size: 0.7rem; font-weight: 500; color: var(--text-dark); line-height: 1.3; }
   .pipe-sub { font-size: 0.62rem; color: var(--text-light); line-height: 1.3; }
   .pipe-arrow { color: var(--text-light); font-size: 1rem; padding: 0 0.5rem; flex-shrink: 0; }
-
-  /* FLOWS */
-  .flows-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  .flow-card {
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1.4rem;
-    background: var(--warm-white);
-  }
-  .flow-num {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 26px; height: 26px;
-    border-radius: 50%;
-    background: var(--sand);
-    font-family: 'Lora', serif;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--green-dark);
-    margin-bottom: 0.75rem;
-  }
-  .flow-title { font-size: 0.87rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.4rem; }
-  .flow-desc { font-size: 0.79rem; line-height: 1.7; color: var(--text-light); font-weight: 300; }
-  .flow-trigger {
-    display: inline-block;
-    margin-top: 0.8rem;
-    font-size: 0.67rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--green);
-    font-weight: 500;
-  }
-
-  /* BUILD LIST */
-  .build-list {
-    list-style: none;
-    margin-top: 1.75rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .build-item {
-    display: grid;
-    grid-template-columns: 2.25rem 1fr;
-    gap: 1.25rem;
-    align-items: start;
-    padding: 1.25rem;
-    background: var(--warm-white);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    transition: border-color 0.2s;
-  }
-  .build-item:hover { border-color: rgba(45,107,45,0.3); }
-  .build-num {
-    width: 2.25rem; height: 2.25rem;
-    border-radius: 50%;
-    background: var(--sand);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Lora', serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--green-dark);
-    flex-shrink: 0;
-  }
-  .build-title { font-size: 0.9rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.4rem; }
-  .build-desc { font-size: 0.81rem; line-height: 1.75; color: var(--text-light); font-weight: 300; }
-  code {
-    font-size: 0.78rem;
-    background: var(--sand);
-    padding: 1px 5px;
-    border-radius: 2px;
-    font-family: monospace;
-  }
 
   /* AGENT CHAT */
   .agent-flow {
@@ -432,67 +334,6 @@
   }
   .step-bubble.bot-bubble { background: #F0F7F0; border-color: rgba(45,107,45,0.2); }
   .step-bubble strong { font-weight: 500; color: var(--text-dark); }
-
-  /* EVALUATION */
-  .eval-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-top: 1.75rem;
-  }
-  .eval-card {
-    background: var(--warm-white);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1.5rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .eval-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--green);
-  }
-  .eval-metric {
-    font-family: 'Lora', serif;
-    font-size: 2rem;
-    font-weight: 600;
-    color: var(--green);
-    margin-bottom: 0.4rem;
-  }
-  .eval-title { font-size: 0.85rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.45rem; }
-  .eval-desc { font-size: 0.78rem; line-height: 1.65; color: var(--text-light); font-weight: 300; }
-
-  /* LIMITATIONS */
-  .limitations {
-    background: #F0F5F0;
-    border: 1px solid rgba(45,107,45,0.18);
-    border-left: 3px solid var(--green);
-    border-radius: 0 4px 4px 0;
-    padding: 1.4rem 1.75rem;
-    margin-top: 1.25rem;
-  }
-  .limitations-title {
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: var(--green-dark);
-    margin-bottom: 0.85rem;
-  }
-  .limitations-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
-  .limitations-list li {
-    font-size: 0.81rem;
-    color: var(--text-mid);
-    font-weight: 300;
-    display: flex;
-    gap: 0.65rem;
-    align-items: flex-start;
-    line-height: 1.6;
-  }
-  .limitations-list li::before { content: '—'; color: var(--green-light); flex-shrink: 0; }
 
   /* REFLECTION */
   .reflection {
@@ -637,7 +478,7 @@
   <div class="hero-bg"></div>
   <div class="hero-inner">
     <div class="hero-tag">Data & AI Engineering · MSA Professional Services</div>
-    <h1>Teaching an ERP to<br><em>document itself.</em></h1>
+    <h1>Teaching an ERP to<br> <em>document itself.</em></h1>
     <p class="hero-sub">
       Analysts were spending hours reverse-engineering cryptic column names and chasing subject-matter experts. We automated the entire documentation pipeline — and made updating it as easy as a chat.
     </p>
@@ -683,38 +524,16 @@
   <div class="reveal">
     <div class="label">The problem</div>
     <h2>Data everyone has. Context no one can find.</h2>
-    <p>MSA's Dynamics 365 ERP had evolved faster than its documentation. The result: analysts wasting time on trial-and-error queries, business logic locked in a few people's heads, and a data dictionary nobody trusted.</p>
-    <div class="problem-grid">
-      <div class="problem-card">
-        <div class="problem-card-icon">🔍</div>
-        <div class="problem-card-title">Cryptic column names</div>
-        <div class="problem-card-desc">Fields renamed or repurposed over time with no record of what they actually represent — leaving analysts to guess.</div>
-      </div>
-      <div class="problem-card">
-        <div class="problem-card-icon">🧠</div>
-        <div class="problem-card-title">Knowledge silos</div>
-        <div class="problem-card-desc">Business context lived in a handful of people's heads. One departure and that knowledge was gone.</div>
-      </div>
-      <div class="problem-card">
-        <div class="problem-card-icon">📉</div>
-        <div class="problem-card-title">Documentation drift</div>
-        <div class="problem-card-desc">Manual spreadsheets fell behind schema changes immediately. Nobody had time to keep them current.</div>
-      </div>
-      <div class="problem-card">
-        <div class="problem-card-icon">⏱️</div>
-        <div class="problem-card-title">Invisible overhead</div>
-        <div class="problem-card-desc">Updating docs competed with billable work every time. It always lost.</div>
-      </div>
-    </div>
+    <p>MSA's Dynamics 365 ERP had evolved faster than its documentation. Columns had been renamed and repurposed with no record of what they meant, business logic lived in a few people's heads, and the manual data dictionary fell behind every schema change. Analysts burned hours on trial-and-error queries — and updating the docs always lost out to billable work.</p>
   </div>
 
   <hr class="divider">
 
-  <!-- ARCHITECTURE -->
+  <!-- HOW IT WORKS -->
   <div class="reveal">
-    <div class="label">System architecture</div>
+    <div class="label">How it works</div>
     <h2>Five tools. One seamless pipeline.</h2>
-    <p>Built entirely within MSA's existing Microsoft 365 ecosystem — no new vendors, no new platforms, no additional training overhead.</p>
+    <p>Everything runs inside MSA's existing Microsoft 365 stack — no new vendors, no new training. Fabric pipelines extract SQL metadata from Dynamics 365 on a daily schedule and upsert it into a SharePoint data dictionary, while a Copilot Studio agent lets anyone look up or update business definitions in plain language from Teams or Outlook — with Power Automate writing validated changes back in real time. And every AI-generated definition passes through human review before it's saved: the agent drafts, a person decides.</p>
     <div class="arch-wrap">
       <div class="arch-label">End-to-end metadata pipeline</div>
       <div class="pipeline">
@@ -749,67 +568,15 @@
         </div>
       </div>
     </div>
-    <div class="flows-grid">
-      <div class="flow-card">
-        <div class="flow-num">①</div>
-        <div class="flow-title">Fabric → SharePoint</div>
-        <div class="flow-desc">Queries Fabric's SQL endpoint via stored procedures, then upserts every table and column record into SharePoint — technical metadata stays accurate, hands-free.</div>
-        <span class="flow-trigger">⏱ Scheduled every 24 hours</span>
-      </div>
-      <div class="flow-card">
-        <div class="flow-num">②</div>
-        <div class="flow-title">Copilot → SharePoint</div>
-        <div class="flow-desc">When a user validates or updates a business definition through the agent, Power Automate writes it back to the matching SharePoint record in real time.</div>
-        <span class="flow-trigger">⚡ Triggered on agent action</span>
-      </div>
-    </div>
   </div>
 
   <hr class="divider">
 
-  <!-- WHAT I BUILT -->
+  <!-- SAMPLE OUTPUT -->
   <div class="reveal">
-    <div class="label">What I built</div>
-    <h2>Four components. One living data dictionary.</h2>
-    <ul class="build-list">
-      <li class="build-item">
-        <div class="build-num">1</div>
-        <div>
-          <div class="build-title">Automated ETL pipelines in Microsoft Fabric</div>
-          <div class="build-desc">Designed Lakehouse-to-Warehouse pipelines that continuously extract SQL metadata from Dynamics 365. Custom stored procedures query <code>INFORMATION_SCHEMA</code> views and upsert into staging tables — preserving business definitions while refreshing technical fields on every run.</div>
-        </div>
-      </li>
-      <li class="build-item">
-        <div class="build-num">2</div>
-        <div>
-          <div class="build-title">Stored procedure management via Fabric Copilot agents</div>
-          <div class="build-desc">Automated the continuous maintenance of stored procedures so documentation evolves in sync with the schema. Columns added, renamed, or dropped — the pipeline adapts without manual rework.</div>
-        </div>
-      </li>
-      <li class="build-item">
-        <div class="build-num">3</div>
-        <div>
-          <div class="build-title">Conversational Copilot Studio agent</div>
-          <div class="build-desc">A prompt-engineered agent that lets data users query definitions in natural language and knowledge owners validate or update them through conversation — no forms, no spreadsheets. Deployable in Teams, Outlook, or any Microsoft tool with a single click.</div>
-        </div>
-      </li>
-      <li class="build-item">
-        <div class="build-num">4</div>
-        <div>
-          <div class="build-title">Power Automate orchestration layer</div>
-          <div class="build-desc">Two flows merge Fabric-sourced technical metadata and agent-submitted business definitions into a unified SharePoint list — a single, always-current source of truth for enterprise data knowledge.</div>
-        </div>
-      </li>
-    </ul>
-  </div>
-
-  <hr class="divider">
-
-  <!-- AGENT IN ACTION -->
-  <div class="reveal">
-    <div class="label">Agent in action</div>
+    <div class="label">Sample output</div>
     <h2>Documentation that feels like a conversation.</h2>
-    <p>The agent was designed around one rule: meet users where they already work, and make contributing feel effortless. Here's a real interaction from the prototype.</p>
+    <p>A real interaction from the prototype.</p>
     <div class="agent-flow">
       <div class="agent-flow-header">
         <div class="agent-dot"></div>
@@ -828,60 +595,7 @@
             Would you like to update this definition?
           </div>
         </div>
-        <div class="agent-step">
-          <div class="step-icon user">👤</div>
-          <div class="step-bubble">Reprsents the actual amt all trans</div>
-        </div>
-        <div class="agent-step">
-          <div class="step-icon bot">🤖</div>
-          <div class="step-bubble bot-bubble">
-            Here's the improved version:<br><br>
-            <strong>Updated definition:</strong> "Represents the actual amount for all transactions."<br><br>
-            Should I save this?
-          </div>
-        </div>
-        <div class="agent-step">
-          <div class="step-icon user">👤</div>
-          <div class="step-bubble">Save it</div>
-        </div>
-        <div class="agent-step">
-          <div class="step-icon bot">🤖</div>
-          <div class="step-bubble bot-bubble">✅ Update complete! <strong>ActualAmount</strong> has been saved. Is there another column you'd like to look up or update?</div>
-        </div>
       </div>
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <!-- EVALUATION -->
-  <div class="reveal">
-    <div class="label">Evaluation</div>
-    <h2>Tested across three dimensions.</h2>
-    <div class="eval-grid">
-      <div class="eval-card">
-        <div class="eval-metric">~80%</div>
-        <div class="eval-title">Automation efficiency</div>
-        <div class="eval-desc">Refreshing hundreds of column records went from hours of manual work to a single scheduled run — an order-of-magnitude improvement.</div>
-      </div>
-      <div class="eval-card">
-        <div class="eval-metric">"Lighter"</div>
-        <div class="eval-title">Usability</div>
-        <div class="eval-desc">Users described the system as feeling "lighter" than a spreadsheet. The chat interface removed the blank-page friction that typically kills documentation habits.</div>
-      </div>
-      <div class="eval-card">
-        <div class="eval-metric">Native</div>
-        <div class="eval-title">Scalability</div>
-        <div class="eval-desc">Built entirely on Microsoft 365 — new tables or domains added by extending Fabric queries and the SharePoint schema, no architectural changes needed.</div>
-      </div>
-    </div>
-    <div class="limitations">
-      <div class="limitations-title">Honest limitations</div>
-      <ul class="limitations-list">
-        <li>Trial-domain restrictions (UW–Madison) prevented full Copilot Studio ↔ Power Automate integration; a manual trigger was used as a workaround for the prototype.</li>
-        <li>Tested on synthesized ERP data — performance at true production scale is yet to be validated.</li>
-        <li>AI-generated definitions were occasionally generic, reinforcing that human review remains essential.</li>
-      </ul>
     </div>
   </div>
 
@@ -889,12 +603,10 @@
 
   <!-- REFLECTION -->
   <div class="reveal">
-    <div class="label">Personal reflection</div>
+    <div class="label">Reflection</div>
     <div class="reflection">
       <div class="reflection-label">Behind the build</div>
-      <p>The technical challenge was orchestration — getting Fabric, Copilot Studio, Power Automate, and SharePoint to hand off to each other reliably, at scale, without breaking. That took careful design and a lot of iteration.</p>
-      <p>The human challenge was subtler: how do you get busy professionals to contribute to documentation without it feeling like a burden? The answer was to embed the experience inside tools they already use — and make it a conversation, not a form. That design decision shaped adoption more than any technical one.</p>
-      <p>The best AI tools don't replace human judgment. They make it easier to express, capture, and preserve it.</p>
+      <p>The hard part wasn't the pipeline — it was getting busy professionals to contribute to documentation without it feeling like a burden, and the answer was to make it a conversation inside the tools they already use. The prototype ran on synthesized ERP data, and the occasionally generic AI definitions confirmed that human review stays essential. The best AI tools don't replace human judgment. They make it easier to express, capture, and preserve it.</p>
     </div>
   </div>
 

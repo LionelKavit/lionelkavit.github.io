@@ -168,17 +168,6 @@
 
   .divider { border: none; border-top: 1px solid var(--border); margin: 4rem 0; }
 
-  /* PROBLEM */
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.75rem; }
-  .prob-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; }
-  .prob-card.bad { border-left: 3px solid rgba(45,107,45,0.2); }
-  .prob-card.good { border-left: 3px solid var(--green); }
-  .prob-card-label { font-size: 0.67rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; margin-bottom: 1rem; }
-  .prob-card.bad .prob-card-label { color: var(--text-light); }
-  .prob-card.good .prob-card-label { color: var(--green); }
-  .prob-item { font-size: 0.83rem; line-height: 1.7; color: var(--text-mid); font-weight: 300; padding: 0.35rem 0; border-bottom: 1px solid var(--border); }
-  .prob-item:last-child { border-bottom: none; padding-bottom: 0; }
-
   /* 7-STEP PIPELINE */
   .pipeline-wrap { margin-top: 2rem; }
   .pipe-step {
@@ -219,19 +208,8 @@
     color: var(--green); font-weight: 500; font-family: 'DM Sans', sans-serif;
   }
 
-  /* DESIGN DECISIONS */
-  .decisions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.75rem; }
-  .decision-card {
-    background: var(--warm-white); border: 1px solid var(--border);
-    border-radius: 4px; padding: 1.5rem; position: relative; overflow: hidden;
-  }
-  .decision-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--green); }
-  .decision-icon { font-size: 1.3rem; margin-bottom: 0.75rem; }
-  .decision-title { font-size: 0.9rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.5rem; }
-  .decision-desc { font-size: 0.81rem; line-height: 1.7; color: var(--text-light); font-weight: 300; }
-
-  /* SAMPLE OUTPUTS */
-  .outputs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.75rem; }
+  /* SAMPLE OUTPUT */
+  .outputs-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin-top: 1.75rem; max-width: 640px; }
   .output-card {
     background: var(--warm-white); border: 1px solid var(--border);
     border-radius: 4px; overflow: hidden;
@@ -263,21 +241,6 @@
     padding-top: 0.3rem;
   }
   .data-finding span { color: var(--green-light); font-weight: 500; }
-
-  /* VERDICT */
-  .verdict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.75rem; }
-  .verdict-block { border-radius: 4px; padding: 1.5rem; }
-  .verdict-block.replaced { background: var(--warm-white); border: 1px solid var(--border); }
-  .verdict-block.analyst { background: var(--sand); border: 1px solid rgba(45,107,45,0.18); }
-  .verdict-block-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; color: var(--text-light); margin-bottom: 1rem; }
-  .verdict-item { font-size: 0.82rem; line-height: 1.7; color: var(--text-mid); font-weight: 300; padding: 0.3rem 0; border-bottom: 1px solid var(--border); display: flex; gap: 0.6rem; align-items: flex-start; }
-  .verdict-item:last-child { border-bottom: none; padding-bottom: 0; }
-  .verdict-item::before { content: '→'; color: var(--green); flex-shrink: 0; font-size: 0.75rem; margin-top: 0.15rem; }
-  .verdict-conclusion {
-    background: #141A10; border-radius: 4px; padding: 2rem 2.5rem; margin-top: 1.25rem;
-  }
-  .verdict-conclusion-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #7DBF7D; margin-bottom: 1rem; }
-  .verdict-conclusion-text { font-family: 'Lora', serif; font-size: 1.15rem; font-style: italic; color: rgba(255,255,255,0.88); line-height: 1.65; }
 
   /* VERDICT PULLQUOTE (legacy, keep for safety) */
   .verdict {
@@ -370,7 +333,7 @@
   <div class="hero-bg"></div>
   <div class="hero-inner">
     <div class="hero-tag">Agentic AI · Equity Research</div>
-    <h1>A research agent that thinks like<br><em>a buy-side analyst.</em></h1>
+    <h1>A research agent that thinks like<br> <em>a buy-side analyst.</em></h1>
     <p class="hero-sub">
       How much of a financial analyst's workflow can an AI agent actually replace? I built the answer — not with a chatbot that summarizes headlines, but with a structured agent that enforces a mandatory 7-step research sequence before forming any view.
     </p>
@@ -431,34 +394,16 @@
   <div class="reveal">
     <div class="label">The problem</div>
     <h2>The same query, run twice, can produce a different view. That's the problem.</h2>
-    <p>LLM financial analysis is only as reliable as the data pipeline enforcing it. Without a mandatory retrieval sequence, models fill data gaps with priors — outputs that look structured but aren't traceable. The fix isn't a better model. It's discipline built into the system before the model is ever invoked.</p>
-    <div class="two-col" style="margin-top:1.5rem">
-      <div class="prob-card bad">
-        <div class="prob-card-label">Without structural enforcement</div>
-        <div class="prob-item">No directional view before estimate revisions are checked</div>
-        <div class="prob-item">Options chain skipped when data is hard to retrieve</div>
-        <div class="prob-item">Insider selling missed because Form 4s aren't queried</div>
-        <div class="prob-item">Contradictory signals averaged into a tidy "neutral"</div>
-        <div class="prob-item">Outputs vary run-to-run — not traceable back to sources</div>
-      </div>
-      <div class="prob-card good">
-        <div class="prob-card-label">With the agent</div>
-        <div class="prob-item">7 data steps gated sequentially — no step can be skipped</div>
-        <div class="prob-item">Every signal labelled by source, basis, and time horizon</div>
-        <div class="prob-item">Form 4 clusters, 13F flows, and tone deltas pulled per run</div>
-        <div class="prob-item">Contradictions get their own section — never smoothed over</div>
-        <div class="prob-item">Same query, same structure, every time — fully traceable</div>
-      </div>
-    </div>
+    <p>LLM financial analysis is only as reliable as the data pipeline enforcing it. Without a mandatory retrieval sequence, a model fills data gaps with priors — the options chain gets skipped when it's hard to retrieve, insider selling gets missed because Form 4s aren't queried, and contradictory signals get averaged into a tidy "neutral". The output looks structured but isn't traceable. The fix isn't a better model — it's discipline built into the system before the model is ever invoked.</p>
   </div>
 
   <hr class="divider">
 
   <!-- 7-STEP PIPELINE -->
   <div class="reveal">
-    <div class="label">The pipeline</div>
+    <div class="label">How it works</div>
     <h2>Seven steps. Structurally enforced. No shortcuts.</h2>
-    <p>The model cannot write output before step 7. This is enforcement via MCP tool gating — not prompt-level instruction. The same query, run twice, produces the same structure.</p>
+    <p>The agent runs on Claude with 19 MCP tools across two servers, and it cannot write output before step 7 completes. That's enforcement via MCP tool gating — not a prompt-level instruction the model can talk itself out of. Every signal comes out labelled by source, basis, and time horizon, and contradictions get their own section instead of being smoothed over.</p>
     <div class="pipeline-wrap">
       <div class="pipe-step">
         <div class="pipe-num">1</div>
@@ -515,41 +460,11 @@
 
   <hr class="divider">
 
-  <!-- DESIGN DECISIONS -->
+  <!-- SAMPLE OUTPUT -->
   <div class="reveal">
-    <div class="label">Key design decisions</div>
-    <h2>Four choices that define the system's integrity.</h2>
-    <div class="decisions-grid">
-      <div class="decision-card">
-        <div class="decision-icon">⏱️</div>
-        <div class="decision-title">Dual time-horizon tagging</div>
-        <div class="decision-desc">Every signal is explicitly labelled tactical (0–3mo) or fundamental (6–18mo). A bullish technical setup against deteriorating fundamentals isn't averaged into a "neutral" — it's stated as a genuine dual-horizon divergence. Disagreement is the signal.</div>
-      </div>
-      <div class="decision-card">
-        <div class="decision-icon">🎙️</div>
-        <div class="decision-title">Management tone scoring</div>
-        <div class="decision-desc">Five dimensions scored 1–5 and delta'd against the prior period. A beat with a falling tone score is a yellow flag. A miss with an improving tone may signal a turning point. Numbers and language are interrogated separately.</div>
-      </div>
-      <div class="decision-card">
-        <div class="decision-icon">⚖️</div>
-        <div class="decision-title">Options as a cross-check</div>
-        <div class="decision-desc">IV/HV ratio, put/call skew, and GEX are pulled for every directional call. If they contradict the price or fundamental picture, that contradiction is surfaced explicitly — not smoothed over into a cleaner-looking output.</div>
-      </div>
-      <div class="decision-card">
-        <div class="decision-icon">🕐</div>
-        <div class="decision-title">Data staleness warnings</div>
-        <div class="decision-desc">Every report explicitly states whether any data source is stale. If options IV is 110 days old, the report says so and labels the analysis a regime estimate — not live pricing. Research integrity over clean outputs.</div>
-      </div>
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <!-- SAMPLE OUTPUTS -->
-  <div class="reveal">
-    <div class="label">Sample outputs</div>
-    <h2>Real reports. Real data. April 29, 2026.</h2>
-    <p>Four reports generated in a single session — each following the full 7-step pipeline. Below is what the agent actually found, not a description of what it does.</p>
+    <div class="label">Sample output</div>
+    <h2>What one real report surfaced.</h2>
+    <p>One report from a real session, generated through the full 7-step pipeline — what the agent actually found, not a description of what it does.</p>
     <div class="outputs-grid">
 
       <div class="output-card">
@@ -570,90 +485,6 @@
         </div>
       </div>
 
-      <div class="output-card">
-        <div class="output-card-head">
-          <div class="output-card-tag">Peer Comparison · NVDA vs AMD vs TSM</div>
-          <div class="output-card-title">Semiconductor cohort ranked across 4 dimensions</div>
-          <div class="output-card-narrative">All three names in strong uptrends with clean EMA stacks — but the differentiation the agent surfaces is stark. AMD has the strongest technical momentum (ADX 45.3) and simultaneously the weakest fundamentals: 12.5% net margin vs NVDA's 55.6%, 123x trailing GAAP P/E. TSM is the only name not technically overbought and the only one capturing economics regardless of which AI chip architecture wins.</div>
-        </div>
-        <div class="output-data">
-          <div class="data-row"><span class="data-key">NVDA trailing P/E</span><span class="data-val">43.5x · PEG 0.74</span></div>
-          <div class="data-row"><span class="data-key">AMD trailing P/E</span><span class="data-val red">123.4x · ADX 45.3</span></div>
-          <div class="data-row"><span class="data-key">TSM trailing P/E</span><span class="data-val green">33.6x · RSI 61.4</span></div>
-          <div class="data-row"><span class="data-key">NVDA FCF (FY2026)</span><span class="data-val green">$58.1B</span></div>
-          <div class="data-row"><span class="data-key">AMD net margin</span><span class="data-val red">12.5% vs NVDA 55.6%</span></div>
-          <hr class="data-divider">
-          <div class="data-finding">⚑ <span>Contradiction flagged:</span> AMD — strongest ADX (45.3) against weakest margins and highest P/E. Technical conviction without fundamental support.</div>
-        </div>
-      </div>
-
-      <div class="output-card">
-        <div class="output-card-head">
-          <div class="output-card-tag">Options Chain Analysis · TSM</div>
-          <div class="output-card-title">116 contracts across 3 expirations · Live MCP data</div>
-          <div class="output-card-narrative">The agent found something the fundamental numbers can't show: ATM IV at ~49% sits below estimated 30-day realized HV of ~55% — options are cheap vs realized vol in a name with a geopolitical overlay. Meanwhile the $220 May put (44% below spot, 17 DTE, 103.9% IV, 6,272 OI) is the agent's clearest non-fundamental signal — the only rational buyer is hedging a Taiwan Strait discontinuity, not a thesis on earnings.</div>
-        </div>
-        <div class="output-data">
-          <div class="data-row"><span class="data-key">ATM IV (May/Jun/Sep)</span><span class="data-val">~49% / ~48% / ~49%</span></div>
-          <div class="data-row"><span class="data-key">HV 30-day (est.)</span><span class="data-val amber">~55% — IV cheap vs realized</span></div>
-          <div class="data-row"><span class="data-key">P/C ratio May / Sep</span><span class="data-val">0.64 bullish / 1.75 put-heavy</span></div>
-          <div class="data-row"><span class="data-key">$220P May OI</span><span class="data-val red">6,272 · IV 103.9% · $0.11/share</span></div>
-          <div class="data-row"><span class="data-key">$340P May OI</span><span class="data-val red">15,589 — largest in chain</span></div>
-          <hr class="data-divider">
-          <div class="data-finding">⚑ <span>Contradiction flagged:</span> Near-term call-heavy (bullish) while Sep P/C 1.75 accumulates deep OTM puts targeting Nov 2026 policy cliff.</div>
-        </div>
-      </div>
-
-      <div class="output-card">
-        <div class="output-card-head">
-          <div class="output-card-tag">Macro Analysis · US–China Tech Trade</div>
-          <div class="output-card-title">Export control regime mapped to NVDA · AMD · TSM</div>
-          <div class="output-card-narrative">The agent mapped a five-layer policy stack — from the Jan 2026 BIS case-by-case rule to the April 2026 TSMC Arizona framework — and separated what's priced from what isn't. Key finding: NVDA's Q1 guide assumes $0 China H200 revenue despite 2M+ units of demand. The agent also identifies the November 2026 rare earth suspension expiry as the most important unpriced binary event in the next 12 months for all three names.</div>
-        </div>
-        <div class="output-data">
-          <div class="data-row"><span class="data-key">SOXX recovery off lows</span><span class="data-val green">+148% ($176 → $439)</span></div>
-          <div class="data-row"><span class="data-key">USD proxy (UUP)</span><span class="data-val green">Near 52w low — tailwind</span></div>
-          <div class="data-row"><span class="data-key">HY credit (HYG)</span><span class="data-val green">Near 52w high — no stress</span></div>
-          <div class="data-row"><span class="data-key">NVDA China H200 in guide</span><span class="data-val red">$0 assumed — unmodeled</span></div>
-          <div class="data-row"><span class="data-key">Nov 2026 rare earth cliff</span><span class="data-val amber">Not priced · Binary risk</span></div>
-          <hr class="data-divider">
-          <div class="data-finding">⚑ <span>Key unpriced event:</span> Rare earth suspension + Affiliates Rule waiver expire Nov 2026 — most severe re-escalation risk in US-China tech trade history if not renewed.</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <!-- VERDICT -->
-  <div class="reveal">
-    <div class="label">The answer</div>
-    <h2>So — how much of the workflow can it actually replace?</h2>
-    <p>That was the opening question. Here's what the build revealed.</p>
-
-    <div class="verdict-grid">
-      <div class="verdict-block replaced">
-        <div class="verdict-block-label">What the agent handles end-to-end</div>
-        <div class="verdict-item">Live data retrieval across 19 MCP tools — every run</div>
-        <div class="verdict-item">Technical indicator computation with custom Python (no wrappers)</div>
-        <div class="verdict-item">Options chain interpretation across multiple expirations</div>
-        <div class="verdict-item">SEC filing retrieval and Form 4 cluster detection</div>
-        <div class="verdict-item">Estimate revision direction and management tone delta</div>
-        <div class="verdict-item">Structured output with labelled signals and contradiction sections</div>
-      </div>
-      <div class="verdict-block analyst">
-        <div class="verdict-block-label">What stays with the analyst</div>
-        <div class="verdict-item">Deciding which question to ask and which mode to run</div>
-        <div class="verdict-item">Weighting contradictory signals against portfolio context</div>
-        <div class="verdict-item">Acting on the conviction score — sizing, timing, conviction</div>
-        <div class="verdict-item">Knowing when a signal is noise vs edge</div>
-      </div>
-    </div>
-
-    <div class="verdict-conclusion">
-      <div class="verdict-conclusion-label">Final verdict</div>
-      <div class="verdict-conclusion-text">More than I expected — if you build the discipline in first. The agent doesn't replace the analyst's judgment. It eliminates everything that stands between the analyst and the moment of judgment. That handoff is the point.</div>
     </div>
   </div>
 
@@ -661,11 +492,10 @@
 
   <!-- REFLECTION -->
   <div class="reveal">
-    <div class="label">Personal reflection</div>
+    <div class="label">Reflection</div>
     <div class="reflection">
       <div class="reflection-label">Behind the build</div>
-      <p>The core design problem was reliability. LLM financial analysis is only as good as the data pipeline enforcing it — the same query run twice can produce materially different outputs if the model fills data gaps with priors. I designed against that from the start: every indicator custom-coded in Python (no TA-Lib), SEC EDGAR queried directly via the data API, and the output structure typed via prompt schemas so every metric carries its own label and basis.</p>
-      <p>The RAG knowledge layer was the piece that made the system genuinely extensible. Macro transmission maps, management tone scoring rubrics, filing interpretation guides — all ingested via system prompt files. Swap the files, update the domain knowledge, without touching the pipeline or the model. That decoupling is what makes this architecture reusable far beyond equities.</p>
+      <p>So how much of the workflow can the agent replace? More than I expected — but only because the discipline was built in first: every indicator custom-coded in Python, SEC EDGAR queried directly, every metric carrying its own label and basis. What stays with the analyst is judgment — weighting contradictory signals, sizing, knowing noise from edge. The agent's job is to eliminate everything standing between the analyst and that moment of judgment.</p>
     </div>
   </div>
 
