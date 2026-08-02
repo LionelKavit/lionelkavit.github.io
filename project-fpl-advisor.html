@@ -77,10 +77,7 @@
   .hero-tag::before { content: ''; display: inline-block; width: 24px; height: 1.5px; background: var(--pitch-light); }
   .hero h1 { font-family: 'Lora', serif; font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 500; line-height: 1.12; color: #fff; margin-bottom: 1.5rem; }
   .hero h1 em { font-style: italic; color: #7DBF7D; }
-  .hero-sub { font-size: 1rem; line-height: 1.8; color: rgba(255,255,255,0.6); max-width: 620px; font-weight: 300; margin-bottom: 3rem; }
-  .hero-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-  .pill { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.62); font-size: 0.74rem; font-weight: 400; letter-spacing: 0.04em; padding: 0.38rem 0.9rem; border-radius: 100px; }
-
+  .hero-sub { font-size: 1rem; line-height: 1.8; color: rgba(255,255,255,0.6); max-width: 620px; font-weight: 300; margin-bottom: 0; }
   /* IMPACT BAR */
   .impact-bar { background: var(--pitch-accent); padding: 3rem 4rem; }
   .impact-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
@@ -132,28 +129,6 @@
   .ai-node.center .ai-node-title { color: #fff; }
   .ai-node-desc { font-size: 0.76rem; line-height: 1.65; color: var(--text-light); font-weight: 300; }
   .ai-node.center .ai-node-desc { color: rgba(255,255,255,0.6); }
-
-  /* ARCH CARDS */
-  .arch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.75rem; }
-  .arch-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; }
-  .arch-card-icon { font-size: 1.4rem; margin-bottom: 0.75rem; }
-  .arch-card-title { font-size: 0.88rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.5rem; font-family: 'Lora', serif; }
-  .arch-card-body { font-size: 0.8rem; line-height: 1.75; color: var(--text-light); font-weight: 300; }
-
-  /* DECISION ROWS (eval-first) */
-  .dec-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.75rem; }
-  .dec-row { display: grid; grid-template-columns: 11rem 1fr; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
-  .dec-label { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem; padding: 1.1rem 1rem; text-align: center; background: rgba(45,107,45,0.08); }
-  .dec-metric { font-family: 'Lora', serif; font-size: 1.5rem; font-weight: 600; color: var(--pitch-accent); line-height: 1; }
-  .dec-metric-label { font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green-dark); font-weight: 500; }
-  .dec-desc { padding: 1rem 1.25rem; font-size: 0.8rem; line-height: 1.7; color: var(--text-mid); font-weight: 300; background: var(--warm-white); border-left: 1px solid var(--border); }
-  .dec-desc strong { color: var(--green); font-weight: 500; }
-
-  /* FEATURE CALLOUT */
-  .feature-callout { background: var(--pitch); border-radius: 6px; padding: 2rem 2.25rem; margin-top: 1.75rem; }
-  .feature-callout-label { font-size: 0.67rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pitch-light); margin-bottom: 1rem; }
-  .feature-callout p { color: rgba(255,255,255,0.66); font-size: 0.88rem; line-height: 1.85; font-weight: 300; margin: 0; }
-  .feature-callout strong { color: rgba(255,255,255,0.92); font-weight: 500; }
 
   /* REFLECTION */
   .reflection { background: var(--pitch); border-radius: 6px; padding: 2.5rem; margin-top: 1.75rem; }
@@ -216,14 +191,6 @@
     .cta { flex-direction: column; align-items: flex-start; }
   }
 
-  /* LIGHTBOX */
-  .shot img { cursor: zoom-in; }
-  .lightbox { position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center; background: rgba(13,26,13,0.94); backdrop-filter: blur(6px); padding: 4vh 4vw; cursor: zoom-out; opacity: 0; transition: opacity 0.25s ease; }
-  .lightbox.open { display: flex; opacity: 1; }
-  .lightbox img { max-width: 100%; max-height: 92vh; border-radius: 8px; box-shadow: 0 24px 80px rgba(0,0,0,0.55); }
-  .lightbox-close { position: fixed; top: 1.1rem; right: 1.5rem; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; line-height: 1; color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; cursor: pointer; z-index: 1001; transition: background 0.2s; }
-  .lightbox-close:hover { background: rgba(255,255,255,0.18); }
-
   @media (max-width: 400px) {
     .hero h1, h1 { font-size: 1.8rem; }
     h1 br { display: none; }
@@ -254,19 +221,10 @@
   <div class="hero-bg"></div>
   <div class="hero-inner">
     <div class="hero-tag">Agentic AI · Full-Stack · Claude</div>
-    <h1>Every FPL decision,<br><em>answered at your fingertips.</em></h1>
+    <h1>Every FPL decision,<br> <em>answered at your fingertips.</em></h1>
     <p class="hero-sub">
       Eleven million people play Fantasy Premier League, and every week each one faces the same questions: who to transfer, who to captain, when to play a chip. Pocket Scout reads your actual squad and answers all of them — personalized advice for your team, your budget, your gameweek. And because every call is grounded in real FPL data, it's advice you can actually trust.
     </p>
-    <div class="hero-pills">
-      <span class="pill">Deterministic scoring engine</span>
-      <span class="pill">Grounded via tool calls</span>
-      <span class="pill">Backtested · 10 seasons</span>
-      <span class="pill">Vitest · 331 tests</span>
-      <span class="pill">Anthropic Claude</span>
-      <span class="pill">Public FPL API</span>
-      <span class="pill">Full-stack TypeScript</span>
-    </div>
   </div>
 </div>
 
@@ -301,73 +259,20 @@
 
 <div class="content">
 
-  <!-- 1. ENTRY -->
+  <!-- THE PROBLEM -->
   <div class="reveal">
-    <div class="label">Getting started</div>
-    <h2>Two ways in — your team, or a test drive.</h2>
-    <p>The journey starts one of two ways. Enter your FPL manager ID and Pocket Scout reads your real squad — your players, your bank, the exact free transfers you're holding. Or click "Explore without a team" and it builds a sample dream XV from the season's best returns, so you can try the whole thing before you ever type in an ID.</p>
-    <div class="shot-duo">
-      <div class="shot">
-        <img src="./images/fpl-advisor-login.png" alt="Pocket Scout entry screen with a field to enter your FPL manager ID and an option to explore without a team">
-        <div class="shot-cap">Enter a manager ID to get scouted<span>Your real team</span></div>
-      </div>
-      <div class="shot">
-        <img src="./images/fpl-advisor-demo-mode.png" alt="Demo mode showing the Scout's dream XV built from the season's best returns, with ratings and an Ask the Scout briefing">
-        <div class="shot-cap">…or explore a ready-made dream XV<span>No ID needed</span></div>
-      </div>
-    </div>
+    <div class="label">The problem</div>
+    <h2>Three hard calls, every single week.</h2>
+    <p>Every gameweek, eleven million managers stew over the same three calls — who to transfer, who to captain, when to play a chip — armed with a dozen open tabs and a group chat full of opinions. Most FPL chatbots make it worse: they happily hallucinate prices, form, and fixtures. I wanted one advisor that knows my actual squad and budget, and never invents a stat to sound confident.</p>
   </div>
 
   <hr class="divider">
 
-  <!-- 2. THE PITCH -->
+  <!-- HOW IT WORKS -->
   <div class="reveal">
-    <div class="label">The moment you're in</div>
-    <h2>Your whole gameweek, on one screen.</h2>
-    <p>The pitch paints instantly: every player rated 0–10 on a position-aware scale, and a verdict banner across the top calling this week's move — the transfer to make, who to captain, and whether to play a chip. No spreadsheets, no twelve open tabs — just your team and what to do with it.</p>
-    <div class="shot">
-      <video src="./images/fpl-advisor-demo-recording.mp4" poster="./images/fpl-advisor-hero.png" controls preload="metadata" playsinline></video>
-      <div class="shot-cap">Full walkthrough — rate your squad, plan transfers, ask the Scout<span>▶ 2-min demo</span></div>
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <!-- 3. THE PLAN -->
-  <div class="reveal">
-    <div class="label">The plan</div>
-    <h2>Transfers, captaincy, and chips — sorted to your budget.</h2>
-    <p>Open the breakdown and the week's hardest calls become a clear plan across three horizons: an immediate <strong>This Week</strong> move, a multi-gameweek <strong>Long Term</strong> outlook, and a season-long <strong>Chips</strong> strategy. It plans inside your real budget — tell it how many free transfers you're holding (0–5) and it works within that, stacking moves or <strong>banking</strong> one rather than burning it on a marginal swap. Every move is judged in expected points, so when nothing clears the bar it tells you to hold — the opposite of the churn most tools push.</p>
-    <div class="shot">
-      <img src="./images/fpl-advisor-this-week.png" alt="The planner drawer showing This Week, Long Term and Chips tabs with a high-confidence transfer plan, captaincy pick and chip recommendation">
-      <div class="shot-cap">This Week / Long Term / Chips, with confidence and net-points deltas<span>Personalized to your squad</span></div>
-    </div>
-    <div class="shot">
-      <img src="./images/fpl-advisor-player-dialog.png" alt="Player detail dialog for Bruno Fernandes showing form, minutes, expected points and a link to the official Premier League page">
-      <div class="shot-cap">Tap any player for form, minutes, and expected points<span>PL deep link</span></div>
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <!-- 4. ASK THE SCOUT -->
-  <div class="reveal">
-    <div class="label">Ask the Scout</div>
-    <h2>Then ask it anything.</h2>
-    <p>"Should I captain Haaland this week?" "Who's a rotation risk before the run-in?" "Is it worth taking a hit?" The questions managers stew over all week get an instant, specific answer — a chat that knows your actual squad and the plan it just built, and talks you through the call like a mate who's done the homework.</p>
-    <div class="shot">
-      <img src="./images/fpl-advisor-scout-chat-1.png" alt="Ask the Scout answering a rotation-risk question with player-specific expected points and reasoning">
-      <div class="shot-cap">Ask anything about your team — reasoned, squad-specific answers<span>Instant, specific</span></div>
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <!-- 5. WHY YOU CAN TRUST IT -->
-  <div class="reveal">
-    <div class="label">Why you can trust it</div>
-    <h2>Advice that holds up when you check it.</h2>
-    <p>Managers check the numbers afterward, so the hard figures are computed before any language model is involved: a deterministic base phase rates your squad and proposes moves straight from the FPL API, and only then does Claude reason over those numbers to explain the call. The model is the pundit; it never invents the underlying stats.</p>
+    <div class="label">How it works</div>
+    <h2>Hard numbers first. The pundit second.</h2>
+    <p>Enter your FPL manager ID and Pocket Scout reads your real squad — players, bank, and the free transfers you're holding. The hard figures are computed before any language model is involved: a deterministic engine rates every player 0–10 and proposes transfers, captaincy, and chips straight from the FPL API, then Claude reasons over those numbers to explain the call — <strong>fetching real stats through tool calls</strong>, and saying so when the evidence isn't there. It was built eval-first: the ranking model was fitted on a ten-season backtest, reaching a rank correlation of <strong>0.53 against FPL's own 0.59 benchmark</strong> — reported honestly, not rounded up — and a 331-test suite plus squad replays keep behaviour pinned, which is why a hold gate now banks a free transfer when no move clears the bar. The chat also treats every message as a question to answer, not an instruction to obey — it can't be talked off its own plan.</p>
     <div class="ai-flow">
       <div class="ai-node">
         <div class="ai-node-icon">📊</div>
@@ -387,45 +292,17 @@
         <div class="ai-node-desc">A single, actionable call on transfers, captaincy, and chips — tailored to your squad and bank.</div>
       </div>
     </div>
-    <div class="feature-callout">
-      <div class="feature-callout-label">Grounded, not guessing</div>
-      <p>Most FPL chatbots happily hallucinate prices, form, and fixtures. Pocket Scout <strong>fetches real stats through tool calls before it answers</strong> — and if the evidence isn't there, it says so instead of making one up. It also treats every message as a question to answer, not an instruction to obey, so it <strong>can't be talked off its own plan</strong>.</p>
-    </div>
-    <div class="shot">
-      <img src="./images/fpl-advisor-scout-chat-2.png" alt="Ask the Scout declining an off-topic request and steering the conversation back to the user's FPL squad">
-      <div class="shot-cap">Try to take it off-topic — or inject it — and it stays strictly FPL<span>Can't go off-script</span></div>
-    </div>
   </div>
 
   <hr class="divider">
 
-  <!-- 6. BUILT EVAL-FIRST -->
+  <!-- DEMO -->
   <div class="reveal">
-    <div class="label">Measure, don't assume</div>
-    <h2>A real app, with decisions earned by data.</h2>
-    <p>Pocket Scout is a deployed full-stack TypeScript app — not a notebook demo — guarded by a <code>331</code>-test suite so behaviour stays pinned as the model and rules evolve. And it was built eval-first: a point-in-time backtest over ten seasons of FPL data drove the model, and the calls that shaped it were made on evidence, including the honest negatives.</p>
-    <div class="dec-list">
-      <div class="dec-row">
-        <div class="dec-label">
-          <div class="dec-metric">0.53</div>
-          <div class="dec-metric-label">Rank corr.</div>
-        </div>
-        <div class="dec-desc">Fitting the player-ranking model on ten seasons of history lifted within-position rank correlation from <strong>~0.33 to ~0.53</strong> — closing most of the gap to FPL's own ~0.59 benchmark.</div>
-      </div>
-      <div class="dec-row">
-        <div class="dec-label">
-          <div class="dec-metric">Hold</div>
-          <div class="dec-metric-label">gate added</div>
-        </div>
-        <div class="dec-desc">Squad replays showed the optimizer <strong>over-recommended transfers</strong>. An evidence-based, points-based hold gate now banks a free transfer when moving isn't worth it.</div>
-      </div>
-      <div class="dec-row">
-        <div class="dec-label">
-          <div class="dec-metric">✗</div>
-          <div class="dec-metric-label">Rejected</div>
-        </div>
-        <div class="dec-desc">A proposed fixture-difficulty model upgrade looked sensible but <strong>failed its backtest</strong> — so it was rejected. Convention lost to the numbers.</div>
-      </div>
+    <div class="label">Demo</div>
+    <p>The two-minute recording below is the whole loop: squad rated, verdict banner, a transfer plan across This Week, Long Term, and Chips, then a question to the Scout. No spreadsheets, no twelve open tabs.</p>
+    <div class="shot">
+      <video src="./images/fpl-advisor-demo-recording.mp4" poster="./images/fpl-advisor-hero.png" controls preload="metadata" playsinline></video>
+      <div class="shot-cap">Full walkthrough — rate your squad, plan transfers, ask the Scout<span>▶ 2-min demo</span></div>
     </div>
   </div>
 
@@ -433,11 +310,10 @@
 
   <!-- REFLECTION -->
   <div class="reveal">
-    <div class="label">Personal reflection</div>
+    <div class="label">Reflection</div>
     <div class="reflection">
       <div class="reflection-label">Behind the build</div>
-      <p>I built Pocket Scout because I'm one of those eleven million managers, and the weekly decisions — who to bring in, who to captain, when to burn a chip — are genuinely hard and genuinely fun to argue about. I wanted a smart, opinionated advisor that actually knows my team, so "what should I do this week?" is one question away. The idea grew out of an earlier English Premier League quant analysis I built on Azure AI Hub Prompt Flow, pairing statistical analysis with LLM-generated SWOT reports.</p>
-      <p>The part I'm proudest of is letting evaluation overrule intuition. More than once the data killed a change that felt obviously right — and the eval harness got the final word, not me. That's the same bar I hold every project on this site to.</p>
+      <p>I built Pocket Scout because I'm one of those eleven million managers, and the weekly calls are genuinely hard and genuinely fun to argue about. It grew out of an earlier English Premier League quant analysis I built on Azure AI Hub Prompt Flow, pairing statistical analysis with LLM-generated SWOT reports. The part I'm proudest of is letting evaluation overrule intuition — more than once the data killed a change that felt obviously right, and the eval harness got the final word, not me. That's the same bar I hold every project on this site to.</p>
     </div>
   </div>
 
@@ -457,11 +333,6 @@
   <p>© 2026 Kavit Mehta · <a href="index.html">Back to portfolio</a></p>
 </footer>
 
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded image">
-  <button class="lightbox-close" aria-label="Close">&times;</button>
-  <img src="" alt="">
-</div>
-
 <script>
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
@@ -473,20 +344,6 @@
     });
   }, { threshold: 0.08 });
   reveals.forEach(el => observer.observe(el));
-
-  const lb = document.getElementById('lightbox');
-  const lbImg = lb.querySelector('img');
-  const closeLb = () => { lb.classList.remove('open'); document.body.style.overflow = ''; };
-  document.querySelectorAll('.shot img').forEach(img => {
-    img.addEventListener('click', () => {
-      lbImg.src = img.currentSrc || img.src;
-      lbImg.alt = img.alt;
-      lb.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    });
-  });
-  lb.addEventListener('click', closeLb);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
 </script>
 </body>
 </html>

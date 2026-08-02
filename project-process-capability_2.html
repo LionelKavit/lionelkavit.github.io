@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Agentic AI for Process Capability — Case Study</title>
-<meta name="description" content="An agentic workflow on Azure AI Foundry that automates manufacturing process capability assessments — five specialized agents enforcing statistical stability discipline before any interpretation, cutting analysis time 70–85%.">
+<meta name="description" content="An agentic workflow on Azure AI Foundry that automates manufacturing process capability assessments — five specialized agents enforcing statistical stability discipline before any interpretation, with an estimated 70–85% cut in analysis time.">
 <meta property="og:title" content="Agentic AI for Process Capability — Case Study">
-<meta property="og:description" content="An agentic workflow on Azure AI Foundry that automates manufacturing process capability assessments — five specialized agents enforcing statistical stability discipline before any interpretation, cutting analysis time 70–85%.">
+<meta property="og:description" content="An agentic workflow on Azure AI Foundry that automates manufacturing process capability assessments — five specialized agents enforcing statistical stability discipline before any interpretation, with an estimated 70–85% cut in analysis time.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://kavitmehta.blog/project-process-capability_2.html">
 <meta property="og:image" content="https://kavitmehta.blog/images/img-process-capability.png">
@@ -91,23 +91,6 @@
   p { font-size: 0.97rem; line-height: 1.9; color: var(--text-mid); font-weight: 300; }
   .divider { border: none; border-top: 1px solid var(--border); margin: 4rem 0; }
 
-  /* PROBLEM GRID */
-  .prob-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.75rem; }
-  .prob-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; }
-  .prob-card-icon { font-size: 1.3rem; margin-bottom: 0.65rem; }
-  .prob-card-title { font-size: 0.88rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.4rem; }
-  .prob-card-desc { font-size: 0.81rem; line-height: 1.7; color: var(--text-light); font-weight: 300; }
-
-  /* INSIGHT BOX */
-  .insight {
-    background: #141A10; border-radius: 4px; padding: 1.75rem 2rem;
-    margin-top: 1.25rem; display: flex; gap: 1.25rem; align-items: flex-start;
-  }
-  .insight-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
-  .insight-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-light); font-weight: 500; margin-bottom: 0.5rem; }
-  .insight-text { font-size: 0.9rem; line-height: 1.75; color: rgba(255,255,255,0.78); font-weight: 300; }
-  .insight-text strong { color: #fff; font-weight: 500; }
-
   /* WORKFLOW PIPELINE */
   .workflow-wrap { margin-top: 2rem; display: flex; flex-direction: column; gap: 0; }
   .wf-phase-label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-light); font-weight: 500; margin: 1.25rem 0 0.6rem 3.5rem; }
@@ -129,26 +112,8 @@
   .wf-badge.rag-badge { background: rgba(45,107,45,0.18); color: var(--green-dark); }
   .wf-parallel-note { font-size: 0.7rem; color: var(--text-light); font-style: italic; margin: 0.5rem 0 0.5rem 3.5rem; }
 
-  /* AGENT PATTERNS */
-  .patterns-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 1.75rem; }
-  .pattern-card { border-radius: 4px; padding: 1.5rem; position: relative; overflow: hidden; }
-  .pattern-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-  .pattern-card.mcp-card { background: var(--warm-white); border: 1px solid var(--border); }
-  .pattern-card.mcp-card::before { background: var(--green-light); }
-  .pattern-card.mm-card { background: var(--warm-white); border: 1px solid var(--border); }
-  .pattern-card.mm-card::before { background: var(--brown-light); }
-  .pattern-card.rag-card { background: #F0F7F0; border: 1px solid rgba(45,107,45,0.25); }
-  .pattern-card.rag-card::before { background: var(--green); }
-  .pattern-label { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.75rem; }
-  .mcp-card .pattern-label { color: var(--green-light); }
-  .mm-card .pattern-label { color: var(--brown-light); }
-  .rag-card .pattern-label { color: var(--green); }
-  .pattern-title { font-size: 0.9rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.5rem; }
-  .pattern-desc { font-size: 0.8rem; line-height: 1.7; color: var(--text-light); font-weight: 300; margin-bottom: 0.85rem; }
-  .pattern-why { font-size: 0.78rem; line-height: 1.65; color: var(--text-mid); font-weight: 300; font-style: italic; border-top: 1px solid var(--border); padding-top: 0.75rem; }
-
   /* SAMPLE OUTPUT — two scenarios side by side */
-  .scenarios { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.75rem; }
+  .scenarios { display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin-top: 1.75rem; max-width: 640px; }
   .scenario-card { border-radius: 4px; overflow: hidden; border: 1px solid var(--border); }
   .scenario-head { padding: 1.25rem; background: var(--warm-white); }
   .scenario-tag { font-size: 0.67rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.5rem; }
@@ -169,14 +134,6 @@
   .s-finding span.stable-span { color: #6BBF6B; }
   .s-finding span.unstable-span { color: #E07070; }
   .s-finding span.warn-span { color: #E0B060; }
-
-  /* DESIGN PRINCIPLES */
-  .principles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.75rem; }
-  .principle-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; position: relative; overflow: hidden; }
-  .principle-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--green); }
-  .principle-icon { font-size: 1.25rem; margin-bottom: 0.7rem; }
-  .principle-title { font-size: 0.9rem; font-weight: 500; color: var(--text-dark); margin-bottom: 0.45rem; }
-  .principle-desc { font-size: 0.8rem; line-height: 1.7; color: var(--text-light); font-weight: 300; }
 
   /* REFLECTION */
   .reflection { background: #141A10; border-radius: 6px; padding: 2.5rem; margin-top: 1.75rem; }
@@ -259,7 +216,7 @@
   <div class="hero-bg"></div>
   <div class="hero-inner">
     <div class="hero-tag">Agentic AI · Performance Analysis · MS Information Capstone</div>
-    <h1>Agentic AI isn't about replacing engineers.<br>It's about <em>fixing the right problems.</em></h1>
+    <h1>Agentic AI isn't about replacing engineers.<br> It's about <em>fixing the right problems.</em></h1>
     <p class="hero-sub">
       A capstone project for North River Diagnostics — a manufacturing company losing time, consistency, and quality coverage to manual process capability assessments. The answer was an agentic workflow that doesn't just automate the math; it enforces the analytical discipline engineers should follow but rarely have time for.
     </p>
@@ -280,7 +237,7 @@
   <div class="impact-inner">
     <div class="impact-stat">
       <div class="impact-num">70–85%</div>
-      <div class="impact-label">Reduction in time<br>per analysis</div>
+      <div class="impact-label">Estimated reduction in<br>time per analysis</div>
     </div>
     <div class="impact-stat">
       <div class="impact-num">5</div>
@@ -288,7 +245,7 @@
     </div>
     <div class="impact-stat">
       <div class="impact-num">10–20 min</div>
-      <div class="impact-label">From 1.5–2.5 hrs of<br>manual engineer work</div>
+      <div class="impact-label">Estimated, from 1.5–2.5 hrs<br>of manual engineer work</div>
     </div>
   </div>
 </div>
@@ -306,40 +263,16 @@
   <div class="reveal">
     <div class="label">The problem</div>
     <h2>Three engineers. Three interpretations. One process.</h2>
-    <p>North River Diagnostics manufactures diagnostic components with tight performance specs. Their engineers spent most of their analysis time on low-value work — extracting data, cleaning spreadsheets, running calculations — before they could think about what the numbers actually meant. And when they did interpret, they often disagreed.</p>
-    <div class="prob-grid">
-      <div class="prob-card">
-        <div class="prob-card-icon">⏱️</div>
-        <div class="prob-card-title">Slow response time</div>
-        <div class="prob-card-desc">Capability and behavior assessments took 1.5–2.5 hours per process. Corrective action was delayed by days while engineers worked through the backlog manually.</div>
-      </div>
-      <div class="prob-card">
-        <div class="prob-card-icon">🔀</div>
-        <div class="prob-card-title">Inconsistent interpretation</div>
-        <div class="prob-card-desc">The same Cpk value was described as "capable enough," "marginal," and "not capable at all" by different engineers. Leadership received conflicting signals on the same process.</div>
-      </div>
-      <div class="prob-card">
-        <div class="prob-card-icon">🕳️</div>
-        <div class="prob-card-title">Limited coverage</div>
-        <div class="prob-card-desc">Only the most visible problem processes got regular reviews. Entire production lines ran with undetected risk because there weren't enough engineers to cover them.</div>
-      </div>
-    </div>
-    <div class="insight">
-      <div class="insight-icon">⚠️</div>
-      <div>
-        <div class="insight-label">The core analytical failure</div>
-        <div class="insight-text">Capability indices like Cpk are only valid when the process is <strong>statistically stable</strong>. An unstable process makes Cpk meaningless — yet engineers routinely calculated and acted on Cpk without checking stability first. This single failure directed improvement resources at the wrong problem: <strong>firefighting variation instead of redesigning capability.</strong></div>
-      </div>
-    </div>
+    <p>North River Diagnostics' engineers spent most of each capability assessment on mechanical work — extracting data, cleaning spreadsheets, running calculations — and when they finally interpreted the numbers, they disagreed: the same Cpk was called "capable enough," "marginal," and "not capable at all." Underneath sat a deeper analytical failure. Capability indices like Cpk are only valid when the process is statistically stable, yet Cpk was routinely calculated and acted on without a stability check. That single failure sent improvement resources at the wrong problem: firefighting variation instead of redesigning capability.</p>
   </div>
 
   <hr class="divider">
 
   <!-- WORKFLOW -->
   <div class="reveal">
-    <div class="label">The workflow</div>
+    <div class="label">How it works</div>
     <h2>Eight nodes. One decision pipeline.</h2>
-    <p>Built in Azure AI Foundry Prompt Flow — a sequential workflow where each node has a single, clear responsibility. Stability is assessed before capability is interpreted. Every time, without exception.</p>
+    <p>Built in Azure AI Foundry Prompt Flow, with each node owning one responsibility. Numbers that have a right answer — Cp, Cpk, control limits — are computed deterministically in Python via MCP tools; the LLM handles only data normalization, visual chart reading, and narrative. The structural rule: a vision agent issues a stability verdict before the RAG-grounded aggregator interprets anything, and if the process is unstable, the workflow refuses to interpret Cpk at all. Every time, without exception.</p>
 
     <div class="workflow-wrap">
       <div class="wf-phase-label">Ingestion</div>
@@ -415,65 +348,16 @@
 
   <hr class="divider">
 
-  <!-- THREE AGENT PATTERNS -->
-  <div class="reveal">
-    <div class="label">Agent patterns</div>
-    <h2>Three patterns. Each chosen deliberately.</h2>
-    <p>The system demonstrates all three major agentic AI patterns — and the design explicitly matched each pattern to the task it handles best.</p>
-    <div class="patterns-grid">
-      <div class="pattern-card mcp-card">
-        <div class="pattern-label">Pattern 1 · On-the-fly MCP</div>
-        <div class="pattern-title">Deterministic calculation agents</div>
-        <div class="pattern-desc">Used for capability metrics (Cp, Cpk, Pp, Ppk) and chart generation. Created per-run, attached to a specific MCP tool, discarded after use. Reliable, auditable, identical output every time.</div>
-        <div class="pattern-why">Why here: Numerical calculations must be deterministic. LLMs should never estimate statistics that have a right answer.</div>
-      </div>
-      <div class="pattern-card mm-card">
-        <div class="pattern-label">Pattern 2 · Multimodal on-the-fly</div>
-        <div class="pattern-title">Visual stability interpreter</div>
-        <div class="pattern-desc">Uses GPT-4o's vision capability to analyze the SPC chart image directly. Detects out-of-control signals, runs, and trends the way a trained engineer would — from the visual pattern, not just numeric thresholds.</div>
-        <div class="pattern-why">Why here: Stability assessment is inherently visual. Encoding all chart rules as numeric logic would be brittle and miss pattern-level signals.</div>
-      </div>
-      <div class="pattern-card rag-card">
-        <div class="pattern-label">Pattern 3 · Persistent RAG agent</div>
-        <div class="pattern-title">Governed corporate expert</div>
-        <div class="pattern-desc">A persistent agent hosted in Azure AI Foundry with a knowledge base built from NRD's internal capability PDFs. Produces consistent, standards-aligned narrative across every run. Updating the RAG documents updates the "corporate standard" without touching the workflow.</div>
-        <div class="pattern-why">Why here: Interpretation must reflect internal standards — not LLM priors. RAG is the mechanism that makes outputs governable and auditable.</div>
-      </div>
-    </div>
-  </div>
-
-  <hr class="divider">
-
   <!-- SAMPLE OUTPUTS — real data -->
   <div class="reveal">
-    <div class="label">Sample outputs</div>
-    <h2>Two scenarios. Real process data. Opposite conclusions.</h2>
-    <p>Both datasets are Hot Metal Delivery Times — 117 observations each, spec limits LSL 35 / USL 65. The workflow ran both and produced structurally identical reports with genuinely different findings.</p>
+    <div class="label">Sample output</div>
+    <h2>The run where the workflow refused to answer.</h2>
+    <p>Real process data: 117 observations of Hot Metal Delivery Times, spec limits LSL 35 / USL 65. The process was unstable — and instead of reporting a capability number, the agent declined to interpret it.</p>
     <div class="scenarios">
 
       <div class="scenario-card">
         <div class="scenario-head">
-          <div class="scenario-tag stable">Scenario A · Stable but incapable</div>
-          <div class="scenario-title">Hot Metal Delivery Times — In Control</div>
-          <div class="scenario-desc">The process is predictable and stable — no points beyond control limits. But the variation is far too wide for the specification window. The correct action is process redesign, not firefighting. The agent made this distinction clearly and explicitly.</div>
-        </div>
-        <div class="scenario-data">
-          <div class="s-row"><span class="s-key">n observations</span><span class="s-val">117</span></div>
-          <div class="s-row"><span class="s-key">process mean</span><span class="s-val warn">48.46 (target: 50)</span></div>
-          <div class="s-row"><span class="s-key">within σ</span><span class="s-val">11.33</span></div>
-          <div class="s-row"><span class="s-key">Cp</span><span class="s-val bad">0.441 — incapable</span></div>
-          <div class="s-row"><span class="s-key">Cpk</span><span class="s-val bad">0.396 — incapable</span></div>
-          <div class="s-row"><span class="s-key">Pp / Ppk</span><span class="s-val bad">0.411 / 0.369</span></div>
-          <div class="s-row"><span class="s-key">OOC points (I-chart)</span><span class="s-val good">0 — stable</span></div>
-          <div class="s-row"><span class="s-key">MR violations</span><span class="s-val warn">1 (samples ~95–120)</span></div>
-          <hr class="s-divider">
-          <div class="s-finding">Agent verdict: <span class="stable-span">Statistically stable</span> but <span class="unstable-span">incapable</span>. Cpk valid to interpret. Root cause is variation width and centering, not instability. Action: redesign, not corrective action.</div>
-        </div>
-      </div>
-
-      <div class="scenario-card">
-        <div class="scenario-head">
-          <div class="scenario-tag unstable">Scenario B · Unstable and incapable</div>
+          <div class="scenario-tag unstable">Unstable and incapable</div>
           <div class="scenario-title">Hot Metal Delivery Times — Out of Control</div>
           <div class="scenario-desc">Five points beyond control limits on the Individuals chart. Five violations on the MR chart. The mean has shifted to 64.25 — near the upper spec limit. The agent correctly refused to anchor recommendations on Cpk and redirected focus to finding and eliminating assignable causes first.</div>
         </div>
@@ -496,44 +380,12 @@
 
   <hr class="divider">
 
-  <!-- DESIGN PRINCIPLES -->
-  <div class="reveal">
-    <div class="label">Design principles</div>
-    <h2>Four rules that kept the system trustworthy.</h2>
-    <div class="principles-grid">
-      <div class="principle-card">
-        <div class="principle-icon">🔒</div>
-        <div class="principle-title">Stability gating</div>
-        <div class="principle-desc">The workflow enforces a hard rule: stability is always assessed before capability is interpreted. The process_behavior node runs before the aggregator receives any results. This cannot be skipped, regardless of how clean the data looks.</div>
-      </div>
-      <div class="principle-card">
-        <div class="principle-icon">📖</div>
-        <div class="principle-title">RAG-grounded interpretation</div>
-        <div class="principle-desc">The Aggregator Agent references NRD's internal capability guidelines — not LLM priors — for every threshold it cites. Updating the guidance PDFs updates the "corporate standard" without touching a single line of workflow code.</div>
-      </div>
-      <div class="principle-card">
-        <div class="principle-icon">⚙️</div>
-        <div class="principle-title">Deterministic vs. AI reasoning split</div>
-        <div class="principle-desc">Numbers that have a right answer (Cp, Cpk, control limits) are computed in Python via MCP tools. Language models handle only what they're good at: normalizing ambiguous data, interpreting visual patterns, and synthesizing narrative. Never estimating statistics.</div>
-      </div>
-      <div class="principle-card">
-        <div class="principle-icon">👤</div>
-        <div class="principle-title">Human-in-the-loop by design</div>
-        <div class="principle-desc">Every output is explicitly framed as a decision-support tool. The Aggregator always qualifies its conclusions with uncertainty language and requires engineer sign-off. The system never issues a recommendation without making the human's role in reviewing it explicit.</div>
-      </div>
-    </div>
-  </div>
-
-  <hr class="divider">
-
   <!-- REFLECTION -->
   <div class="reveal">
-    <div class="label">Personal reflection</div>
+    <div class="label">Reflection</div>
     <div class="reflection">
       <div class="reflection-label">Behind the build</div>
-      <p>The most important design decision was where to put the intelligence. I kept numerical calculations and chart generation in Python and MCP tools — they need to be deterministic and auditable. I used LLMs where flexibility genuinely adds value: data normalization, visual pattern interpretation, and narrative synthesis. That separation reduced hallucination risk while keeping the benefits of AI-driven reasoning where they actually belong.</p>
-      <p>The three agent patterns behaved very differently in practice. The on-the-fly MCP agents were the most predictable — reusable utilities for standardized analytics. The multimodal agent was effective at interpreting chart patterns but sensitive to prompt wording. The persistent RAG-backed Aggregator was where agentic AI clearly outperformed traditional scripting: reconciling stability, capability, and recommended actions into a consistent, standards-aligned narrative that any engineer would recognize as correct.</p>
-      <p>The broader lesson: the first pilot I would propose in any new domain would focus on explanation rather than automation. This project showed that trust is built through clarity before control. An AI system that explains its reasoning well — and is honest about its limits — gets adopted. One that doesn't, doesn't.</p>
+      <p>The most important decision was where to put the intelligence: deterministic math stayed in Python and MCP tools, and I used LLMs only where flexibility genuinely adds value — normalizing data, reading charts, writing narrative. The RAG-backed aggregator was where agentic AI clearly outperformed scripting, reconciling stability, capability, and recommended actions into a narrative any engineer would recognize as correct. The broader lesson: trust is built through clarity before control. A system that explains its reasoning and is honest about its limits gets adopted — one that doesn't, doesn't.</p>
     </div>
   </div>
 
